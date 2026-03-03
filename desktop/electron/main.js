@@ -400,11 +400,11 @@ async function ensureOllama() {
         });
 
         function pullModel() {
-          updateUI('Downloading AI Knowledge Model (qwen3.5:4b)...', 100, true);
-          logMain('Pulling qwen3.5:4b model');
+          updateUI('Downloading AI Knowledge Model (qwen2.5:1.5b)...', 100, true);
+          logMain('Pulling qwen2.5:1.5b model');
 
           setTimeout(() => {
-            const pullProcess = spawn('ollama', ['pull', 'qwen3.5:4b'], {
+            const pullProcess = spawn('ollama', ['pull', 'qwen2.5:1.5b'], {
               env: { ...process.env }
             });
 
