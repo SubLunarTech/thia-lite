@@ -36,11 +36,11 @@ jobs:
         run: npm install
         working-directory: ./desktop
 
-      - uses: tauri-apps/tauri-action@v0
+      - uses: tauri-apps/tauri-action@v0.5.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: v__VERSION__ # tauri-action replaces this with the actual tag
+          tagName: v__VERSION__
           releaseName: "Thia-Lite v__VERSION__"
           releaseBody: "See the assets below for your platform."
           releaseDraft: true

@@ -59,13 +59,23 @@ def load_ptolemy_rules() -> List[Dict[str, Any]]:
 
 
 def load_all_rules() -> List[Dict[str, Any]]:
-    """Load all rules from all sources."""
+    """Load all rules from all *_data.json files in the rules directory."""
     global _rules_cache
     if _rules_cache is None:
-        _rules_cache = {
-            "lilly": load_lilly_rules(),
-            "ptolemy": load_ptolemy_rules(),
-        }
+        _rules_cache = {}
+        directory = _rules_dir()
+        for filename in os.listdir(directory):
+            if filename.endswith("_data.json"):
+                source_key = filename.replace("_rules_data.json", "").replace("_data.json", "")
+                path = os.path.join(directory, filename)
+                try:
+                    with open(path) as f:
+                        rules = json.load(f)
+                        _rules_cache[source_key] = rules
+                        logger.info(f"Loaded {len(rules)} rules from {path}")
+                except Exception as e:
+                    logger.error(f"Failed to load {path}: {e}")
+
     all_rules = []
     for rules in _rules_cache.values():
         all_rules.extend(rules)
