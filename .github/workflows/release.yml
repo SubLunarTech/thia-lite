@@ -120,6 +120,7 @@ jobs:
   release:
     needs: [build-electron, build-cli]
     runs-on: ubuntu-latest
+    if: always()
     permissions:
       contents: write
 
