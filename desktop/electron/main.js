@@ -214,7 +214,20 @@ const decompress = require('decompress');
 const getOllamaPath = () => {
   const platform = process.platform;
   if (platform === 'win32') {
-    return path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe');
+    // Check multiple common Windows locations
+    const paths = [
+      path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe'),
+      path.join(process.env.PROGRAMFILES || '', 'Ollama', 'ollama.exe'),
+      path.join(process.env.USERPROFILE || '', 'AppData', 'Local', 'Programs', 'Ollama', 'ollama.exe'),
+      'ollama.exe'
+    ];
+    for (const p of paths) {
+      if (fs.existsSync(p)) {
+        logMain(`Found Ollama at: ${p}`);
+        return p;
+      }
+    }
+    return 'ollama.exe'; // fallback to PATH
   }
   if (platform === 'darwin') {
     return '/Applications/Ollama.app/Contents/Resources/ollama';
@@ -238,30 +251,49 @@ async function ensureOllama() {
     };
 
     // 1. Check if Ollama is already running on port 11434
+    logMain('Checking if Ollama is running on port 11434...');
     const req = require('http').get('http://localhost:11434/api/tags', (res) => {
+      logMain(`Ollama HTTP check response: ${res.statusCode}`);
       if (res.statusCode === 200) {
         logMain('Ollama is already running. Proceeding.');
         done();
       } else {
+        logMain(`Ollama responded with ${res.statusCode}, checking disk...`);
         checkDisk();
       }
-    }).on('error', () => {
+    }).on('error', (err) => {
+      logMain(`Ollama HTTP check error: ${err.message}, checking disk...`);
       checkDisk();
     });
 
-    req.setTimeout(2000, () => { req.abort(); checkDisk(); });
+    req.setTimeout(2000, () => { 
+      logMain('Ollama HTTP check timeout, checking disk...');
+      req.abort(); 
+      checkDisk(); 
+    });
 
     function checkDisk() {
       const ollamaExe = getOllamaPath();
-      if (fs.existsSync(ollamaExe) || platform !== 'win32') {
+      logMain(`Checking for Ollama executable at: ${ollamaExe}`);
+      const exists = fs.existsSync(ollamaExe);
+      logMain(`Ollama executable exists: ${exists}`);
+      
+      if (exists || platform !== 'win32') {
         logMain(`Ollama found at ${ollamaExe} but not running. Attempting start...`);
         if (platform === 'win32') {
-          exec(`start "" "${ollamaExe}"`);
+          exec(`start "" "${ollamaExe}"`, (err) => {
+            if (err) logMain(`Failed to start Ollama: ${err.message}`);
+            else logMain('Ollama start command executed');
+          });
         } else if (platform === 'linux') {
-          exec('ollama serve &');
+          exec('ollama serve &', (err) => {
+            if (err) logMain(`Failed to start Ollama: ${err.message}`);
+            else logMain('Ollama start command executed');
+          });
         }
         waitForOllamaAndPull(true); // pass 'isSilent' flag
       } else {
+        logMain('Ollama not found on disk, starting install flow');
         startInstallFlow();
       }
     }
