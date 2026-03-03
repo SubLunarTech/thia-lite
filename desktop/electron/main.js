@@ -14,6 +14,8 @@ if (process.platform === 'win32') {
   app.disableHardwareAcceleration();
 }
 
+app.setName('Thia');
+
 function getMainLogPath() {
   try {
     return path.join(app.getPath('userData'), 'main.log');

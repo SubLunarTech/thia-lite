@@ -135,9 +135,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            electron-windows/*.exe
-            electron-linux/*.AppImage
-            electron-macos/*.dmg
+            electron-windows/thia.exe
+            electron-linux/thia.AppImage
+            electron-macos/thia.dmg
             cli-windows/thia-lite.exe
             cli-linux/thia-lite
             cli-macos/thia-lite

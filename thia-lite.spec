@@ -2,6 +2,7 @@
 
 hidden_imports = [
     'pyswisseph',
+    'swisseph',
     'sqlite_vec',
     'sqlite_vec._sqlite_vec',
     'nest_asyncio',
@@ -15,7 +16,7 @@ hidden_imports = [
 a = Analysis(
     ['thia_lite/__main__.py'],
     pathex=[],
-    binaries=[],
+    binaries=[('.venv/lib64/python3.9/site-packages/sqlite_vec/vec0.so', 'sqlite_vec')],
     datas=[('thia_lite/rules', 'thia_lite/rules')],
     hiddenimports=hidden_imports,
     hookspath=[],

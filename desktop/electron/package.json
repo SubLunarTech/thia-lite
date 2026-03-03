@@ -1,6 +1,6 @@
 {
   "name": "thia-lite-desktop",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "description": "Thia-Lite AI Astrology Assistant",
   "main": "main.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "electron-builder": "^25.0.0"
   },
   "build": {
-    "productName": "Thia-Lite",
+    "productName": "Thia",
     "appId": "com.thia-libre.thia-lite",
     "directories": {
       "output": "dist"
@@ -57,8 +57,6 @@
     }
   },
   "dependencies": {
-    "decompress": "^4.2.1",
-    "call-bind-apply-helpers": "^1.0.2",
-    "apply-bind-helpers": "npm:call-bind-apply-helpers@1.0.2"
+    "decompress": "^4.2.1"
   }
 }
