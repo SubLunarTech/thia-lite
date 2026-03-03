@@ -14,6 +14,14 @@ Runs on port 8765 (matching desktop/src/app.js API_BASE).
 """
 
 import os
+import sys
+import logging
+import asyncio
+import threading
+import json
+import re
+from typing import Optional, Any, Dict
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 # Ensure log directory exists
 LOG_DIR = os.path.expanduser("~/.thia-lite/logs")
