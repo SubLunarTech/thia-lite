@@ -282,27 +282,34 @@ async function ensureOllama() {
 
         const downloadFile = (url, dest, onProgress, onDone, onError) => {
           const file = fs.createWriteStream(dest);
+          let downloadedBytes = 0;
+          let totalBytes = 0;
+
           const request = https.get(url, (response) => {
+            // Handle Redirects (e.g. 307)
             if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
               file.close();
               fs.unlink(dest, () => {
+                logMain(`Following redirect to: ${response.headers.location}`);
                 downloadFile(response.headers.location, dest, onProgress, onDone, onError);
               });
               return;
             }
+
             if (response.statusCode !== 200) {
               onError(new Error(`Download failed: ${response.statusCode}`));
               return;
             }
 
-            const totalBytes = parseInt(response.headers['content-length'], 10);
-            let downloadedBytes = 0;
+            totalBytes = parseInt(response.headers['content-length'], 10);
 
             response.on('data', (chunk) => {
               downloadedBytes += chunk.length;
-              if (totalBytes) {
+              if (totalBytes > 0) {
                 const percent = Math.min(100, Math.round((downloadedBytes / totalBytes) * 100));
-                onProgress(`Downloading Installer (${Math.round(downloadedBytes / 1024 / 1024)}mb)`, percent);
+                onProgress(`Downloading (${Math.round(downloadedBytes / 1024 / 1024)}MB / ${Math.round(totalBytes / 1024 / 1024)}MB)`, percent);
+              } else {
+                onProgress(`Downloading... (${Math.round(downloadedBytes / 1024 / 1024)}MB)`, 0);
               }
             });
 
@@ -312,39 +319,84 @@ async function ensureOllama() {
               file.close();
               onDone();
             });
-          }).on('error', (err) => {
+          });
+
+          request.on('error', (err) => {
+            file.close();
+            fs.unlink(dest, () => { });
             onError(err);
           });
         };
 
+        logMain(`Starting Ollama auto-install. URL: ${downloadUrl}`);
+        updateUI('Initializing Download...', 0, true);
+
         downloadFile(downloadUrl, installerPath, (status, percent) => {
           updateUI(status, percent);
         }, () => {
-          updateUI('Installing AI Engine (May prompt for password)...', 100, true);
-          logMain(`Download complete. Executing: ${installCmd}`);
+          logMain(`Download complete. Preparing to execute: ${installCmd}`);
+          updateUI('Preparing Installation...', 100, true);
 
-          if (platform === 'darwin') {
-            updateUI('Extracting AI Engine...', 100, true);
-            decompress(installerPath, '/Applications').then(() => {
-              logMain('Mac Zip Extracted to /Applications');
-              exec('open -a Ollama', (err) => {
-                if (err) logMain(`Mac Open Error: ${err}`);
-                pullModel();
+          const runInstallProcess = () => {
+            updateUI('Installing AI Engine (Waiting for OS)...', 100, true);
+
+            if (platform === 'darwin') {
+              updateUI('Extracting AI Engine...', 100, true);
+              decompress(installerPath, '/Applications').then(() => {
+                logMain('Mac Zip Extracted to /Applications');
+                exec('open -a Ollama', (err) => {
+                  if (err) logMain(`Mac Open Error: ${err}`);
+                  waitForOllamaAndPull();
+                });
+              }).catch(err => reject(err));
+            } else {
+              // On Windows/Linux, the installer might be a long-running process
+              const installProcess = exec(installCmd);
+
+              installProcess.on('exit', (code) => {
+                logMain(`Installer exited with code ${code}`);
+                waitForOllamaAndPull();
               });
-            }).catch(err => reject(err));
-          } else {
-            exec(installCmd, (error, stdout, stderr) => {
-              if (error) {
-                logMain(`Install error: ${error.message}`);
-              }
-              logMain('Installer finished. Waiting for daemon to start.');
-              pullModel();
-            });
+
+              // Also listen for errors
+              installProcess.on('error', (err) => {
+                logMain(`Installer spawn error: ${err.message}`);
+                // Proceed anyway, maybe it partially worked
+                waitForOllamaAndPull();
+              });
+            }
+          };
+
+          runInstallProcess();
+
+          function waitForOllamaAndPull() {
+            updateUI('Starting AI Service...', 100, true);
+
+            // Poll for the daemon to be ready
+            let attempts = 0;
+            const check = setInterval(() => {
+              attempts++;
+              const checkReq = require('http').get('http://localhost:11434/api/tags', (res) => {
+                if (res.statusCode === 200) {
+                  clearInterval(check);
+                  pullModel();
+                }
+              });
+              checkReq.on('error', () => {
+                if (attempts > 30) { // 30s timeout
+                  clearInterval(check);
+                  logMain('Ollama daemon start timed out.');
+                  updateUI('Service Time-out. Please start Ollama manually.', 100);
+                  setTimeout(resolve, 3000);
+                }
+              });
+              checkReq.end();
+            }, 1000);
           }
         }, (err) => {
-          fs.unlink(installerPath, () => { });
           logMain(`Download error: ${err.message}`);
-          reject(err);
+          updateUI(`Download Failed: ${err.message}`, 0);
+          setTimeout(() => reject(err), 3000);
         });
 
         function pullModel() {
