@@ -201,8 +201,19 @@ class ThiaRequestHandler(BaseHTTPRequestHandler):
             title = message[:50] + "..." if len(message) > 50 else message
             mgr.new_conversation(title)
 
+        provider = body.get("provider")
+        api_key = body.get("api_key")
+        model = body.get("model")
+        temperature = body.get("temperature")
+
         try:
-            result = _run_async(mgr.send_message(message))
+            result = _run_async(mgr.send_message(
+                message, 
+                provider=provider, 
+                api_key=api_key, 
+                model=model, 
+                temperature=temperature
+            ))
             result["conversation_id"] = mgr.current_conversation_id
             self._send_json(result)
         except Exception as e:

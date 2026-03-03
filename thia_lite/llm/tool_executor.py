@@ -115,6 +115,7 @@ class ToolExecutor:
         user_message: str,
         conversation_history: Optional[List[Dict[str, Any]]] = None,
         extra_context: str = "",
+        **kwargs
     ) -> Dict[str, Any]:
         """
         Execute the full agentic loop.
@@ -136,6 +137,23 @@ class ToolExecutor:
         tools = get_all_tools()
         tool_calls_made = []
 
+        # Check if UI passed dynamic provider settings
+        provider = kwargs.get("provider")
+        api_key = kwargs.get("api_key")
+        model = kwargs.get("model")
+        temperature = kwargs.get("temperature")
+
+        # Use a dynamic client for this request if provided via UI
+        request_client = self.client
+        if provider and model:
+            # We allow empty API key for local Ollama, but pass it anyway
+            request_client = get_llm_client(
+                provider=provider,
+                api_key=api_key,
+                model=model,
+                temperature=temperature if temperature is not None else 0.3
+            )
+
         # Build messages
         messages = [{"role": "system", "content": self.system_prompt}]
 
@@ -156,7 +174,7 @@ class ToolExecutor:
                 self._on_thinking(iteration + 1, self.max_iterations)
 
             # Call LLM
-            response = await self.client.chat(messages=messages, tools=tools if tools else None)
+            response = await request_client.chat(messages=messages, tools=tools if tools else None)
 
             # Check for tool calls
             if response.get("tool_calls"):

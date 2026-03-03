@@ -59,9 +59,10 @@ def convert_messages_for_anthropic(messages: List[Dict[str, Any]]) -> tuple[str,
 class LLMClient:
     """Client for unified chat/completions API with tool calling."""
 
-    def __init__(self, provider: str = "ollama", config: Any = None):
+    def __init__(self, provider: str = "ollama", config: Any = None, api_key: str = ""):
         self.provider = provider
         self.config = config
+        self.api_key = api_key
         self.timeout = getattr(config, 'timeout', 120) if config else 120
         self.temperature = getattr(config, 'temperature', 0.3) if config else 0.3
         self._client = httpx.AsyncClient(timeout=self.timeout)
@@ -114,9 +115,9 @@ class LLMClient:
         try:
             if self.provider == "ollama":
                 return await self._chat_ollama(messages, tools, temp)
-            elif self.provider in ["openai", "glm", "qwen", "moonshot", "openrouter"]:
+            elif self.provider in ["openai", "glm", "qwen", "moonshot", "openrouter", "minimax"]:
                 return await self._chat_openai_compatible(self.provider, messages, tools, temp)
-            elif self.provider in ["anthropic", "minimax"]:
+            elif self.provider in ["anthropic"]:
                 return await self._chat_anthropic_compatible(self.provider, messages, tools, temp)
             else:
                 raise ValueError(f"Unknown provider: {self.provider}")
@@ -170,6 +171,7 @@ class LLMClient:
             "qwen": "https://dashscope.aliyuncs.com/compatible-mode/v1",
             "moonshot": "https://api.moonshot.cn/v1",
             "openrouter": "https://openrouter.ai/api/v1",
+            "minimax": "https://api.minimax.chat/v1",
         }
         
         default_models = {
@@ -178,22 +180,22 @@ class LLMClient:
             "qwen": "qwen-turbo",
             "moonshot": "moonshot-v1-8k",
             "openrouter": "anthropic/claude-3-haiku",
+            "minimax": "minimax-text-01",
         }
         
-        api_keys = {
-            "openai": getattr(self.config, 'openai_api_key', ''),
-            "glm": getattr(self.config, 'glm_api_key', ''),
-            "qwen": getattr(self.config, 'qwen_api_key', ''),
-            "moonshot": getattr(self.config, 'moonshot_api_key', ''),
-            "openrouter": getattr(self.config, 'openrouter_api_key', ''),
-        }
-        
-        base_url = base_urls[provider]
-        model = getattr(self.config, 'model', None)
-        if model in ("qwen3.5:9b", "qwen3.5:4b") or not model: # Override default ollama model
-            model = default_models[provider]
-            
-        api_key = api_keys[provider]
+        api_key = self.api_key
+        if not api_key:
+            # Fallback to config file if not passed dynamically (e.g. CLI usage)
+            api_keys = {
+                "openai": getattr(self.config, 'openai_api_key', ''),
+                "glm": getattr(self.config, 'glm_api_key', ''),
+                "qwen": getattr(self.config, 'qwen_api_key', ''),
+                "moonshot": getattr(self.config, 'moonshot_api_key', ''),
+                "openrouter": getattr(self.config, 'openrouter_api_key', ''),
+                "minimax": getattr(self.config, 'minimax_api_key', ''),
+            }
+            api_key = api_keys.get(provider, '')
+
         if not api_key:
             return {"role": "assistant", "content": f"Missing API key for {provider}", "tool_calls": None, "done": True}
 
@@ -384,11 +386,15 @@ class LLMClient:
 
 # ─── Factory ──────────────────────────────────────────────────────────────────
 
-_client: Optional[LLMClient] = None
-
-def get_llm_client() -> LLMClient:
-    """Get or create the global LLM client."""
+def get_llm_client(provider: Optional[str] = None, config: Optional[Any] = None, api_key: str = "", model: Optional[str] = None, temperature: Optional[float] = None) -> LLMClient:
+    """Get or create the global LLM client, or create a temporary one if kwargs overlap."""
     global _client
+    if provider is not None:
+        c = LLMClient(provider=provider, config=config, api_key=api_key)
+        if model: c.config = type('Config', (), {'model': model})()
+        if temperature is not None: c.temperature = temperature
+        return c
+
     if _client is None:
         from thia_lite.config import get_settings
         cfg = get_settings().llm

@@ -57,9 +57,13 @@ const modelIndicator = document.getElementById('model-indicator');
 // Settings Inputs
 const providerSelect = document.getElementById('setting-provider');
 const hostInput = document.getElementById('setting-ollama-host');
+const apiKeyInput = document.getElementById('setting-api-key');
 const modelSelect = document.getElementById('setting-model');
 const tempInput = document.getElementById('setting-temp');
 const tempValue = document.getElementById('temp-value');
+
+const hostGroup = document.getElementById('host-group');
+const apiKeyGroup = document.getElementById('apikey-group');
 
 // ─── Initialization ──────────────────────────────────────────────────────────
 
@@ -125,12 +129,17 @@ async function sendMessage() {
 
     try {
         logDebug('Fetching:', `${API_BASE}/chat`);
+        const settings = JSON.parse(localStorage.getItem('thia-settings') || '{}');
         const res = await fetch(`${API_BASE}/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 message: content,
                 conversation_id: currentConversation,
+                provider: settings.provider || 'ollama',
+                api_key: settings.apiKey || '',
+                model: settings.model || 'qwen3.5:4b',
+                temperature: settings.temperature || 0.3
             }),
         });
 
@@ -290,17 +299,31 @@ function loadSettings() {
     logDebug('Loading settings:', settings);
     if (providerSelect) providerSelect.value = settings.provider || 'ollama';
     if (hostInput) hostInput.value = settings.ollamaHost || 'http://localhost:11434';
+    if (apiKeyInput) apiKeyInput.value = settings.apiKey || '';
     if (modelSelect) modelSelect.value = settings.model || 'qwen3.5:4b';
     if (tempInput) {
         tempInput.value = settings.temperature || 0.3;
         if (tempValue) tempValue.textContent = settings.temperature || 0.3;
     }
+    updateSettingsVisibility();
+}
+
+function updateSettingsVisibility() {
+    if (!providerSelect || !hostGroup || !apiKeyGroup) return;
+    const isOllama = providerSelect.value === 'ollama';
+    hostGroup.style.display = isOllama ? 'block' : 'none';
+    apiKeyGroup.style.display = isOllama ? 'none' : 'block';
+}
+
+if (providerSelect) {
+    providerSelect.addEventListener('change', updateSettingsVisibility);
 }
 
 function saveSettings() {
     const settings = {
         provider: providerSelect?.value || 'ollama',
         ollamaHost: hostInput?.value || 'http://localhost:11434',
+        apiKey: apiKeyInput?.value || '',
         model: modelSelect?.value || 'qwen3.5:4b',
         temperature: parseFloat(tempInput?.value || 0.3),
     };

@@ -88,7 +88,7 @@ class ConversationManager:
         """List recent conversations."""
         return get_db().list_conversations(limit)
 
-    async def send_message(self, content: str) -> Dict[str, Any]:
+    def send_message(self, content: str, **kwargs) -> Dict[str, Any]:
         """
         Send a user message and get the assistant's response.
         Also:
@@ -159,6 +159,7 @@ class ConversationManager:
             user_message=content,
             conversation_history=context,
             extra_context=extra_context,
+            **kwargs
         )
 
         # Store assistant response

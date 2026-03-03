@@ -171,7 +171,13 @@
                 </div>
                 <div class="setting-group" id="host-group">
                     <label>Ollama Host</label>
-                    <input type="text" id="setting-ollama-host" value="http://localhost:11434">
+                    <input type="text" id="setting-ollama-host" value="http://localhost:11434" spellcheck="false">
+                </div>
+                <div class="setting-group" id="apikey-group">
+                    <label>API Key</label>
+                    <input type="password" id="setting-api-key" placeholder="sk-..." spellcheck="false">
+                    <span style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 5px;">Required
+                        for Cloud models. Saved locally.</span>
                 </div>
                 <div class="setting-group">
                     <label>Model Configuration (Optional for Cloud)</label>
