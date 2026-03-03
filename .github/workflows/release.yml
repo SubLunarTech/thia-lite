@@ -51,18 +51,44 @@ jobs:
 
       - name: Build Electron app (Linux)
         if: matrix.os == 'linux'
-        run: npm run build
+        run: |
+          echo "=== Starting Linux Build ==="
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          echo "Working directory: $(pwd)"
+          echo "Dist folder contents before build:"
+          ls -la desktop/electron/dist 2>/dev/null || echo "Dist folder does not exist yet"
+          
+          npm run build
+          
+          echo "=== Build Complete ==="
+          echo "Dist folder contents after build:"
+          ls -laR desktop/electron/dist
         working-directory: ./desktop/electron
         env:
           NODE_ENV: production
+          DEBUG: electron-builder
 
       - name: Build Electron app (Windows)
         if: matrix.os == 'windows'
         shell: pwsh
-        run: npm run build:win
+        run: |
+          Write-Host "=== Starting Windows Build ==="
+          Write-Host "Node version: $(node --version)"
+          Write-Host "NPM version: $(npm --version)"
+          Write-Host "Working directory: $(Get-Location)"
+          Write-Host "Dist folder contents before build:"
+          Get-ChildItem -Path desktop/electron/dist -Recurse -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.FullName }
+          
+          npm run build:win
+          
+          Write-Host "=== Build Complete ==="
+          Write-Host "Dist folder contents after build:"
+          Get-ChildItem -Path desktop/electron/dist -Recurse | ForEach-Object { Write-Host $_.FullName }
         working-directory: ./desktop/electron
         env:
           NODE_ENV: production
+          DEBUG: electron-builder
 
       - name: Build Electron app (macOS)
         if: matrix.os == 'macos'
@@ -77,10 +103,8 @@ jobs:
         with:
           name: electron-${{ matrix.os }}
           path: |
-            desktop/electron/dist/*.exe
-            desktop/electron/dist/*.AppImage
-            desktop/electron/dist/*.dmg
-          if-no-files-found: ignore
+            desktop/electron/dist/**/*
+          if-no-files-found: warn
 
   # ─── Python CLI Builds (PyInstaller standalone) ─────────────────────────────
   build-cli:
@@ -108,42 +132,63 @@ jobs:
           pip install pyinstaller
 
       - name: Build standalone binary
-        run: pyinstaller thia-lite.spec
+        run: |
+          echo "=== Building CLI Binary ==="
+          echo "Python version: $(python --version)"
+          echo "PyInstaller version: $(pyinstaller --version)"
+          echo "Spec file:"
+          cat thia-lite.spec
+          pyinstaller thia-lite.spec
+          echo "=== Build Complete ==="
+          echo "Dist contents:"
+          ls -la dist/
 
       - name: Upload CLI artifact
         uses: actions/upload-artifact@v4
         with:
           name: cli-${{ matrix.os }}
           path: dist/thia-lite*
+          if-no-files-found: warn
 
   # ─── GitHub Release ─────────────────────────────────────────────────────────
   release:
     needs: [build-electron, build-cli]
     runs-on: ubuntu-latest
-    if: always()
+    if: success()
     permissions:
       contents: write
 
     steps:
       - uses: actions/download-artifact@v4
-        continue-on-error: true
+        with:
+          pattern: electron-*
+          merge-multiple: true
+          path: electron-artifacts
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cli-*
+          merge-multiple: true
+          path: cli-artifacts
 
       - name: List artifacts
-        run: find . -type f | head -50
+        run: |
+          echo "=== Electron Artifacts ==="
+          find electron-artifacts -type f 2>/dev/null || echo "No electron artifacts"
+          echo "=== CLI Artifacts ==="
+          find cli-artifacts -type f 2>/dev/null || echo "No CLI artifacts"
 
       - name: Create or Update Release
         uses: softprops/action-gh-release@v2
-        if: always()
         with:
           name: Thia ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
           files: |
-            electron-windows/thia.exe
-            electron-linux/thia.AppImage
-            electron-macos/thia.dmg
-            cli-windows/thia-lite.exe
-            cli-linux/thia-lite
-            cli-macos/thia-lite
+            electron-artifacts/**/thia-setup.exe
+            electron-artifacts/**/*.AppImage
+            electron-artifacts/**/*.dmg
+            cli-artifacts/thia-lite.exe
+            cli-artifacts/thia-lite
           generate_release_notes: true
           fail_on_unmatched_files: false
         env:

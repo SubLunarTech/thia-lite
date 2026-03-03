@@ -34,7 +34,7 @@
       "bin/**/*"
     ],
     "win": {
-      "target": "portable",
+      "target": "nsis",
       "executableName": "thia",
       "signAndEditExecutable": false,
       "icon": "icons/icon.ico"
@@ -44,7 +44,8 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "Thia-Lite"
+      "shortcutName": "Thia-Lite",
+      "artifactName": "thia-setup.${ext}"
     },
     "mac": {
       "target": "dmg",
