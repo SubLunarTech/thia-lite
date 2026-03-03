@@ -13,10 +13,25 @@ hidden_imports = [
     'timezonefinder',
 ]
 
+import os
+import sqlite_vec
+
+# Find sqlite_vec binary dynamically
+sqlite_vec_dir = os.path.dirname(sqlite_vec.__file__)
+sqlite_vec_bin = None
+for f in os.listdir(sqlite_vec_dir):
+    if f.startswith('vec0') and (f.endswith('.so') or f.endswith('.dll') or f.endswith('.dylib')):
+        sqlite_vec_bin = os.path.join(sqlite_vec_dir, f)
+        break
+
+added_binaries = []
+if sqlite_vec_bin:
+    added_binaries.append((sqlite_vec_bin, 'sqlite_vec'))
+
 a = Analysis(
     ['thia_lite/__main__.py'],
     pathex=[],
-    binaries=[('.venv/lib64/python3.9/site-packages/sqlite_vec/vec0.so', 'sqlite_vec')],
+    binaries=added_binaries,
     datas=[('thia_lite/rules', 'thia_lite/rules')],
     hiddenimports=hidden_imports,
     hookspath=[],

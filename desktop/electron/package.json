@@ -1,6 +1,6 @@
 {
   "name": "thia-lite-desktop",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Thia-Lite AI Astrology Assistant",
   "main": "main.js",
   "scripts": {
