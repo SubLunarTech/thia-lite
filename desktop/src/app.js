@@ -59,7 +59,7 @@ async function sendMessage() {
 
     // Show thinking indicator
     const thinkingEl = appendMessage('assistant', '');
-    thinkingEl.innerHTML = '<div class="thinking"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>';
+    thinkingEl.innerHTML = '<div class="thinking-dots"><span class="eso">☾</span><span class="eso">✦</span><span class="eso">☽</span></div>';
 
     try {
         const res = await fetch(`${API_BASE}/chat`, {
