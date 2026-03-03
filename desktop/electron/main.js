@@ -258,6 +258,16 @@ async function ensureOllama() {
           return;
         }
 
+        const getOllamaPath = () => {
+          if (platform === 'win32') {
+            return path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe');
+          }
+          if (platform === 'darwin') {
+            return '/Applications/Ollama.app/Contents/Resources/ollama';
+          }
+          return 'ollama';
+        };
+
         // Choice was 'local', proceed with install
         const platform = process.platform;
         const downloadsDir = app.getPath('downloads');
@@ -370,24 +380,46 @@ async function ensureOllama() {
           runInstallProcess();
 
           function waitForOllamaAndPull() {
-            updateUI('Starting AI Service...', 100, true);
-
-            // Poll for the daemon to be ready
             let attempts = 0;
+            const maxAttempts = 60; // 60 seconds
+
             const check = setInterval(() => {
               attempts++;
-              const checkReq = require('http').get('http://localhost:11434/api/tags', (res) => {
+              updateUI(`Starting AI Service (Attempt ${attempts}/${maxAttempts})...`, 100, true);
+
+              const checkReq = require('http').get({
+                hostname: 'localhost',
+                port: 11434,
+                path: '/api/tags',
+                timeout: 1500
+              }, (res) => {
                 if (res.statusCode === 200) {
                   clearInterval(check);
                   pullModel();
                 }
               });
+
+              checkReq.on('timeout', () => {
+                checkReq.destroy();
+              });
+
               checkReq.on('error', () => {
-                if (attempts > 30) { // 30s timeout
+                // If it's been 15 seconds and still nothing, try to manually poke it
+                if (attempts === 15) {
+                  logMain('Ollama daemon slow to start. Attempting manual start...');
+                  const ollamaExe = getOllamaPath();
+                  if (platform === 'win32') {
+                    exec(`start "" "${ollamaExe}"`);
+                  } else if (platform === 'linux') {
+                    exec('ollama serve &');
+                  }
+                }
+
+                if (attempts >= maxAttempts) {
                   clearInterval(check);
                   logMain('Ollama daemon start timed out.');
-                  updateUI('Service Time-out. Please start Ollama manually.', 100);
-                  setTimeout(resolve, 3000);
+                  updateUI('Service Time-out. Please restart Thia or start Ollama manually.', 100);
+                  setTimeout(resolve, 5000);
                 }
               });
               checkReq.end();
@@ -400,11 +432,12 @@ async function ensureOllama() {
         });
 
         function pullModel() {
-          updateUI('Downloading AI Knowledge Model (qwen2.5:1.5b)...', 100, true);
-          logMain('Pulling qwen2.5:1.5b model');
+          const ollamaPath = getOllamaPath();
+          updateUI('Downloading AI Knowledge Model (qwen2.5:1.5b)...', 0, true);
+          logMain(`Pulling qwen2.5:1.5b using: ${ollamaPath}`);
 
           setTimeout(() => {
-            const pullProcess = spawn('ollama', ['pull', 'qwen2.5:1.5b'], {
+            const pullProcess = spawn(ollamaPath, ['pull', 'qwen2.5:1.5b'], {
               env: { ...process.env }
             });
 
@@ -415,8 +448,8 @@ async function ensureOllama() {
               if (match) {
                 lastPercent = parseInt(match[1], 10);
                 updateUI(`Downloading Model (${lastPercent}%)`, lastPercent);
-              } else {
-                updateUI(out.substring(0, 40) + '...', lastPercent);
+              } else if (out.includes('pulling')) {
+                updateUI('Initializing Model Pull...', lastPercent);
               }
             });
 
@@ -431,12 +464,18 @@ async function ensureOllama() {
             });
 
             pullProcess.on('error', (err) => {
-              logMain(`Pull spawn error: ${err}`);
-              ipcMain.removeListener('install-choice', handleInstallChoice);
-              if (installWindow && !installWindow.isDestroyed()) installWindow.close();
-              resolve();
+              logMain(`Pull spawn error: ${err.message}`);
+              // Fallback to global command
+              if (ollamaPath !== 'ollama') {
+                logMain('Retrying with global ollama...');
+                const retryProcess = spawn('ollama', ['pull', 'qwen2.5:1.5b']);
+                retryProcess.on('close', resolve);
+                retryProcess.on('error', resolve);
+              } else {
+                resolve();
+              }
             });
-          }, 5000);
+          }, 2000);
         }
       };
 
