@@ -13,6 +13,7 @@ on:
 jobs:
   # ─── Electron Desktop Builds (one-click install) ────────────────────────────
   build-electron:
+    needs: build-cli
     permissions:
       contents: write
     strategy:
@@ -33,6 +34,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Download CLI backend
+        uses: actions/download-artifact@v4
+        with:
+          name: cli-${{ matrix.os }}
+          path: desktop/electron/bin
+
+      - name: Make CLI executable (Linux/macOS)
+        if: matrix.os != 'windows'
+        run: chmod +x desktop/electron/bin/thia-lite || true
 
       - name: Install Electron dependencies
         run: npm install

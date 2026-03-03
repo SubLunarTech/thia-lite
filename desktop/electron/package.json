@@ -29,6 +29,9 @@
       "src/**/*",
       "icons/**/*"
     ],
+    "extraResources": [
+      "bin/**/*"
+    ],
     "win": {
       "target": "portable",
       "executableName": "thia",

@@ -33,52 +33,72 @@ function logMain(message) {
 
 // ─── Python Backend Management ───────────────────────────────────────────────
 
-function findPython() {
-  // Try common Python paths in order of preference
-  const candidates = [];
+function findBackendBinary() {
+  const isWin = process.platform === 'win32';
+  const binName = isWin ? 'thia-lite.exe' : 'thia-lite';
 
-  // 1. Bundled venv (development or pip-installed)
+  // 1. Packaged location (production)
+  // electron-builder puts extraResources in process.resourcesPath
+  const packagedPath = path.join(process.resourcesPath, 'bin', binName);
+  logMain(`Looking for packaged backend at: ${packagedPath}`);
+  if (fs.existsSync(packagedPath)) {
+    logMain(`Found bundled backend at: ${packagedPath}`);
+    return packagedPath;
+  }
+
+  // 2. Local dev dist folder (if running from source)
+  const devPath = path.resolve(__dirname, '..', '..', 'dist', binName);
+  logMain(`Looking for dev backend at: ${devPath}`);
+  if (fs.existsSync(devPath)) {
+    logMain(`Found local built backend at: ${devPath}`);
+    return devPath;
+  }
+
+  return null;
+}
+
+function findPython() {
+  const candidates = [];
   const projectRoot = path.resolve(__dirname, '..', '..');
   const venvPy = process.platform === 'win32'
     ? path.join(projectRoot, '.venv', 'Scripts', 'python.exe')
     : path.join(projectRoot, '.venv', 'bin', 'python3');
   candidates.push(venvPy);
 
-  // 2. System Python
   if (process.platform === 'win32') {
-    candidates.push('python', 'python3', 'py');
+    candidates.push('py', 'python3', 'python');
   } else {
     candidates.push('python3', 'python');
   }
 
-  for (const py of candidates) {
-    try {
-      if (path.isAbsolute(py) && fs.existsSync(py)) {
-        logMain(`Found Python at: ${py}`);
-        return py;
-      }
-      // For non-absolute, we'll try it and let spawn fail if missing
-      if (!path.isAbsolute(py)) {
-        logMain(`Will try system Python: ${py}`);
-        return py;
-      }
-    } catch {
-      continue;
-    }
-  }
-  return 'python3'; // fallback
+  return candidates[0]; // fallback
 }
 
 function startBackend() {
   return new Promise((resolve, reject) => {
-    const pythonPath = findPython();
-    logMain(`Starting Python API server with: ${pythonPath}`);
+    const backendPath = findBackendBinary();
 
-    backendProcess = spawn(pythonPath, ['-m', 'thia_lite.api_server'], {
-      cwd: path.resolve(__dirname, '..', '..'),
-      env: { ...process.env, PYTHONUNBUFFERED: '1' },
-      stdio: ['ignore', 'pipe', 'pipe'],
-    });
+    if (backendPath) {
+      logMain(`Starting bundled backend: ${backendPath} desktop`);
+      // Make it executable on UNIX if needed
+      if (process.platform !== 'win32') {
+        try { fs.chmodSync(backendPath, '755'); } catch (e) { logMain(`Chmod warning: ${e.message}`); }
+      }
+
+      backendProcess = spawn(backendPath, ['desktop'], {
+        cwd: path.dirname(backendPath),
+        env: { ...process.env, PYTHONUNBUFFERED: '1' },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      });
+    } else {
+      const pythonPath = findPython();
+      logMain(`Falling back to Python API server with: ${pythonPath}`);
+      backendProcess = spawn(pythonPath, ['-m', 'thia_lite.api_server'], {
+        cwd: path.resolve(__dirname, '..', '..'),
+        env: { ...process.env, PYTHONUNBUFFERED: '1' },
+        stdio: ['ignore', 'pipe', 'pipe'],
+      });
+    }
 
     let started = false;
     const timeout = setTimeout(() => {
