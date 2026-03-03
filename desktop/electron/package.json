@@ -5,10 +5,10 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --linux AppImage --x64",
-    "build:win": "electron-builder --win nsis --x64",
-    "build:mac": "electron-builder --mac dmg",
-    "build:all": "electron-builder -wml"
+    "build": "electron-builder --linux AppImage --x64 --publish never",
+    "build:win": "electron-builder --win nsis --x64 --publish never",
+    "build:mac": "electron-builder --mac dmg --publish never",
+    "build:all": "electron-builder -wml --publish never"
   },
   "author": "Thia-Libre Contributors",
   "license": "GPL-3.0-or-later",
@@ -22,6 +22,7 @@
     "directories": {
       "output": "dist"
     },
+    "artifactName": "thia.${ext}",
     "files": [
       "main.js",
       "preload.js",
@@ -29,6 +30,7 @@
     ],
     "win": {
       "target": "nsis",
+      "executableName": "thia",
       "icon": "icons/icon.ico"
     },
     "nsis": {
