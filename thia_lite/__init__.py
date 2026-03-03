@@ -5,5 +5,5 @@ Lightweight, local, no Docker required.
 Powered by Ollama (Qwen 3.5) + Swiss Ephemeris.
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __app_name__ = "thia-lite"
