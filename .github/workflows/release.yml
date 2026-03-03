@@ -130,47 +130,30 @@ jobs:
       - name: List artifacts
         run: find . -type f | head -50
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Thia ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          files: |
-            electron-windows/thia.exe
-            electron-linux/thia.AppImage
-            electron-macos/thia.dmg
-            cli-windows/thia-lite.exe
-            cli-linux/thia-lite
-            cli-macos/thia-lite
-          tag_name: ${{ github.ref_name }}
-          fail_on_unmatched_files: false
-          body: |
-            ## Thia-Lite ${{ github.ref_name }}
-
-            ### Desktop App (One-Click Install)
-            | Platform | Download | Notes |
-            |----------|----------|-------|
-            | **Windows** | `thia.exe` | Windows Installer — sets up shortcuts |
-            | **Linux** | `thia.AppImage` | `chmod +x thia.AppImage && ./thia.AppImage` |
-            | **macOS** | `thia.dmg` | Open DMG and drag to Applications |
-
-            ### CLI Only (Advanced)
-            | Platform | Download |
-            |----------|----------|
-            | **Windows** | `thia-lite.exe` |
-            | **Linux** | `thia-lite` |
-            | **macOS** | `thia-lite` |
-
-            ### Requirements
-            - 8GB RAM recommended (6GB minimum)
-            - Ollama (auto-installed on first run)
-            - ~2GB disk for model download (first run)
-            - Python 3.9+ (for desktop app backend)
-
-            ### Updates
-            The desktop app checks for updates automatically. Click **🔄 Check for Updates** in the sidebar.
-
-            ### What's New
-            See [CHANGELOG.md](CHANGELOG.md) for details.
-          generate_release_notes: true
+      - name: Create or Update Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Try to create the release first (don't fail if it exists)
+          gh release create "${{ github.ref_name }}" \
+            --title "Thia ${{ github.ref_name }}" \
+            --generate-notes || true
+          
+          # Upload assets one by one with clobbering for maximum reliability
+          assets=(
+            "electron-windows/thia.exe"
+            "electron-linux/thia.AppImage"
+            "electron-macos/thia.dmg"
+            "cli-windows/thia-lite.exe"
+            "cli-linux/thia-lite"
+            "cli-macos/thia-lite"
+          )
+          
+          for asset in "${assets[@]}"; do
+            if [ -f "$asset" ]; then
+              echo "Uploading $asset..."
+              gh release upload "${{ github.ref_name }}" "$asset" --clobber || echo "Failed to upload $asset, continuing..."
+            else
+              echo "Asset $asset not found, skipping..."
+            fi
+          done
