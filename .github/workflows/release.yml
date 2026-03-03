@@ -126,27 +126,11 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
+      - name: Build standalone binary
         run: |
           pip install -e ".[dev]"
           pip install pyinstaller
-
-      - name: Build standalone binary
-        run: |
-          echo "=== Building CLI Binary ==="
-          echo "Python version: $(python --version)"
-          echo "PyInstaller version: $(pyinstaller --version)"
-          echo "Spec file:"
-          cat thia-lite.spec
           pyinstaller thia-lite.spec
-          echo "=== Build Complete ==="
-          echo "Dist contents:"
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            Get-ChildItem dist/
-          else
-            ls -la dist/
-          fi
-        shell: bash
 
       - name: Upload CLI artifact
         uses: actions/upload-artifact@v4
