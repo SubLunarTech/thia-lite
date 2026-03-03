@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --linux AppImage --x64 --publish never",
-    "build:win": "electron-builder --win nsis --x64 --publish never",
+    "build:win": "electron-builder --win portable --x64 --publish never",
     "build:mac": "electron-builder --mac dmg --publish never",
     "build:all": "electron-builder -wml --publish never"
   },
@@ -29,8 +29,9 @@
       "../src/**/*"
     ],
     "win": {
-      "target": "nsis",
+      "target": "portable",
       "executableName": "thia",
+      "signAndEditExecutable": false,
       "icon": "icons/icon.ico"
     },
     "nsis": {
