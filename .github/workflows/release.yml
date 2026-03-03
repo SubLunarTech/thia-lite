@@ -51,44 +51,18 @@ jobs:
 
       - name: Build Electron app (Linux)
         if: matrix.os == 'linux'
-        run: |
-          echo "=== Starting Linux Build ==="
-          echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          echo "Working directory: $(pwd)"
-          echo "Dist folder contents before build:"
-          ls -la desktop/electron/dist 2>/dev/null || echo "Dist folder does not exist yet"
-          
-          npm run build
-          
-          echo "=== Build Complete ==="
-          echo "Dist folder contents after build:"
-          ls -laR desktop/electron/dist
+        run: npm run build
         working-directory: ./desktop/electron
         env:
           NODE_ENV: production
-          DEBUG: electron-builder
 
       - name: Build Electron app (Windows)
         if: matrix.os == 'windows'
         shell: pwsh
-        run: |
-          Write-Host "=== Starting Windows Build ==="
-          Write-Host "Node version: $(node --version)"
-          Write-Host "NPM version: $(npm --version)"
-          Write-Host "Working directory: $(Get-Location)"
-          Write-Host "Dist folder contents before build:"
-          Get-ChildItem -Path desktop/electron/dist -Recurse -ErrorAction SilentlyContinue | ForEach-Object { Write-Host $_.FullName }
-          
-          npm run build:win
-          
-          Write-Host "=== Build Complete ==="
-          Write-Host "Dist folder contents after build:"
-          Get-ChildItem -Path desktop/electron/dist -Recurse | ForEach-Object { Write-Host $_.FullName }
+        run: npm run build:win
         working-directory: ./desktop/electron
         env:
           NODE_ENV: production
-          DEBUG: electron-builder
 
       - name: Build Electron app (macOS)
         if: matrix.os == 'macos'
