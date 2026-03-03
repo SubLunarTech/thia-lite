@@ -245,121 +245,132 @@ async function ensureOllama() {
         }
       };
 
-      const platform = process.platform;
-      const downloadsDir = app.getPath('downloads');
-      let downloadUrl, installerPath, installCmd;
+      const { ipcMain } = require('electron');
 
-      if (platform === 'win32') {
-        downloadUrl = 'https://ollama.com/download/OllamaSetup.exe';
-        installerPath = path.join(downloadsDir, 'OllamaSetup.exe');
-        installCmd = `"${installerPath}" \/SILENT \/ALLUSERS`; // Silent install
-      } else if (platform === 'darwin') {
-        downloadUrl = 'https://ollama.com/download/Ollama-darwin.zip';
-        installerPath = path.join(downloadsDir, 'Ollama-darwin.zip');
-        installCmd = `unzip -o "${installerPath}" -d /Applications && open /Applications/Ollama.app`;
-      } else {
-        downloadUrl = 'https://ollama.com/install.sh';
-        installerPath = path.join(downloadsDir, 'ollama-install.sh');
-        installCmd = `sh "${installerPath}"`;
-      }
-
-      logMain(`Starting Ollama auto-install. URL: ${downloadUrl}`);
-      updateUI('Downloading Local AI Engine...', 0, true);
-
-      const file = fs.createWriteStream(installerPath);
-      https.get(downloadUrl, (response) => {
-        if (response.statusCode !== 200) {
-          logMain(`Download failed: ${response.statusCode}`);
-          reject(new Error(`Download failed: ${response.statusCode}`));
+      const handleInstallChoice = (_event, choice) => {
+        if (choice === 'cloud') {
+          logMain('User selected Cloud API. Skipping Ollama installation.');
+          ipcMain.removeListener('install-choice', handleInstallChoice);
+          if (installWindow && !installWindow.isDestroyed()) installWindow.close();
+          resolve();
           return;
         }
 
-        const totalBytes = parseInt(response.headers['content-length'], 10);
-        let downloadedBytes = 0;
+        // Choice was 'local', proceed with install
+        const platform = process.platform;
+        const downloadsDir = app.getPath('downloads');
+        let downloadUrl, installerPath, installCmd;
 
-        response.on('data', (chunk) => {
-          downloadedBytes += chunk.length;
-          if (totalBytes) {
-            const percent = Math.min(100, Math.round((downloadedBytes / totalBytes) * 100));
-            updateUI(`Downloading Installer (${Math.round(downloadedBytes / 1024 / 1024)}mb)`, percent);
+        if (platform === 'win32') {
+          downloadUrl = 'https://ollama.com/download/OllamaSetup.exe';
+          installerPath = path.join(downloadsDir, 'OllamaSetup.exe');
+          installCmd = `"${installerPath}" \/SILENT \/ALLUSERS`; // Silent install
+        } else if (platform === 'darwin') {
+          downloadUrl = 'https://ollama.com/download/Ollama-darwin.zip';
+          installerPath = path.join(downloadsDir, 'Ollama-darwin.zip');
+          installCmd = `unzip -o "${installerPath}" -d /Applications && open /Applications/Ollama.app`;
+        } else {
+          downloadUrl = 'https://ollama.com/install.sh';
+          installerPath = path.join(downloadsDir, 'ollama-install.sh');
+          installCmd = `sh "${installerPath}"`;
+        }
+
+        logMain(`Starting Ollama auto-install. URL: ${downloadUrl}`);
+        updateUI('Downloading Local AI Engine...', 0, true);
+
+        const file = fs.createWriteStream(installerPath);
+        https.get(downloadUrl, (response) => {
+          if (response.statusCode !== 200) {
+            logMain(`Download failed: ${response.statusCode}`);
+            reject(new Error(`Download failed: ${response.statusCode}`));
+            return;
           }
-        });
 
-        response.pipe(file);
+          const totalBytes = parseInt(response.headers['content-length'], 10);
+          let downloadedBytes = 0;
 
-        file.on('finish', () => {
-          file.close();
-          updateUI('Installing AI Engine (May prompt for password)...', 100, true);
-          logMain(`Download complete. Executing: ${installCmd}`);
-
-          // Need special handling for Mac Zip
-          if (platform === 'darwin') {
-            updateUI('Extracting AI Engine...', 100, true);
-            decompress(installerPath, '/Applications').then(() => {
-              logMain('Mac Zip Extracted to /Applications');
-              exec('open -a Ollama', (err) => {
-                if (err) logMain(`Mac Open Error: ${err}`);
-                pullModel();
-              });
-            }).catch(err => reject(err));
-          } else {
-            exec(installCmd, (error, stdout, stderr) => {
-              if (error) {
-                logMain(`Install error: ${error.message}`);
-                // Don't completely fail, sometimes silent installs exit badly but still work
-              }
-              logMain('Installer finished. Waiting for daemon to start.');
-              pullModel();
-            });
-          }
-        });
-      }).on('error', (err) => {
-        fs.unlink(installerPath, () => { });
-        logMain(`Download error: ${err.message}`);
-        reject(err);
-      });
-
-      function pullModel() {
-        updateUI('Downloading AI Knowledge Model (qwen3.5:4b)...', 100, true);
-        logMain('Pulling qwen3.5:4b model');
-
-        // Wait 5 seconds for Ollama daemon to hook in
-        setTimeout(() => {
-          const pullProcess = spawn('ollama', ['pull', 'qwen3.5:4b'], {
-            env: { ...process.env }
-          });
-
-          // Poor man's progress bar via stdout
-          let lastPercent = 0;
-          pullProcess.stdout.on('data', (data) => {
-            const out = data.toString();
-            // Ollama outputs something like: "pulling 3042456453... 45%"
-            const match = out.match(/(\\d{1,3})%/);
-            if (match) {
-              lastPercent = parseInt(match[1], 10);
-              updateUI(`Downloading Model (${lastPercent}%)`, lastPercent);
-            } else {
-              updateUI(out.substring(0, 40) + '...', lastPercent);
+          response.on('data', (chunk) => {
+            downloadedBytes += chunk.length;
+            if (totalBytes) {
+              const percent = Math.min(100, Math.round((downloadedBytes / totalBytes) * 100));
+              updateUI(`Downloading Installer (${Math.round(downloadedBytes / 1024 / 1024)}mb)`, percent);
             }
           });
 
-          pullProcess.on('close', (code) => {
-            logMain(`Model pull exited with code ${code}`);
-            updateUI('Setup Complete!', 100);
-            setTimeout(() => {
+          response.pipe(file);
+
+          file.on('finish', () => {
+            file.close();
+            updateUI('Installing AI Engine (May prompt for password)...', 100, true);
+            logMain(`Download complete. Executing: ${installCmd}`);
+
+            if (platform === 'darwin') {
+              updateUI('Extracting AI Engine...', 100, true);
+              decompress(installerPath, '/Applications').then(() => {
+                logMain('Mac Zip Extracted to /Applications');
+                exec('open -a Ollama', (err) => {
+                  if (err) logMain(`Mac Open Error: ${err}`);
+                  pullModel();
+                });
+              }).catch(err => reject(err));
+            } else {
+              exec(installCmd, (error, stdout, stderr) => {
+                if (error) {
+                  logMain(`Install error: ${error.message}`);
+                }
+                logMain('Installer finished. Waiting for daemon to start.');
+                pullModel();
+              });
+            }
+          });
+        }).on('error', (err) => {
+          fs.unlink(installerPath, () => { });
+          logMain(`Download error: ${err.message}`);
+          reject(err);
+        });
+
+        function pullModel() {
+          updateUI('Downloading AI Knowledge Model (qwen3.5:4b)...', 100, true);
+          logMain('Pulling qwen3.5:4b model');
+
+          setTimeout(() => {
+            const pullProcess = spawn('ollama', ['pull', 'qwen3.5:4b'], {
+              env: { ...process.env }
+            });
+
+            let lastPercent = 0;
+            pullProcess.stdout.on('data', (data) => {
+              const out = data.toString();
+              const match = out.match(/(\d{1,3})%/);
+              if (match) {
+                lastPercent = parseInt(match[1], 10);
+                updateUI(`Downloading Model (${lastPercent}%)`, lastPercent);
+              } else {
+                updateUI(out.substring(0, 40) + '...', lastPercent);
+              }
+            });
+
+            pullProcess.on('close', (code) => {
+              logMain(`Model pull exited with code ${code}`);
+              updateUI('Setup Complete!', 100);
+              setTimeout(() => {
+                ipcMain.removeListener('install-choice', handleInstallChoice);
+                if (installWindow && !installWindow.isDestroyed()) installWindow.close();
+                resolve();
+              }, 1500);
+            });
+
+            pullProcess.on('error', (err) => {
+              logMain(`Pull spawn error: ${err}`);
+              ipcMain.removeListener('install-choice', handleInstallChoice);
               if (installWindow && !installWindow.isDestroyed()) installWindow.close();
               resolve();
-            }, 1500);
-          });
+            });
+          }, 5000);
+        }
+      };
 
-          pullProcess.on('error', (err) => {
-            logMain(`Pull spawn error: ${err}`);
-            // If pulling fails, just resolve and let chat UI handle error
-            if (installWindow && !installWindow.isDestroyed()) installWindow.close();
-            resolve();
-          });
-        }, 5000);
-      }
+      ipcMain.on('install-choice', handleInstallChoice);
     }
   });
 }

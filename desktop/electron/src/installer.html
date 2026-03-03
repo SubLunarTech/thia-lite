@@ -82,6 +82,58 @@
             margin: 0 0 30px 0;
         }
 
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+
+        .btn-primary {
+            background: rgba(129, 140, 248, 0.1);
+            border-color: rgba(129, 140, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: rgba(129, 140, 248, 0.2);
+            border-color: var(--accent);
+        }
+
+        .btn-icon {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .btn-text strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        .btn-text span {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
         .progress-container {
             width: 100%;
             height: 6px;
@@ -90,6 +142,8 @@
             overflow: hidden;
             margin-bottom: 15px;
             position: relative;
+            display: none;
+            /* Hidden initially */
         }
 
         .progress-bar {
@@ -128,6 +182,8 @@
             font-size: 13px;
             color: var(--accent);
             font-family: monospace;
+            display: none;
+            /* Hidden initially */
         }
 
         .spinner {
@@ -147,21 +203,49 @@
 <body>
     <div class="container">
         <div class="icon">✨</div>
-        <h1>Preparing AI Engine</h1>
-        <p>Thia-Lite uses a secure, local AI engine that runs entirely on your device. Setting this up will take a few
-            minutes depending on your connection.</p>
+        <h1 id="main-title">AI Engine Setup</h1>
+        <p id="main-desc">How would you like to run the AI? You can run it locally for privacy, or use a cloud API key
+            (OpenAI, Anthropic, etc).</p>
 
-        <div class="progress-container">
+        <div id="choice-container" class="button-group">
+            <button class="btn btn-primary" onclick="selectChoice('local')">
+                <span class="btn-icon">💻</span>
+                <span class="btn-text">
+                    <strong>Local AI (Recommended)</strong>
+                    <span>Private & free. Downloads Ollama + 3GB model.</span>
+                </span>
+            </button>
+            <button class="btn" onclick="selectChoice('cloud')">
+                <span class="btn-icon">☁️</span>
+                <span class="btn-text">
+                    <strong>Cloud API Key</strong>
+                    <span>Fast. Requires you to bring your own API key.</span>
+                </span>
+            </button>
+        </div>
+
+        <div id="progress-container" class="progress-container">
             <div id="progress-bar" class="progress-bar indeterminate"></div>
         </div>
 
-        <div class="status-text">
+        <div id="status-container" class="status-text">
             <span class="spinner"></span>
             <span id="status-message">Initializing...</span>
         </div>
     </div>
 
     <script>
+        function selectChoice(choice) {
+            document.getElementById('choice-container').style.display = 'none';
+            if (choice === 'local') {
+                document.getElementById('main-title').textContent = 'Preparing Local AI';
+                document.getElementById('main-desc').textContent = 'This will take a few minutes depending on your internet connection.';
+                document.getElementById('progress-container').style.display = 'block';
+                document.getElementById('status-container').style.display = 'block';
+            }
+            window.electronAPI.sendInstallChoice(choice);
+        }
+
         // Listen for IPC messages from main process
         window.electronAPI.onInstallProgress((data) => {
             const statusEl = document.getElementById('status-message');

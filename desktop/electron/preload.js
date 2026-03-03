@@ -5,5 +5,10 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electronAPI', {
   getVersions: () => process.versions,
   getPlatform: () => process.platform,
-  onInstallProgress: (callback) => ipcRenderer.on('install-progress', (_event, data) => callback(data))
+
+  // IPC events sent from main to installer window
+  onInstallProgress: (callback) => ipcRenderer.on('install-progress', (_event, data) => callback(data)),
+
+  // IPC events sent from installer window to main
+  sendInstallChoice: (choice) => ipcRenderer.send('install-choice', choice)
 });
