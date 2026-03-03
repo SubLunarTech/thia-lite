@@ -26,16 +26,30 @@
       "../src/**/*"
     ],
     "win": {
-      "target": "nsis",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": "x64"
+        }
+      ],
       "icon": "../src-tauri/icons/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Thia-Lite"
     },
     "mac": {
       "target": "dmg",
-      "icon": "../src-tauri/icons/icon.icns"
+      "icon": "../src-tauri/icons/icon.icns",
+      "category": "public.app-category.medical"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "../src-tauri/icons/icon.png"
+      "icon": "../src-tauri/icons/icon.png",
+      "category": "Science"
     }
   }
 }
