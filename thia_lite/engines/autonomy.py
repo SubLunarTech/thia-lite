@@ -411,6 +411,17 @@ def register_autonomy_tools():
                 }
             return {"plan": None, "message": "No standard pattern found — will investigate freely"}
 
+        elif tool_name == "search_web":
+            try:
+                from duckduckgo_search import DDGS
+                with DDGS() as ddgs:
+                    results = list(ddgs.text(args["query"], max_results=args.get("max_results", 5)))
+                    return {"query": args["query"], "results": results}
+            except ImportError:
+                return {"error": "duckduckgo-search package not installed. Run: pip install duckduckgo-search"}
+            except Exception as e:
+                return {"error": f"Search failed: {e}"}
+
         return {"error": f"Unknown autonomy tool: {tool_name}"}
 
     register_tool(
@@ -444,3 +455,19 @@ def register_autonomy_tools():
         },
         autonomy_dispatch,
     )
+
+    register_tool(
+        "search_web",
+        "Search the web using DuckDuckGo to find real-time news, information about people, or events to correlate with astrology.",
+        {
+            "type": "object",
+            "properties": {
+                "query": {"type": "string", "description": "Search query"},
+                "max_results": {"type": "integer", "description": "Max results to return (default: 5)"},
+            },
+            "required": ["query"],
+        },
+        autonomy_dispatch,
+    )
+
+    logger.info("Registered autonomy tools (scanner, planner, web search)")
