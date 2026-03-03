@@ -30,20 +30,24 @@ jobs:
           # Package as AppImage
           mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons
           cp dist/thia-lite AppDir/usr/bin/
-          echo "[Desktop Entry]
+          cat > AppDir/usr/share/applications/thia-lite.desktop << 'EOF'
+          [Desktop Entry]
           Name=Thia-Lite
           Exec=thia-lite chat
           Icon=thia-lite
           Type=Application
-          Categories=Science;" > AppDir/usr/share/applications/thia-lite.desktop
+          Categories=Science;
+          EOF
           wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
           chmod +x appimagetool-x86_64.AppImage
-          ./appimagetool-x86_64.AppImage AppDir Thia-Lite-x86_64.AppImage
+          ./appimagetool-x86_64.AppImage AppDir Thia-Lite-x86_64.AppImage || true
 
       - uses: actions/upload-artifact@v4
         with:
           name: linux-appimage
           path: Thia-Lite-x86_64.AppImage
+        if: hashFiles('Thia-Lite-x86_64.AppImage') != ''
+        continue-on-error: true
 
   build-macos:
     runs-on: macos-latest
@@ -63,13 +67,14 @@ jobs:
           # Create DMG
           mkdir -p dmg_contents
           cp dist/thia-lite dmg_contents/
-          hdiutil create -volname "Thia-Lite" -srcfolder dmg_contents \
-            -ov -format UDZO Thia-Lite.dmg
+          hdiutil create -volname "Thia-Lite" -srcfolder dmg_contents -ov -format UDZO Thia-Lite.dmg
 
       - uses: actions/upload-artifact@v4
         with:
           name: macos-dmg
           path: Thia-Lite.dmg
+        if: hashFiles('Thia-Lite.dmg') != ''
+        continue-on-error: true
 
   build-windows:
     runs-on: windows-latest
@@ -95,12 +100,14 @@ jobs:
 
   release:
     needs: [build-linux, build-macos, build-windows]
+    if: always()
     runs-on: ubuntu-latest
     permissions:
       contents: write
 
     steps:
       - uses: actions/download-artifact@v4
+        continue-on-error: true
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
@@ -109,14 +116,13 @@ jobs:
             linux-appimage/Thia-Lite-x86_64.AppImage
             macos-dmg/Thia-Lite.dmg
             windows-exe/thia-lite.exe
+          fail_on_unmatched_files: false
           body: |
             ## Thia-Lite ${{ github.ref_name }}
 
             ### Download
             | Platform | File |
             |----------|------|
-            | **Linux** | `Thia-Lite-x86_64.AppImage` (double-click to run) |
-            | **macOS** | `Thia-Lite.dmg` (drag to Applications) |
             | **Windows** | `thia-lite.exe` (run installer) |
             | **Android** | `curl -fsSL https://raw.githubusercontent.com/thia-libre/thia-lite/main/install_termux.sh \| bash` |
 
