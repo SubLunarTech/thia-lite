@@ -1,0 +1,2860 @@
+[
+  {
+    "id": "FIRM_1001",
+    "category": "natal",
+    "text": "If Moon (influence), then makes white (color of men)",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1002",
+    "category": "natal",
+    "text": "If Mars (influence), then makes red (color of men)",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1003",
+    "category": "natal",
+    "text": "If Saturn (influence), then makes black (color of men)",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1004",
+    "category": "natal",
+    "text": "If Saturn (influence), then makes cautious, grave, slow, avaricious and silent",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1005",
+    "category": "natal",
+    "text": "If Jupiter (influence), then makes mature, good, kind and modest",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1006",
+    "category": "natal",
+    "text": "If Mars (influence), then makes cruel, treacherous and fierce",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1007",
+    "category": "natal",
+    "text": "If Sun (influence), then makes religious, noble and proud",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1008",
+    "category": "natal",
+    "text": "If Venus (influence), then makes luxurious, beautiful and shining with the splendor of honorable grace",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1009",
+    "category": "natal",
+    "text": "If Mercury (influence), then makes cunning and agitated by the movements of the mind",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1010",
+    "category": "natal",
+    "text": "If Moon (influence), then makes sharp, splendid, elegant and prevailing thanks to popular splendor",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1011",
+    "category": "natal",
+    "text": "If Jupiter (influence), then moderates rage",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1012",
+    "category": "natal",
+    "text": "If Sun (influence), then grants empires",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1013",
+    "category": "natal",
+    "text": "If Saturn (influence), then imposes weight/seriousness",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1014",
+    "category": "natal",
+    "text": "If Jupiter (influence), then corrects lasciviousness with sober control",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1015",
+    "category": "natal",
+    "text": "If Saturn rising, then dulls sharpness/edge",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1016",
+    "category": "natal",
+    "text": "If Venus radiations, then warms avarice with lascivious radiations",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1017",
+    "category": "natal",
+    "text": "If Jupiter (influence), then prevents malicious comments and double-mindedness",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1018",
+    "category": "natal",
+    "text": "If Saturn (influence), then dims lazy boasting",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1019",
+    "category": "natal",
+    "text": "If Mercury (influence), then sharpens stupidity",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1020",
+    "category": "natal",
+    "text": "If Conjunction of Mercury and Mars, then causes evil vices (unrighteous, treacherous, malicious, irreligious)",
+    "planets": [
+      "Mercury",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1021",
+    "category": "natal",
+    "text": "If Conjunction of Sun and Jupiter, then bestows praise of glory and insignia of most powerful dignity",
+    "planets": [
+      "Sun",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1022",
+    "category": "natal",
+    "text": "If Mercury tempered by good radiations of Jupiter and Moon, then inflames with desires for virtue",
+    "planets": [
+      "Mercury",
+      "Jupiter",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1023",
+    "category": "natal",
+    "text": "If Mercury, tempered by the good radiations of Jupiter and the Moon, then inflames us with the desires and desires of that virtue.",
+    "planets": [
+      "Mercury",
+      "Jupiter",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1024",
+    "category": "natal",
+    "text": "If sacrilegious Mercury, Venus made him adulterous, then adulterous",
+    "planets": [
+      "Mercury",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1025",
+    "category": "natal",
+    "text": "If armed by Mars, then kill men",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1026",
+    "category": "natal",
+    "text": "If Mercury forces him, then to change the faith of the tables",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1027",
+    "category": "natal",
+    "text": "If Mercury forces him, then to mix poisons with him",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1028",
+    "category": "natal",
+    "text": "If Mercury forces him, then to awaken the safe souls of the rest and already cleansed by the oblivion of the river Lethaeus with evil spells",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1029",
+    "category": "natal",
+    "text": "If Mars or Venus are the cause, then inflamed with the ardor of incest, clinging to the complexes of children",
+    "planets": [
+      "Mars",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1030",
+    "category": "natal",
+    "text": "If vicious radiation of the stars, then forced to sin",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1031",
+    "category": "natal",
+    "text": "If the stars incite, then incited to these evil vices",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1032",
+    "category": "natal",
+    "text": "If Mars comes to Saturn, then his fires are tempered by the coldness of an alien nature",
+    "planets": [
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1033",
+    "category": "mundane",
+    "text": "If Moon is near the Sun, whether waxing or waning, then submits the rays of its own light as if it were venerated by the Sun",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1034",
+    "category": "mundane",
+    "text": "If Moon, adorned again with its fraternal fires, when it has made longer courses of its goals (separating from Sun), then may be renewed in its shining splendor and renewed ornaments",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1035",
+    "category": "mundane",
+    "text": "If the sun in the middle of the day, blocked by the rays of the moon as if by some obstacles, denies the bright lights of its splendor to all mortals, then disturbs them with monstrous timidity",
+    "planets": [
+      "Sun",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1036",
+    "category": "natal",
+    "text": "If strengthened by the divinity of our souls, then resist from some part the violent decree of the stars and their powers",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1037",
+    "category": "natal",
+    "text": "If vices the body had from the wrong concretion, then the mind was controlled by the well-conscious divinity",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1038",
+    "category": "natal",
+    "text": "If it is indeed of the stars that we suffer, [and] which they stir us up with certain fires, then it is the spirit of the divinity that we oppose",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1039",
+    "category": "natal",
+    "text": "If agitation of the stars, then propels a young man to a summit of honors by sudden happiness",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1040",
+    "category": "natal",
+    "text": "If agitation of the stars, then slows an old man down despite his life's merit",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1041",
+    "category": "mundane",
+    "text": "If power of the stars, then causes bad outcomes for the good",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1042",
+    "category": "mundane",
+    "text": "If power of the stars, then causes good outcomes for the bad",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1043",
+    "category": "mundane",
+    "text": "If compulsion of fate, then the guilty sins",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1044",
+    "category": "mundane",
+    "text": "If fatal necessity, then the innocent is condemned and endures a severe sentence",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1045",
+    "category": "natal",
+    "text": "If the whole power of fate, then causes limbs to freeze with cold torpor of blood",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1046",
+    "category": "natal",
+    "text": "If radiation of the stars, then bodies of men are varied",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1047",
+    "category": "natal",
+    "text": "If the power of the stars works, then vary the forms of men",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1048",
+    "category": "natal",
+    "text": "If the power of the stars works, then assigns to each man, although he is of one substance of color, yet a different kind of deformity",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1049",
+    "category": "natal",
+    "text": "If the power of the stars, then ascribe to each the various and diverse faces",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1050",
+    "category": "natal",
+    "text": "If compounds and radiations of the stars, then uniform similitude of colors was varied by the greatest dissimilarity of countenances",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1051",
+    "category": "natal",
+    "text": "If soft birth, then bear fruit that may be precocious, but will soon become more gentle in the course of time",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1052",
+    "category": "natal",
+    "text": "If Sun in Leo, then Sun is in its domicile",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1053",
+    "category": "natal",
+    "text": "If Moon in Cancer, then Moon is in its domicile",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Cancer"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1054",
+    "category": "natal",
+    "text": "If Saturn in Aquarius, then Saturn is in its domicile",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Aquarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1055",
+    "category": "natal",
+    "text": "If Saturn in Capricorn, then Saturn is in its domicile",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1056",
+    "category": "natal",
+    "text": "If Jupiter in Sagittarius, then Jupiter is in its domicile",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [
+      "Sagittarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1057",
+    "category": "natal",
+    "text": "If Jupiter in Pisces, then Jupiter is in its domicile",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1058",
+    "category": "natal",
+    "text": "If Mars in Aries, then Mars is in its domicile",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [
+      "Aries"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1059",
+    "category": "natal",
+    "text": "If Mars in Scorpio, then Mars is in its domicile",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1060",
+    "category": "natal",
+    "text": "If Venus in Taurus, then Venus is in its domicile",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1061",
+    "category": "natal",
+    "text": "If Venus in Libra, then Venus is in its domicile",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [
+      "Libra"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1062",
+    "category": "natal",
+    "text": "If Mercury in Gemini, then Mercury is in its domicile",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [
+      "Gemini"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1063",
+    "category": "natal",
+    "text": "If Mercury in Virgo, then Mercury is in its domicile",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [
+      "Virgo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1064",
+    "category": "natal",
+    "text": "If A star is in the sign of its exaltation, then Greatest happiness for men",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1065",
+    "category": "natal",
+    "text": "If A star is in the sign of its fall, then Men are oppressed by misfortunes",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1066",
+    "category": "natal",
+    "text": "If A star is in its exaltation, then The star is better than in its domicile",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1067",
+    "category": "natal",
+    "text": "If Sun in Aries, then Sun is exalted",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Aries"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1068",
+    "category": "natal",
+    "text": "If Sun in Libra, then Sun is in its fall",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Libra"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1069",
+    "category": "natal",
+    "text": "If Moon in Taurus (3rd part), then Moon is exalted",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1070",
+    "category": "natal",
+    "text": "If Moon in Scorpio (3rd part), then Moon is in its fall",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1071",
+    "category": "natal",
+    "text": "If Saturn in Libra, then Saturn is exalted",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Libra"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1072",
+    "category": "natal",
+    "text": "If Saturn in Aries, then Saturn is in its fall",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Aries"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1073",
+    "category": "natal",
+    "text": "If Jupiter in Cancer, then Jupiter is exalted",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [
+      "Cancer"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1074",
+    "category": "natal",
+    "text": "If Jupiter in Capricorn, then Jupiter is in its fall",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1075",
+    "category": "natal",
+    "text": "If Mars in Capricorn, then Mars is exalted",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1076",
+    "category": "natal",
+    "text": "If Mars in Cancer, then Mars is in its fall",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [
+      "Cancer"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1077",
+    "category": "natal",
+    "text": "If Venus in Pisces, then Venus is exalted",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1078",
+    "category": "natal",
+    "text": "If Venus in Virgo, then Venus is in its fall",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [
+      "Virgo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1079",
+    "category": "natal",
+    "text": "If Mercury in Virgo, then Mercury is exalted",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [
+      "Virgo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1080",
+    "category": "natal",
+    "text": "If Mercury in Pisces, then Mercury is in its fall",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1081",
+    "category": "natal",
+    "text": "If A planet is in its own decan, even if in a foreign sign, then The planet is considered as if established in its own domicile",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1082",
+    "category": "natal",
+    "text": "If A planet is in its own decan, then The planet accomplishes the same things as if it were in its own sign (domicile)",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1083",
+    "category": "natal",
+    "text": "If A planet is in its own terms (ends), then The planet is considered as if established in its own domicile (home)",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1084",
+    "category": "natal",
+    "text": "If waning Moon is received by the waning Venus, then all things successful",
+    "planets": [
+      "Moon",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1085",
+    "category": "natal",
+    "text": "If Mars is born in the night, then all things successful",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1086",
+    "category": "natal",
+    "text": "If full light or waxing Moon on Friday joins itself with some radiation, then causes greatest calamities and great misfortunes",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1087",
+    "category": "natal",
+    "text": "If Mars joins itself with some radiation, then causes greatest calamities and great misfortunes",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1088",
+    "category": "neutral",
+    "text": "If Sun is in proximity to another star, then harmful to the other star",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1089",
+    "category": "neutral",
+    "text": "If Mars has been oppressed by the rays of the Sun, then Mars loses his natural malice",
+    "planets": [
+      "Mars",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1090",
+    "category": "natal",
+    "text": "If stars are placed in signs that have arisen, then stars receive greatest power of decision and their powers are released",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1091",
+    "category": "neutral",
+    "text": "If Jupiter's benevolence has been hindered by the weakness of the sign, then Jupiter's benevolence is lacking",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1092",
+    "category": "neutral",
+    "text": "If Jupiter's benevolence has been hindered by the weakness of the parties, then Jupiter's benevolence is lacking",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1093",
+    "category": "neutral",
+    "text": "If Jupiter's benevolence has been hindered by the weakness of the decan, then Jupiter's benevolence is lacking",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1094",
+    "category": "neutral",
+    "text": "If Jupiter's benevolence has been hindered by the change of condition, then Jupiter's benevolence is lacking",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1095",
+    "category": "natal",
+    "text": "If The stars themselves, which bear witness, are well placed, then A greater number of years is determined",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1096",
+    "category": "natal",
+    "text": "If The giver of life (Hyleg) is in its borders or in its domiciles or in its rising, and the horoscope (Ascendant) is in Libra, then Middle age is determined",
+    "planets": [
+      "Hyleg"
+    ],
+    "signs": [
+      "Libra"
+    ],
+    "houses": [
+      "1st House"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1097",
+    "category": "natal",
+    "text": "If The Sun is lord of the seasons (Chronocrator) in diurnal births, then The Sun holds dominion over ten years and nine months",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1098",
+    "category": "natal",
+    "text": "If The Moon is mistress of time (Chronocrator) in nocturnal births, then The Moon holds dominion over ten years and nine months",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1099",
+    "category": "natal",
+    "text": "If Benevolent stars receive their days, then We are freed from all evil",
+    "planets": [
+      "Benefics"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1100",
+    "category": "natal",
+    "text": "If Malicious stars receive their days, then Accidents of misfortunes attack us",
+    "planets": [
+      "Malefics"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1101",
+    "category": "natal",
+    "text": "If The time, or months, or days, are well disposed and benevolent, then All good things are decreed",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1102",
+    "category": "natal",
+    "text": "If A malefic star has taken time or months or days and is badly placed, then It determines misfortunes for the quality of the places",
+    "planets": [
+      "Malefic"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1103",
+    "category": "natal",
+    "text": "If Stars are connected by antiscia, and their antiscia points form a trine, square, opposition (diameter), or sextile (hexagon) by radiation, then They decide as if they were so by a simple arrangement composed (i.e., they act as if they were in a direct aspect)",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1104",
+    "category": "natal",
+    "text": "If Moon is waxing, then Marrow of the human body grows; human body is flooded with solemn complements",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1105",
+    "category": "natal",
+    "text": "If Moon is waning, then Marrow of the human body diminishes; human body diminishes",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1106",
+    "category": "natal",
+    "text": "If It is a nocturnal birth, then The Moon takes over the beginning and dominion of the seasons (as chronocrator)",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1107",
+    "category": "natal",
+    "text": "If It is a daytime birth, then The Sun takes over the beginning and dominion of the seasons (as chronocrator)",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1108",
+    "category": "natal",
+    "text": "If Moon applies to Saturn (growing light), then Mother's widowhood; constant pains for women; women detained in temples; patrimony destroyed by various lacerations",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1109",
+    "category": "natal",
+    "text": "If Moon applies to Saturn (deficient and minute light), then Parents are either degenerate, or slaves, or drowned in the squalor of miserable unhappiness",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1110",
+    "category": "natal",
+    "text": "If Moon applies to Saturn (deficient and minute light), then Mothers perish from infirmities or die young",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1111",
+    "category": "natal",
+    "text": "If Moon applies to Saturn (deficient and minute light), then Natives are either defective, weak, short-lived, or perish with some evil outcome",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1112",
+    "category": "natal",
+    "text": "If Moon applies to Saturn (deficient and minute light) AND this conjunction is in necessary places of generation (e.g., horoscope connected with partial radiation), then Natives are either defective, weak, short-lived, or perish with some evil outcome",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1113",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (growing light), then Natives are happy, glorious, rich people, owners of many and large foundations and extensive possessions",
+    "planets": [
+      "Moon",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1114",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (growing light), then Natives foretell the future (by their own divinity of the soul, or by the warning of the gods, or by oracles, or by the training of some venerable art)",
+    "planets": [
+      "Moon",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1115",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (conjunction) AND Mars aspects this conjunction by square or opposition, then The positive outcomes (from Moon-Jupiter) are diminished with the greatest crisis of life",
+    "planets": [
+      "Moon",
+      "Jupiter",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1116",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (minute light), then Natives are adopted, or returned to their parents after having been exposed, seeking patrimony, and will grow gradually and with the process of time, and will have the power of some glory",
+    "planets": [
+      "Moon",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1117",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (minute light) AND Mars does NOT aspect the Moon (waxing or minute) by opposition or square, then Natives are adopted, or returned to their parents after having been exposed, seeking patrimony, and will grow gradually and with the process of time, and will have the power of some glory",
+    "planets": [
+      "Moon",
+      "Jupiter",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1118",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (conjunction) AND Mars aspects this conjunction, then Natives exposed to the eternal burden of servitude, or procreate by a maid-servant mother or a weakling; or become weak in a certain part of the body and burdened with late misfortune",
+    "planets": [
+      "Moon",
+      "Jupiter",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1119",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (conjunction) AND Mars aspects this conjunction in a diurnal birth, then Natives exposed to the eternal burden of servitude, or procreate by a maid-servant mother or a weakling; or become weak in a certain part of the body and burdened with late misfortune",
+    "planets": [
+      "Moon",
+      "Jupiter",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1120",
+    "category": "natal",
+    "text": "If Moon applies to Jupiter (conjunction) AND Saturn aspects this conjunction in a nocturnal birth, when the Moon falls a few minutes (is separating or weak), then Natives exposed to the eternal burden of servitude, or procreate by a maid-servant mother or a weakling; or become weak in a certain part of the body and burdened with late misfortune",
+    "planets": [
+      "Moon",
+      "Jupiter",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1121",
+    "category": "natal",
+    "text": "If Moon applies to Mars (growing light) AND it is a nocturnal birth, then Natives are hot, dangerous, and violent people, often deceived by schemes, lives encumbered with the greatest dangers, yet effective and completing everything, or dedicated to arms or assigned to athletic contests; yet they will be vicious or suffering",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1122",
+    "category": "natal",
+    "text": "If Moon applies to Mars (growing light) AND it is a nocturnal birth AND placed in the first places of birth, then Natives are hot, dangerous, and violent people, often deceived by schemes, lives encumbered with the greatest dangers, yet effective and completing everything, or dedicated to arms or assigned to athletic contests; yet they will be vicious or suffering",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant",
+      "Midheaven"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1123",
+    "category": "natal",
+    "text": "If Moon applies to Mars (growing light) AND it is a nocturnal birth, then Mothers either perish before their infirmities or die young",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1124",
+    "category": "natal",
+    "text": "If The Sun is well placed and holds the boundaries of the lord's birth, and the rays of malefic stars do not hinder him., then Increases the duration of life.",
+    "planets": [
+      "Sun",
+      "Lord of the Birth",
+      "Malefic Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1125",
+    "category": "natal",
+    "text": "If The Moon is connected with the lord of the birth by radiation., then Makes men stable, honorable, well-ordered, large in body, corpulent, adorned by beauty, taking much food, enjoying little drink.",
+    "planets": [
+      "Moon",
+      "Lord of the Birth"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1126",
+    "category": "natal",
+    "text": "If The Moon is connected with the lord of the birth by radiation., then Life is always changed in an unequal manner, so that patrimony is continually increased and loss is continually diminished.",
+    "planets": [
+      "Moon",
+      "Lord of the Birth"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1127",
+    "category": "natal",
+    "text": "If The Moon is connected with the lord of the birth by radiation., then Causes men to stay in watery places constantly.",
+    "planets": [
+      "Moon",
+      "Lord of the Birth"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1128",
+    "category": "natal",
+    "text": "If The Moon is connected with the lord of the birth by radiation., then Makes affections prostrate towards wives, children, and their mothers, and separates them from the affections of their fathers.",
+    "planets": [
+      "Moon",
+      "Lord of the Birth"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1129",
+    "category": "natal",
+    "text": "If The Moon is irradiated by a malevolent star., then Produces defects around the eyes, disfigures the eyes with a wound, or invades the array of lights with a dark cloud of suffusion.",
+    "planets": [
+      "Moon",
+      "Malevolent Star"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1130",
+    "category": "natal",
+    "text": "If The Moon is irradiated by a malevolent star., then Causes a variety of white spots on the body, inflicts malignant wounds of leprosy, deforms the body by constant contractions, or weakens by the weakness of the trembling body.",
+    "planets": [
+      "Moon",
+      "Malevolent Star"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1131",
+    "category": "natal",
+    "text": "If A malicious (malevolent) star is softened by the favorable radiations of benevolent stars (especially if the radiations of all benevolent stars meet) and is mitigated by sign and place., then The indecency of the malice is changed, and its readiness to do harm is infected by the testimony of the good stars.",
+    "planets": [
+      "Malevolent Star",
+      "Benevolent Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1132",
+    "category": "natal",
+    "text": "If A malevolent influence is changed by the company of good stars (salutary protection)., then Misfortunes and serious accidents are corrected, accused are released, sicknesses are healed, and all evils are suppressed.",
+    "planets": [
+      "Benevolent Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1133",
+    "category": "natal",
+    "text": "If A malevolent star has received the sole license to dominate., then Marches against man with bitter persistence and exercises the power of its license with great necessity to rule.",
+    "planets": [
+      "Malevolent Star"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1134",
+    "category": "natal",
+    "text": "If Benevolent stars are not obstructed by the menacing rays of malevolent stars., then They decide all the ornaments of happiness and all dignity.",
+    "planets": [
+      "Benevolent Stars",
+      "Malevolent Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1135",
+    "category": "natal",
+    "text": "If The rays of benevolent stars are attacked by malevolent stars., then Cannot determine anything from the promised happiness.",
+    "planets": [
+      "Benevolent Stars",
+      "Malevolent Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1136",
+    "category": "natal",
+    "text": "If The seventh and ninth years (climacteric periods) occur., then Always affect a person with various dangers and crises.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1137",
+    "category": "natal",
+    "text": "If Jupiter and Venus are found in favorable natal positions in the horoscope, AND the Moon is aspected by a partial radiation, AND Jupiter and Venus also see the lord of the natal period., then Threatening attacks of danger are relieved by the protection of benevolent stars, and men are saved from imminent dangers.",
+    "planets": [
+      "Jupiter",
+      "Venus",
+      "Moon",
+      "Lord of the Natal Period"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1138",
+    "category": "natal",
+    "text": "If The star which causes danger is found in good places, or rejoices in signs and ends (terms/bounds), AND is looked upon by benefactors (benevolent stars), AND is well placed in its generation., then The crisis of imminent danger is mitigated.",
+    "planets": [
+      "Star causing danger",
+      "Benevolent Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1139",
+    "category": "natal",
+    "text": "If The star which causes danger is NOT in good places, NOT rejoicing in signs and ends, NOT looked upon by benefactors, NOT well placed in its generation, AND has received the license to harm by allowing itself power., then Causes a man to be entangled in the snares of inexplicable miseries, so that imminent death or danger cannot be avoided by any means.",
+    "planets": [
+      "Star causing danger"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1140",
+    "category": "natal",
+    "text": "If Mars decides the act, AND is well placed, AND benevolent stars are favorable, AND Mars is combined with radiation (from benefics), AND it is a nocturnal birth., then Decrees the weapons of leadership and glory, the license of the sword, and the insignia of the greatest powers.",
+    "planets": [
+      "Mars",
+      "Benevolent Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1141",
+    "category": "natal",
+    "text": "If Mars decides the act, AND is placed in lazy and degraded places, AND in standards in which he does not rejoice (poor dignity)., then Chooses some honorable arts, but with ignominy.",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1142",
+    "category": "natal",
+    "text": "If Mars is placed in lazy and degraded places, AND lends its benevolent rays to the stars., then Will obtain a certain glory and the faculties of substance/success.",
+    "planets": [
+      "Mars",
+      "Stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1143",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct the Sun in the horoscope (Ascendant), in a sign where the Moon rejoices, is exalted, or is at home., then Parents are adorned with the bright splendor of their faculties.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1144",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct the Sun in the Midheaven (MC), in a sign where the Moon rejoices, is exalted, or is at home., then Parents are adorned with the bright splendor of their faculties.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [
+      "MC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1145",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct the Sun in the 7th house (setting) or the Imum Coeli (IMC)., then Parents are either slaves, miserable, degenerate, outcasts, or beggars.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "IMC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1146",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct the Sun, and Mars aspects this conjunction with threatening radiation, opposing both the Sun and the Moon., then The body is weakened by a serious defect, and there is frequent blindness in the eyes.",
+    "planets": [
+      "Moon",
+      "Sun",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1147",
+    "category": "natal",
+    "text": "If The Sun, Moon, and Mars are in the same parts (conjunct)., then Parents and the native are prostrated with humble humiliation of dejection, and violent destruction of death decrees.",
+    "planets": [
+      "Sun",
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1148",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Saturn in the horoscope (Ascendant)., then Causes the firstborn to be nurtured, but imposes the weight of widowhood on poor mothers, or causes them to be detained in temples, and indicates a serious crisis of health from necessary or feminine places.",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1149",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Saturn in the Midheaven (MC)., then Causes the firstborn to be nurtured, but imposes the weight of widowhood on poor mothers, or causes them to be detained in temples, and indicates a serious crisis of health from necessary or feminine places.",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "MC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1150",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Saturn in the 7th house (setting) or the Imum Coeli (IMC)., then The mother is oppressed by the wretchedness of servitude, and the native is either captive or separated from their parents.",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "IMC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1151",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Jupiter in the horoscope (Ascendant)., then The mother is adorned with a splendid race of nobility, and the native is religious, foresees the future, and will be famous, noble, and powerful.",
+    "planets": [
+      "Moon",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1152",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Jupiter in the Midheaven (MC)., then The mother is adorned with a splendid race of nobility, and the native is religious, foresees the future, and will be famous, noble, and powerful.",
+    "planets": [
+      "Moon",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [
+      "MC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1153",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Jupiter in the 7th house (setting) or the Imum Coeli (IMC)., then The native will squander their father's resources, but afterwards, through the protection of friends or inheritance from relatives, will gain great resources.",
+    "planets": [
+      "Moon",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "IMC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1154",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Mars in the horoscope (Ascendant)., then Shows a foreign or weak mother, and either the native's eyes are weakened or their stomach is weak.",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1155",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Mars in the horoscope (Ascendant) during a daily birth (diurnal chart)., then Weakens the whole body or amputates a part of the body.",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1156",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Mars in the Midheaven (MC)., then Shows a foreign or weak mother, and either the native's eyes are weakened or their stomach is weak.",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [
+      "MC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1157",
+    "category": "natal",
+    "text": "If The Moon is partially conjunct Mars in the 7th house or the Imum Coeli (IMC)., then The native leaves their country and settles in foreign countries.",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "IMC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1158",
+    "category": "natal",
+    "text": "If The Moon, Mars, and Mercury are conjunct in the 7th house or the Imum Coeli (IMC)., then The native will be robbers, pirates, murderers, robbers of temples, blasphemers, and those who always commit the crime of falsehood, suffering public notice for these crimes.",
+    "planets": [
+      "Moon",
+      "Mars",
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "IMC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1159",
+    "category": "natal",
+    "text": "If The Moon, Mars, and Saturn are conjunct in the 7th house or the Imum Coeli (IMC)., then The native is bound by public guards, public prisons, and public chains, disfigured by unshorn hair, forced to take food from enemies, and may complete their lives in custody and chains.",
+    "planets": [
+      "Moon",
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "IMC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1160",
+    "category": "natal",
+    "text": "If The Moon, Mars, and Saturn are conjunct in the 7th house or the Imum Coeli (IMC), and Jupiter aspects this conjunction., then The native is deputed to servile offices.",
+    "planets": [
+      "Moon",
+      "Mars",
+      "Saturn",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "IMC"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1161",
+    "category": "natal",
+    "text": "If Saturn is configured to cause binding or imprisonment, then Individuals are bound by public guards, public prisons, and public chains; disfigured by unshorn hair; forced to take food from enemies; some remain in custody and chains for life.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1162",
+    "category": "natal",
+    "text": "If Jupiter favorably aspects or is well-placed relative to a Saturnian configuration causing binding or imprisonment, then Individuals are deputed to servile offices in the temples.",
+    "planets": [
+      "Jupiter",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1163",
+    "category": "natal",
+    "text": "If Moon conjunct Venus in the Ascendant or Midheaven, partially discovered, then Natives become known nobles and are conferred insignia of the greatest power.",
+    "planets": [
+      "Moon",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant",
+      "Midheaven"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1164",
+    "category": "natal",
+    "text": "If Moon conjunct Venus in the Descendant or Imum Coeli, then Mother is of low class but never lacks anything for whole life support.",
+    "planets": [
+      "Moon",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [
+      "Descendant",
+      "Imum Coeli"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1165",
+    "category": "natal",
+    "text": "If Moon conjunct Venus in the Descendant or Imum Coeli, then Natives are always beaten by various infamies in their early age.",
+    "planets": [
+      "Moon",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [
+      "Descendant",
+      "Imum Coeli"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1166",
+    "category": "natal",
+    "text": "If Moon conjunct Venus (in any sign or house), then Natives marry two sisters, or marry the wives of two brothers, or join relatives in marriage.",
+    "planets": [
+      "Moon",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1167",
+    "category": "natal",
+    "text": "If Moon conjunct Mercury in the Ascendant or Midheaven, partially discovered, then Natives become illustrious and noble through the grace of letters, and are fit for every business office.",
+    "planets": [
+      "Moon",
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant",
+      "Midheaven"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1168",
+    "category": "natal",
+    "text": "If Moon conjunct Mercury in the Descendant or Imum Coeli, then Natives are involved in crediting property, deposits, and accounting duties.",
+    "planets": [
+      "Moon",
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [
+      "Descendant",
+      "Imum Coeli"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1169",
+    "category": "natal",
+    "text": "If Moon in the last parts of any sign, then The Moon's effectiveness is brought to nothing; the meeting sign is hindered by obstacles.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1170",
+    "category": "natal",
+    "text": "If Moon in the first parts of any sign, then The Moon's effectiveness falls to nothing; only the effectiveness of the combination is investigated.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1171",
+    "category": "natal",
+    "text": "If Ascendant in Aries, then Natives decide in their youth to deny their brothers, or to keep one of several brothers.",
+    "planets": [],
+    "signs": [
+      "Aries"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1172",
+    "category": "natal",
+    "text": "If Ascendant in Aries, then Natives' vice is weakened by bitterness; their name is pursued with hatred; paternal substance is dilapidated, dispersed, and then gathered again.",
+    "planets": [],
+    "signs": [
+      "Aries"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1173",
+    "category": "natal",
+    "text": "If Mars in conjunction with the Moon, then Joins confederates with thieves of bad conscience, or makes them divers; leads to entanglement in accusations, imprisonment, or public binding with chains; alternatively, prostrates the poor with a miserable death, humbles property and life, and decides a life of ill-health and bitter crises of death with calamity.",
+    "planets": [
+      "Mars",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1174",
+    "category": "natal",
+    "text": "If Jupiter's inherent goodness (nature), then Changes (mitigates) the negative influence of an evil sign's ruler.",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1175",
+    "category": "natal",
+    "text": "If Saturn's inherent malice (nature), then Weakens the positive influence of a good sign's ruler.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1176",
+    "category": "natal",
+    "text": "If A star 'looks to greet' a bad house (implies benefic aspect/reception), then Trouble from the bad house is mitigated; threatening rays of malevolent stars are broken.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1177",
+    "category": "natal",
+    "text": "If Moon (growing light) in the 5th part of Leo, AND the 5th part of Leo is on the Ascendant or Midheaven, then Determines kingdoms and governments of the greatest power.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [
+      "Ascendant",
+      "Midheaven"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1178",
+    "category": "natal",
+    "text": "If Moon (full of lights) in a specific part of Aquarius, AND Moon possesses the first keys of generation (is strong/angular), then Determines insignia of royal power, imperial power, and dignity.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Aquarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1179",
+    "category": "natal",
+    "text": "If Moon in a specific part of Taurus, AND Moon has possessed the first hinges of generation (is strong/angular), then Stages of affluent substance (great wealth/abundance).",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1180",
+    "category": "natal",
+    "text": "If Moon in the 27th part of Taurus, then Determines insignia of great dignity; makes men who support great peoples by their power, give to popular interest, consecrate gifts to temples, and are honored by perpetual glory.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1181",
+    "category": "natal",
+    "text": "If Moon in the 30th part of Taurus, then Decrees insignia and license of great power.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1182",
+    "category": "natal",
+    "text": "If Moon in the 30th part of Taurus, AND Moon is established in the first hinges (angular), AND Jupiter aspects it with increasing light of prosperous radiation (benefic aspect), then Leadership determines the empire and the kingdom.",
+    "planets": [
+      "Moon",
+      "Jupiter"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1183",
+    "category": "natal",
+    "text": "If A planet is in the 5th or 11th house from the Ascendant, then Associated with good fortune, good spirit, and successful partnerships.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "5th",
+      "11th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1184",
+    "category": "natal",
+    "text": "If A planet is in the 3rd or 9th house from the Ascendant, then Adds the greatest association of society to the horoscope.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "3rd",
+      "9th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1185",
+    "category": "natal",
+    "text": "If A planet is in the 2nd or 8th house from the Ascendant, then Bonds of the horoscope are broken; partnership of company is separated.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "2nd",
+      "8th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1186",
+    "category": "natal",
+    "text": "If A planet is in the 6th or 12th house from the Ascendant, then Excludes every system of society; attacks fleeting humility of dejection.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "6th",
+      "12th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1187",
+    "category": "natal",
+    "text": "If A benevolent star resides in the 2nd, 6th, 8th, or 12th house from the Ascendant, then Loses its salutary protection of its goodness.",
+    "planets": [
+      "Benevolent star"
+    ],
+    "signs": [],
+    "houses": [
+      "2nd",
+      "6th",
+      "8th",
+      "12th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1188",
+    "category": "natal",
+    "text": "If A malevolent star resides in the 2nd, 6th, 8th, or 12th house from the Ascendant, then Is strengthened by the power of malice, sharpened to harm.",
+    "planets": [
+      "Malevolent star"
+    ],
+    "signs": [],
+    "houses": [
+      "2nd",
+      "6th",
+      "8th",
+      "12th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1189",
+    "category": "natal",
+    "text": "If Malevolent stars in conjunction with the Moon in the 2nd, 6th, 8th, or 12th house from the Ascendant, then Generally decree destruction and misfortunes without any remedy.",
+    "planets": [
+      "Malevolent star",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [
+      "2nd",
+      "6th",
+      "8th",
+      "12th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1190",
+    "category": "natal",
+    "text": "If Benevolent stars in conjunction with the Moon in the 2nd, 6th, 8th, or 12th house from the Ascendant, then Confined to lowliness in secluded places, lose their power to save protection.",
+    "planets": [
+      "Benevolent star",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [
+      "2nd",
+      "6th",
+      "8th",
+      "12th"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1191",
+    "category": "natal",
+    "text": "If A benefic planet aspects a malefic planet squarely or diametrically, then The decree of goodness from the benefic is released from the power of the malefic.",
+    "planets": [
+      "Benefic",
+      "Malefic"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1192",
+    "category": "natal",
+    "text": "If A malefic planet has received the appointed time, and a benefic planet mitigates it by being placed at the same time or combining with auspicious radiation, then Every decree of misfortune is mitigated by the salutary protection of the benevolent stars.",
+    "planets": [
+      "Malefic",
+      "Benefic"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1193",
+    "category": "natal",
+    "text": "If Moon in a pivot house AND Mars and Saturn in the 7th house (setting) from the horoscope, then Newborns are immediately exposed by their mothers.",
+    "planets": [
+      "Moon",
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "Pivot",
+      "7th House",
+      "Setting"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1194",
+    "category": "natal",
+    "text": "If Ascendant in a sign of short ascension AND Mars in 7th house (setting) AND Moon applying by minute light to Saturn, then The newborn child will be exposed.",
+    "planets": [
+      "Mars",
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [
+      "Sign of short ascension"
+    ],
+    "houses": [
+      "7th House",
+      "Setting"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1195",
+    "category": "natal",
+    "text": "If Ascendant in a sign of short ascension AND Mars in 7th house (setting) AND Moon is full to Mars, then The newborn child will be exposed.",
+    "planets": [
+      "Mars",
+      "Moon"
+    ],
+    "signs": [
+      "Sign of short ascension"
+    ],
+    "houses": [
+      "7th House",
+      "Setting"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1196",
+    "category": "natal",
+    "text": "If (Ruler of Lot of Fortune is combust OR Ruler of Ascendant is combust) AND (Saturn OR Mars in 7th house/setting), then The child born will be exposed.",
+    "planets": [
+      "Sun",
+      "Saturn",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [
+      "7th House",
+      "Setting"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1197",
+    "category": "natal",
+    "text": "If (Ruler of Lot of Fortune in sign of short ascension OR Ruler of Ascendant in sign of short ascension) AND (Saturn OR Mars in 7th house/setting), then The child born will be exposed.",
+    "planets": [
+      "Saturn",
+      "Mars"
+    ],
+    "signs": [
+      "Sign of short ascension"
+    ],
+    "houses": [
+      "7th House",
+      "Setting"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1198",
+    "category": "natal",
+    "text": "If Moon in Ascendant OR Moon in 7th house (setting) AND Mars and Saturn in opposition, then The one who was born will be exposed.",
+    "planets": [
+      "Moon",
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant",
+      "7th House",
+      "Setting"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1199",
+    "category": "natal",
+    "text": "If A malefic planet is in conjunction with the Sun at conception, then The one who was born will be exposed.",
+    "planets": [
+      "Malefic",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1200",
+    "category": "natal",
+    "text": "If Sun and Moon in opposition on the angles, AND (Sun conjunct Mars AND Moon conjunct Saturn) OR (Sun conjunct Saturn AND Moon conjunct Mars), then The birth is set up in the very narrowness and is extinguished.",
+    "planets": [
+      "Sun",
+      "Moon",
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "Angles"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1201",
+    "category": "natal",
+    "text": "If Sun and Moon in square on the angles, AND (Sun conjunct Mars AND Moon conjunct Saturn) OR (Sun conjunct Saturn AND Moon conjunct Mars), then The birth is set up in the very narrowness and is extinguished.",
+    "planets": [
+      "Sun",
+      "Moon",
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "Angles"
+    ],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1202",
+    "category": "natal",
+    "text": "If Mars and Saturn (superior malefics) aspect the Moon with menacing radiation, then The mother incurs a grave death in the very birth.",
+    "planets": [
+      "Mars",
+      "Saturn",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1203",
+    "category": "natal",
+    "text": "If Malevolent stars are the only ones looking at the ninetieth part., then They will give weight (negative significance or challenges in life).",
+    "planets": [
+      "Malevolent stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1204",
+    "category": "natal",
+    "text": "If Benevolent stars are the only ones looking at the ninetieth part., then They decide the greatest signs of happiness.",
+    "planets": [
+      "Benevolent stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1205",
+    "category": "natal",
+    "text": "If Both benevolent and malevolent stars look at the ninetieth part., then That which has been decreed for each one is heated (intensified, possibly challenging or mixed outcomes).",
+    "planets": [
+      "Benevolent stars",
+      "Malevolent stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1206",
+    "category": "natal",
+    "text": "If Malevolent stars (Mars or Saturn) look at the ninetieth part (derived from the Moon) with threatening radiation, when the Moon is growing or declining., then They accomplish all things according to the power of their nature (implying negative outcomes related to death, order of life, and substance of generation).",
+    "planets": [
+      "Mars",
+      "Saturn",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1207",
+    "category": "natal",
+    "text": "If Benevolent stars look at the ninetieth part (derived from the Moon) with favorable testimony, when the Moon is growing or declining., then They accomplish all things according to the power of their nature (implying positive outcomes related to death, order of life, and substance of generation).",
+    "planets": [
+      "Benevolent stars",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1208",
+    "category": "natal",
+    "text": "If Moon in the mouth parts of Capricorn, then Men will have impure mouths, polluted by the corruption of women's lust.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1209",
+    "category": "natal",
+    "text": "If Moon in the mouth parts of Capricorn, then Women will be possessed of every unchaste vice of impurity.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1210",
+    "category": "natal",
+    "text": "If Sun or Moon in the three posterior parts of Pisces (between Aries and Pisces), without the testimony of benevolent stars, then The person will be overwhelmed either with permanent blindness or with miserable infirmities of the eyes.",
+    "planets": [
+      "Sun",
+      "Moon"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1211",
+    "category": "natal",
+    "text": "If horoscope in the first part of Aquarius, with Jupiter and Saturn conjoined by successful radiation, and the Moon well placed, then will be a great, glorious and religious king",
+    "planets": [
+      "Jupiter",
+      "Saturn",
+      "Moon"
+    ],
+    "signs": [
+      "Aquarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1212",
+    "category": "natal",
+    "text": "If Venus in the horoscope with the bright star in the 10th part of Pisces, and the Moon well placed, then will be known as a great and powerful king",
+    "planets": [
+      "Venus",
+      "Moon"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1213",
+    "category": "natal",
+    "text": "If Venus in the horoscope with the bright star in the 10th part of Pisces, and the Moon well placed, then will traverse many lands",
+    "planets": [
+      "Venus",
+      "Moon"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1214",
+    "category": "natal",
+    "text": "If Venus in the horoscope with the bright star in the 10th part of Pisces, and the Moon well placed, then will sail great oceans",
+    "planets": [
+      "Venus",
+      "Moon"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1215",
+    "category": "natal",
+    "text": "If Venus in the horoscope with the bright star in the 10th part of Pisces, and the Moon well placed, then The command of the Liburnian and the shipyard will be entrusted to him",
+    "planets": [
+      "Venus",
+      "Moon"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  },
+  {
+    "id": "FIRM_1216",
+    "category": "natal",
+    "text": "If Venus in the horoscope with the bright star in the 10th part of Pisces, and the Moon well placed, then He will be victorious in battle",
+    "planets": [
+      "Venus",
+      "Moon"
+    ],
+    "signs": [
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Firmicus (Mathesis)"
+  }
+]

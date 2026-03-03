@@ -90,8 +90,7 @@ jobs:
           pip install pyinstaller
 
       - name: Build Windows exe
-        shell: pwsh
-        run: pyinstaller --onefile --name thia-lite --add-data "thia_lite/rules;thia_lite/rules" thia_lite/__main__.py
+        run: pyinstaller thia-lite.spec
 
       - uses: actions/upload-artifact@v4
         with:

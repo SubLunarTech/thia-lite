@@ -1,0 +1,3579 @@
+[
+  {
+    "id": "PICA_1000",
+    "category": "mundane",
+    "text": "If The actions/influences of the zodiac signs, then Bring love and affection",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1001",
+    "category": "mundane",
+    "text": "If Alignment of the planets with regions, then Determines the characteristics of the country/region",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1002",
+    "category": "mundane",
+    "text": "If Moon's advent to the beginning of the signs, then Moon spreads its powers on the earth",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1003",
+    "category": "electional",
+    "text": "If The casting of the planets is similar to that of sathara, then it brings with it mysterious obstacles",
+    "planets": [
+      "planets"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1004",
+    "category": "mundane",
+    "text": "If Saturn moves cold entities, then Saturn moves cold entities",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1005",
+    "category": "mundane",
+    "text": "If Jupiter moves entities, then Jupiter moves entities related to locust, moisture, and marsh, affecting living beings",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1006",
+    "category": "mundane",
+    "text": "If Moon's influence, then Moon affects cold and wet creatures",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1007",
+    "category": "natal",
+    "text": "If Sun is in the place alone, then The mother grows and her blood increases",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1008",
+    "category": "natal",
+    "text": "If A planet is acting in its power, then Blood would be greater",
+    "planets": [
+      "Any planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1009",
+    "category": "electional",
+    "text": "If Moon is safe and free from evil, then Good deeds are successful",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1010",
+    "category": "horary",
+    "text": "If A planet is burning in the ether, then Bad luck",
+    "planets": [
+      "Any planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1011",
+    "category": "electional",
+    "text": "If Moon in the position described as 'from the first of the vinegar to the second clan. One degree and two-fifths, one minute and twenty-six', then Travel and drinking laxatives",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1012",
+    "category": "electional",
+    "text": "If Moon in the position described as 'Twenty-six seconds from hope to enthusiastic gossip, twenty-two degrees, and two beats One minute and two hundred and fifty seconds of hope', then Talismans are made to excavate monuments and rivers, extract demands, buried treasures, and hopes of crops",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1013",
+    "category": "electional",
+    "text": "If Moon in the position described as 'Twenty-six seconds from hope to enthusiastic gossip, twenty-two degrees, and two beats One minute and two hundred and fifty seconds of hope', then Talismans are made for the corruption of marriage",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1014",
+    "category": "electional",
+    "text": "If Making a talisman for a traveler, then Safety on his journey",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1015",
+    "category": "electional",
+    "text": "If Making a talisman to avoid corruption between spouses and friends, then Avoidance of estrangement and enmity between spouses and friends",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1016",
+    "category": "electional",
+    "text": "If Making a talisman (tarantula) for a slave, then Control over a slave, allowing him to be left to whomever is desired and his children",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1017",
+    "category": "electional",
+    "text": "If Corrupting a partnership between partners (via talisman), then Fiery evil",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1018",
+    "category": "electional",
+    "text": "If Moon in the position described as 'One minute, two, and \u201ctwo seconds\u201d from God to Tamak, degrees, seven, and thirty minutes', then Talismans are made to spoil participation",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1019",
+    "category": "electional",
+    "text": "If Moon in the position described as 'One minute, two, and \u201ctwo seconds\u201d from God to Tamak, degrees, seven, and thirty minutes', then Talismans are made for glory and eloquence, Ambusan and their dependence, and 'basa\u2019a' art",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1020",
+    "category": "electional",
+    "text": "If Ascendant in Taurus, Lunar Ascendant connected to the Sun and Saturn., then Falsehoods related to plantings and tillage are denounced.",
+    "planets": [
+      "Sun",
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1021",
+    "category": "electional",
+    "text": "If Hour is for the Sun, Ascendant is at the beginning of the middle face of Leo, and the Sun is at that degree., then Pain from pebbles goes away.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1022",
+    "category": "electional",
+    "text": "If Hour of Venus, Moon in an angular house and connected to Venus, 6th house ruler in trine or opposition to a benefic, 8th house ruler in square to Mercury, Mercury not retrograde, not combust, and not applying to a difficult aspect., then Health is repaired to the utmost quality and ability.",
+    "planets": [
+      "Venus",
+      "Moon",
+      "Mercury",
+      "6th house ruler",
+      "8th house ruler",
+      "benefic"
+    ],
+    "signs": [],
+    "houses": [
+      "Angular",
+      "6th house",
+      "8th house"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1023",
+    "category": "electional",
+    "text": "If Moon is prosperous and in good days., then Good for talismans of love and affection, and for meeting kings.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1024",
+    "category": "electional",
+    "text": "If Hour of Venus and Jupiter., then Acceptance of requests.",
+    "planets": [
+      "Venus",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1025",
+    "category": "electional",
+    "text": "If Sun's hour., then Acceptance and longevity for spouses.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1026",
+    "category": "electional",
+    "text": "If Moon is with Venus., then Good for love and relationships.",
+    "planets": [
+      "Moon",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1027",
+    "category": "electional",
+    "text": "If A benefic planet makes a favorable aspect to the configuration of the seven traditional planets., then Spirituality improves.",
+    "planets": [
+      "benefic",
+      "Sun",
+      "Moon",
+      "Mercury",
+      "Venus",
+      "Mars",
+      "Jupiter",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1028",
+    "category": "mundane",
+    "text": "If The sun is the light and strength of the world, then it adorns so-and-so on the eyes of so-and-so, just as it adorns the sky with its stars",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1029",
+    "category": "electional",
+    "text": "If a planet is with Jupiter and in the middle of the sky, then what they wanted will be successful",
+    "planets": [
+      "Jupiter",
+      "Any Planet"
+    ],
+    "signs": [],
+    "houses": [
+      "MC"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1030",
+    "category": "mundane",
+    "text": "If a planet is with the tail of Zahra (Venus), then there is no accident",
+    "planets": [
+      "Venus",
+      "Any Planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1031",
+    "category": "natal",
+    "text": "If The Sun and Moon are in a complex of sin, then Bad moods occur naturally",
+    "planets": [
+      "Sun",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1032",
+    "category": "electional",
+    "text": "If Astronomical images (configurations) are formed., then Images created in the world of composition (e.g., talismans) will be obedient to these astronomical images.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1033",
+    "category": "electional",
+    "text": "If To create a talismanic ring with a scorpion image for specific effects, the Moon should be in Scorpio in the 1st House., then The talisman will remove the stain from shame, expose those who have been stung, and change what is protected from fear.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [
+      "1st House"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1034",
+    "category": "electional",
+    "text": "If If the Moon comes to Scorpio and Scorpio is one of the pegs of the zodiac sign (an angular house)., then It is suitable for inscribing and filling a talisman with a kinder.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [
+      "Angular Houses"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1035",
+    "category": "natal",
+    "text": "If First face of Cancer, then A man with red eyes, tied to wood, appears.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Cancer"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1036",
+    "category": "natal",
+    "text": "If Sun mixed with Mars in this place with rage, then Sun's rays and rage are intensified.",
+    "planets": [
+      "Sun",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1037",
+    "category": "natal",
+    "text": "If A planet has strength in the 6th house., then Indicates animals, especially animals of war.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "6th House"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1038",
+    "category": "natal",
+    "text": "If Third face of a sign with Mars and Saturn influencing it, then A red-coloured man appears, reddish (color between Mars' red and Saturn's leaden).",
+    "planets": [
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1039",
+    "category": "natal",
+    "text": "If Mars, then Symbolizes swords.",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1040",
+    "category": "natal",
+    "text": "If Saturn, then Symbolizes wood.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1041",
+    "category": "natal",
+    "text": "If Venus, then Symbolizes goodness, righteousness, and iron.",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1042",
+    "category": "natal",
+    "text": "If Saturn, then Related to bitterness.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1043",
+    "category": "natal",
+    "text": "If Watery triplicity, then Active in water and watery things (river, sea, land, stream, drawing water, pillar).",
+    "planets": [],
+    "signs": [
+      "Cancer",
+      "Scorpio",
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1044",
+    "category": "horary",
+    "text": "If Mars' indication to the dead, then Extraction of news about distant goals (death) is false; it is news of what will happen after a long time.",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1045",
+    "category": "mundane",
+    "text": "If Saturn and Jupiter combined in one degree, then This combination is designated 'one'.",
+    "planets": [
+      "Saturn",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1046",
+    "category": "mundane",
+    "text": "If Saturn and Mars combined in one degree, then This combination is designated 'Otalath and May'.",
+    "planets": [
+      "Saturn",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1047",
+    "category": "mundane",
+    "text": "If Saturn and the Sun combined in one degree, then This combination is designated 'three'.",
+    "planets": [
+      "Saturn",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1048",
+    "category": "mundane",
+    "text": "If Saturn and Venus combined in one degree, then This combination is designated 'four'.",
+    "planets": [
+      "Saturn",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1049",
+    "category": "mundane",
+    "text": "If Saturn and Mercury combined in one degree, then This combination is designated 'five'.",
+    "planets": [
+      "Saturn",
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1050",
+    "category": "mundane",
+    "text": "If Saturn and the Moon combined at one degree, then This combination is designated 'six'.",
+    "planets": [
+      "Saturn",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1051",
+    "category": "mundane",
+    "text": "If Three planets in one degree, then Causes strange actions.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1052",
+    "category": "mundane",
+    "text": "If Moon far from the Sun after its separation from conjunction with it, until it reaches the square of the Sun., then Stronger in moving moisture, greater drag for moisture, less heat; its action is the uprooting of the entire plant (demolition).",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1053",
+    "category": "mundane",
+    "text": "If Moon from its first square with the Sun until the time of its stewardship in the light (waxing phase)., then Moves both heat and humidity equally, causing a crisis.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1054",
+    "category": "mundane",
+    "text": "If Moon until its completion in the light (opposition to the Sun)., then Less sensitivity to humidity, a little more heat; its effect on the bodies of animals, plants, and minerals is openness, diffusion, and harmony.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1055",
+    "category": "mundane",
+    "text": "If Moon from its second half until it is covered by the Sun's rays (waning phase, approaching conjunction)., then A trap for harm, moves less moisture, causes a lot of cooling and a little hardening.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1056",
+    "category": "mundane",
+    "text": "If Moon meets the Sun in one minute (exact conjunction), according to Al-Kasdanin., then This is the best of its conditions and the most affirming of its actions.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1057",
+    "category": "mundane",
+    "text": "If Moon meets the Sun in one minute (exact conjunction), according to Al-Muttadd., then This is the worst of its conditions and indicates weakness.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1058",
+    "category": "mundane",
+    "text": "If Moon meets the Sun in one minute (exact conjunction), according to the Persians., then Its strength, weakness, and excess in action or subtraction depends on the zodiac sign in which the conjunction occurs.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1059",
+    "category": "mundane",
+    "text": "If Moon meets the Sun in one minute (exact conjunction), according to the Greeks, Egyptians, and ancients., then This is its best condition, most powerful in action, completes shortcomings, adds more, and is capable of actions similar to the Sun; properties occur in all concentrated bodies.",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1060",
+    "category": "mundane",
+    "text": "If The Sun., then Is the source of the origin of things and causes them to emerge from nothingness into existence.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1061",
+    "category": "horary",
+    "text": "If Mercury is the significator of the need., then The need relates to merchants, craftsmen, people of kindness and appreciation, messengers, king\u2019s servants, or princes.",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1062",
+    "category": "horary",
+    "text": "If The Ascendant and the Moon are receptive in a horary chart for a need., then The need (including money) will be met positively.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1063",
+    "category": "horary",
+    "text": "If The Arrow of Happiness, its owner, and the owner of the Fourth House are in a good aspect (view) from the Moon., then Happiness and prosperity.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [
+      "Fourth House"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1064",
+    "category": "horary",
+    "text": "If The Moon feels bad and is awake (afflicted/prominent negatively) in a horary chart for a need., then Strong misfortune that will separate the owner of the horoscope (querent).",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1065",
+    "category": "horary",
+    "text": "If The owner of the need (querent's significator), the significator of enlightenment, or the owner of fortune is in fall., then Misfortune.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1066",
+    "category": "horary",
+    "text": "If The owner of the Moon, the owner of the Fourth House, and the Ascendant (horoscope) are afflicted., then Misfortune, corruption of the need.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [
+      "Fourth House",
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1067",
+    "category": "electional",
+    "text": "If The Moon is in a two-body sign (mutable sign), pure from evil (unafflicted), AND the Ascendant is positive (well-disposed) in an electional chart for craftsmanship or treatment., then The attempt (craftsmanship or treatment) is successful.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "mutable sign"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1068",
+    "category": "electional",
+    "text": "If The Sun is strengthened and fixed (in a strong, stable position) for an attempt related to gold., then The work (attempt in gold) is successful.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1069",
+    "category": "mundane",
+    "text": "If The zodiacal pole begins to turn (movement from east to west or west to Al-Muthaiq)., then Indicates incidents that occur in the year.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1070",
+    "category": "natal",
+    "text": "If The natal chart, particularly the Ascendant, presents a beautiful or harmonious configuration., then Indicates happiness for the newborn.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1071",
+    "category": "natal",
+    "text": "If The natal chart, particularly the Ascendant, presents an ugly or inharmonious configuration., then Indicates that the newborn will be in trouble.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1072",
+    "category": "natal",
+    "text": "If Mercury is prominent or strong in a clear natal chart., then The native possesses the power of visions.",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1073",
+    "category": "electional",
+    "text": "If The gift from the stars falls on a talisman upon a sleeping acceptance., then The talisman's action lasts, and its spirituality spreads; what is meant is fulfilled.",
+    "planets": [
+      "stars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1074",
+    "category": "natal",
+    "text": "If A planet is at its height (apogee), then It performs strong and effective actions.",
+    "planets": [
+      "planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1075",
+    "category": "natal",
+    "text": "If A planet is in its lowest part (perigee), then It performs actions characteristic of its nature.",
+    "planets": [
+      "planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1076",
+    "category": "natal",
+    "text": "If A planet is the heaviest, then It is stronger and more creative.",
+    "planets": [
+      "planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1077",
+    "category": "natal",
+    "text": "If A planet is the fastest, then It is a little weaker.",
+    "planets": [
+      "planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1078",
+    "category": "natal",
+    "text": "If A planet has a middle movement, then It is a little weaker.",
+    "planets": [
+      "planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1079",
+    "category": "natal",
+    "text": "If The Moon is with Saturn, then Saturn's action dominates.",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1080",
+    "category": "natal",
+    "text": "If Saturn's power is stronger than all other planets, especially when in its height (exaltation) or mother (domicile/strong position), then Other planets' actions are dominated or sculpted by Saturn",
+    "planets": [
+      "Saturn",
+      "other planets"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1081",
+    "category": "natal",
+    "text": "If Jupiter, Sun, or Venus are conjoined with Saturn, then They act as Saturn (take on Saturn's qualities or are influenced by it)",
+    "planets": [
+      "Jupiter",
+      "Sun",
+      "Venus",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1082",
+    "category": "natal",
+    "text": "If Moon is conjoined with Saturn, AND Saturn is in a strong dignified position (exaltation, honor, apogee), then Saturn's strength (action) predominates",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1083",
+    "category": "natal",
+    "text": "If Moon is in strong dignified positions (high aspects/dignities) AND Saturn is in its opposite (weak position like fall/detriment), then Moon's predominance and strength, overcoming Saturn's power",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1084",
+    "category": "natal",
+    "text": "If Moon is conjoined with Saturn, AND both are in positions opposite to honorable positions (i.e., weak dignities like fall/detriment), then Moon's action predominates over Saturn's action",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1085",
+    "category": "natal",
+    "text": "If Saturn is in a strong dignified position AND Jupiter is in a strong dignified position, then Their actions are equal",
+    "planets": [
+      "Saturn",
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1086",
+    "category": "natal",
+    "text": "If Jupiter is exalted AND Saturn is in its middle path (neutral position), then Jupiter's action is NOT stronger (compared to Saturn)",
+    "planets": [
+      "Jupiter",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1087",
+    "category": "natal",
+    "text": "If Mars is conjoined with Saturn, then Their actions are more apparent (strong, noticeable effect)",
+    "planets": [
+      "Mars",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1088",
+    "category": "electional",
+    "text": "If The line emerging from the planets to the shape of the talisman is skewed, then The integrity of the talisman's action is not complete",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1089",
+    "category": "electional",
+    "text": "If A planet is in conjunction, opposition, trine, or square with another planet, then The actions of the planets are given there, either complete or other",
+    "planets": [
+      "planet",
+      "another planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1090",
+    "category": "electional",
+    "text": "If A planet is in a state of uprightness (direct motion), descent (fall), honor (exaltation), Sud, \u1e6dah\u016bs, nu\u1e63, wells, or \u1e0du\u1e6du', then Specific actions are given",
+    "planets": [
+      "planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1091",
+    "category": "electional",
+    "text": "If Moon is waxing, then Miracles occur, including effective talismanic actions, quarrying sand, transmitting Haggadah, removing epidemics, pouring rain and clouds, and changing ropes",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1092",
+    "category": "electional",
+    "text": "If The inherent nature of the stone used for a talisman becomes predominant, then The talisman's action becomes widespread and appears",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1093",
+    "category": "electional",
+    "text": "If A specific image is drawn on red felt when the first face of Leo rises, and placed in a location., then Mice escape from that location.",
+    "planets": [],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1094",
+    "category": "electional",
+    "text": "If A specific image is drawn on a shining sulfur stone when the second face of Taurus is active, and placed in a location., then Mosquitoes are absent near the stone.",
+    "planets": [],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1095",
+    "category": "electional",
+    "text": "If A specific image (blackened face, tattooed) is drawn when Scorpio appears, and placed in a location., then Flies escape from that location.",
+    "planets": [],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1096",
+    "category": "electional",
+    "text": "If A specific image is drawn on a new piece of cloth on the day and hour of Venus, with Taurus rising and Venus in Taurus. The edge is kindled with fire., then The desired person comes quickly and harshly.",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [
+      "Taurus"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1097",
+    "category": "electional",
+    "text": "If A specific image is depicted on a sheet of black lead with a black dog's fang on the day and hour of Saturn, with the third face of Capricorn rising and Saturn in Capricorn. The plate is placed in the location of one of the people or their meeting place., then Diaspora and division occur between two people, leading to their separation by disliked things.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1098",
+    "category": "electional",
+    "text": "If A specific image is depicted on a lead plate on the day and hour of Saturn, with the third face of Capricorn rising and Saturn in Capricorn. The plate is placed in the desired location., then The place is cleared, and building is prevented.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1099",
+    "category": "electional",
+    "text": "If Day and hour of Saturn, and the Ascendant is the third aspect of Capricorn, then Saturnian affliction is solved",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1100",
+    "category": "electional",
+    "text": "If Engraving a lion drawing on a ruby stone when the Ascendant is Leo, and the Sun is in Leo., then No one defeated him, his affairs were made easy, he was saved in everything he tried, and he was righteous in his dreams.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1101",
+    "category": "electional",
+    "text": "If Engraving a drawing of the sun on a Shadhana stone with the first face of Leo., then The holder will be relieved of normal epilepsy.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1102",
+    "category": "electional",
+    "text": "If Engraving an image of a fly on a Smallon stone at the hour of the Sun and its rising., then It will not ward off hell, even if he enters it.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1103",
+    "category": "electional",
+    "text": "If Engraving an image of a living creature in a stone, placing it in a gold ring, and wearing it, when the Sun is at 7 degrees Aquarius, the Moon is at 7 degrees Scorpio, the Midheaven is at 2 degrees Sagittarius, and the South Node is at 10 degrees Sagittarius., then Neither a snake nor a snake (reptile/insect) will remain in the place where he is.",
+    "planets": [
+      "Sun",
+      "Moon",
+      "Midheaven",
+      "South Node"
+    ],
+    "signs": [
+      "Aquarius",
+      "Scorpio",
+      "Sagittarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1104",
+    "category": "electional",
+    "text": "If Drawing an image of a beetle on an agate clove, placing it on a gold ring, when the Sun is in its honor, Saturn is at 17 degrees Aquarius, Mercury is at 15-20 degrees Gemini, and the Moon is at 2 degrees Cancer., then No beetle appears anywhere scratching his neck or nails.",
+    "planets": [
+      "Sun",
+      "Saturn",
+      "Mercury",
+      "Moon"
+    ],
+    "signs": [
+      "Aquarius",
+      "Gemini",
+      "Cancer"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1105",
+    "category": "electional",
+    "text": "If Holding a talisman (engraved with an Arab maid, a man with a chain, a boy carrying a lion, a wolf, a strong woman, a ewe) and working with it when it is its sunshine and its hour., then Grows ivory in his hand.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1106",
+    "category": "electional",
+    "text": "If Holding an emerald with a drawing of two young men with wings behind her lap, at its hour and honor., then It is easy for him to make it fall, whether he is angry or angry, and he is not innocent, and they will deprive him of it.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1107",
+    "category": "electional",
+    "text": "If Holding a talisman with three images engraved on its watch, holding a mask., then Given Baraka (blessing) and Yemen (prosperity) in trade beyond what he urged.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1108",
+    "category": "electional",
+    "text": "If An image of Nina's tar (talisman)., then Banishing fleeing from the place where it is not there (prevents things from fleeing the place where the talisman is located).",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1109",
+    "category": "electional",
+    "text": "If Engraving an upside-down fly on an agate clove, holding it, and the Ascendant is favorable for this purpose., then Do not flee a place where there is a fly (prevents the holder from fleeing a place with flies).",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1110",
+    "category": "electional",
+    "text": "If Engraving a Dahnj stone with a white cloud of leech on its face and two leeches inside (head to tail), wearing it, when the Hour and horoscope are favorable for this purpose., then Removes leeches from the person who is wearing them.",
+    "planets": [],
+    "signs": [],
+    "houses": [
+      "Horoscope"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1111",
+    "category": "electional",
+    "text": "If A straw in an emerald, the image of a frog (as a talisman)., then For the diseases of boys.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1112",
+    "category": "electional",
+    "text": "If This talisman for his hour and his horoscope (unspecified talisman, but created with specific electional timing)., then releasing the prisoners.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1113",
+    "category": "electional",
+    "text": "If The Moon is in Scorpio, and a scorpion is in a gold ring, with a woven t-ti printed on it, and that scorpion was given water to drink from its sting., then it was immediately healed.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1114",
+    "category": "electional",
+    "text": "If Image of a fly engraved on his watch (ring) on the twenty-first degree of Libra, Meshazi in two degrees of Sagittarius, and Saturn in the first degree of Al-Hadi, and draw on the body of the fly 2 Amkat and Hawaliba 7 for Arddef, in the hour and the time., then cannot be entered by a fly In one way or another (repels flies).",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Libra",
+      "Sagittarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1115",
+    "category": "electional",
+    "text": "If Engraves in a lapis lazuli stone the image of a lion, his face is the face of Adam, with his intelligence and his horoscope., then beneficial to boys are a source of what is in their minds (intellectual benefit/mental development for boys).",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1116",
+    "category": "electional",
+    "text": "If Pattern engraved on Baza's stone with his watch on the first side of Cancer., then specifically designed to repel scorpions.",
+    "planets": [],
+    "signs": [
+      "Cancer"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1117",
+    "category": "electional",
+    "text": "If Draws in a genitive (ash-colored or amber stone) the image of a bug and its surroundings at the time of drawing and its horoscope., then Bedbugs do not appear in a place where they are, nor do they appear naturally in it (repels bedbugs).",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1118",
+    "category": "electional",
+    "text": "If Inscription in a bright stone or a green dahnj stone, the image of a living creature with \u00a9 on its head, with its hour and its horoscope., then designed to repel snakes and insects.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1119",
+    "category": "electional",
+    "text": "If Engrave this drawing on an emerald stone and print it on a stone and a tile Black, with its hour and its horoscope., then protection and intelligence, and gold in lineage.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1120",
+    "category": "electional",
+    "text": "If Engraved on a stone in the brightest, the hour is for him while he is on the horoscope at twenty-one degrees of Libra, with the image of a man with a broad forehead, a long and straight face, riding in a bow in front of him is a bull, hoping for mercy, and on his neck is a necklace containing the head of a human and the head of a fox., then preserving farms, cows, crops, plants, and strengthening on it, as well as in wells and the flow of rivers, and the stability of buildings, and the resistance of the land.",
+    "planets": [],
+    "signs": [
+      "Libra"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1121",
+    "category": "electional",
+    "text": "If Engraved on a stone in the brightest, the hour is for him while he is on the horoscope at twenty-one degrees of Libra, with the image of a man with a broad forehead, a long and straight face, riding in a bow in front of him is a bull, hoping for mercy, and on his neck is a necklace containing the head of a human and the head of a fox., then Squeeze grudges, expel worries, and prevent the fear of people from wearing them.",
+    "planets": [],
+    "signs": [
+      "Libra"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1122",
+    "category": "electional",
+    "text": "If A stone in a bitter stone (diamond stones), with his watch and his horoscope, this drawing, and Yum Tajann is friendly., then create enmity and discord between a dissatisfied people.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1123",
+    "category": "electional",
+    "text": "If bitter faces (general category of planetary faces), then suitable for glory, for every mother who is greeted, and for every talisman that shouts for help",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1124",
+    "category": "electional",
+    "text": "If black face (general category of planetary faces), then suitable for diseases, dependence, death, and all afflictions and the like",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1125",
+    "category": "electional",
+    "text": "If white face (general category of planetary faces), then bright, and suitable for talismans of Nod and Farah (joy and success), such as Al-Lafa, Al-Hatta, and its like",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1126",
+    "category": "electional",
+    "text": "If yellow face (general category of planetary faces), then an adornment of non-speaking animals and their props, and also for the works of bulls",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1127",
+    "category": "electional",
+    "text": "If Saturn's first face (first departed from him), then a talisman for the approach of darkness upon whom you want truth, not sight, sects",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1128",
+    "category": "electional",
+    "text": "If Saturn's first aspect (healer from the first aspect), then a talisman to make one live and languish among people, with nothing to see them except great, extremely black darkness (invisibility/insignificance)",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1129",
+    "category": "electional",
+    "text": "If Saturn's third aspect, first of which, then creates a talisman to unite two people of mutual hatred and discord",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1130",
+    "category": "electional",
+    "text": "If Saturn's third appearance, then a talisman of Aleppo from his rose from the distance of Babla",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1131",
+    "category": "electional",
+    "text": "If Saturn's third face, then a talisman is made to expel corrupting monsters that abound in evil",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1132",
+    "category": "electional",
+    "text": "If Jupiter's first side, then a talisman for the bee sting from any position you wish",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1133",
+    "category": "electional",
+    "text": "If Jupiter's first aspect, then creates an image of a spider from a swarm to repel bees in particular",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1134",
+    "category": "electional",
+    "text": "If Jupiter's second side of the first beehive, then a talisman for fishing and fishing in the seas",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1135",
+    "category": "electional",
+    "text": "If Jupiter's th\u0101fi aspect, then a talisman to disrupt the repulsion of boats and fish, the line of seas and barns, a place where there is no fish in which there is rain, and no ability to take a whale in it",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1136",
+    "category": "electional",
+    "text": "If Jupiter's faded face of the first purchaser, then a talisman to banish whomever you wish from his home and children",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1137",
+    "category": "electional",
+    "text": "If Jupiter's second from the third side, then a talisman to repel the mouse alive, not by entering",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1138",
+    "category": "electional",
+    "text": "If Mars' (Ar-Raskh) first side, then a talisman for victory at wars and battles",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1139",
+    "category": "electional",
+    "text": "If Mars' (Ar-Raskh) first side, then making a weapon to kill your enemy, and an enemy has dispersed with the worst evil",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1140",
+    "category": "electional",
+    "text": "If Mars' (Ar-Raskh) second side of the book, then a talisman of display with it are those whom you have entrusted with among your enemies",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1141",
+    "category": "natal",
+    "text": "If Venus in trine aspect, then Payment, sale, or meeting is good",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1142",
+    "category": "natal",
+    "text": "If Trine aspect is from water or earth signs, then Nothing wrong with that (desired outcome is achieved without issues)",
+    "planets": [],
+    "signs": [
+      "water signs",
+      "earth signs"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1143",
+    "category": "natal",
+    "text": "If Trine aspect is from an air sign, then I don't want him to see or go away (undesired outcome or separation)",
+    "planets": [],
+    "signs": [
+      "air signs"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1144",
+    "category": "natal",
+    "text": "If Jupiter's general influence, then Source of developing power and has the authority to examine religions and Islamic sciences",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1145",
+    "category": "natal",
+    "text": "If Jupiter's general influence, then Ability to facilitate the attainment of what is needed",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1146",
+    "category": "natal",
+    "text": "If A planet is bound (to an unspecified 'it'), then The planet experiences a loss of its strength",
+    "planets": [
+      "planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1147",
+    "category": "mundane",
+    "text": "If The Moon, then Makes plants grow and improves them",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1148",
+    "category": "mundane",
+    "text": "If The Moon, then Is the cause of the emergence of dragons and their arrival",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1149",
+    "category": "mundane",
+    "text": "If The Moon, then Is the cause of signs of death",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1150",
+    "category": "mundane",
+    "text": "If The Moon, then Rots figs (and similar things)",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1151",
+    "category": "mundane",
+    "text": "If The Sun, then Corrects things that the Moon rots",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1152",
+    "category": "mundane",
+    "text": "If The Moon, then Grows greens",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1153",
+    "category": "mundane",
+    "text": "If The Moon, then Connects beasts",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1154",
+    "category": "mundane",
+    "text": "If The Moon (at night, when land animals are revealed to it), then Causes corruption of land animals",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1155",
+    "category": "mundane",
+    "text": "If The Moon is on the seventh from the greatest cover in the middle of the earth or the back, then A lunar eclipse occurs",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1156",
+    "category": "mundane",
+    "text": "If Jupiter, then Makes life",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1157",
+    "category": "mundane",
+    "text": "If Jupiter, then Gives wisdom",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1158",
+    "category": "mundane",
+    "text": "If Jupiter, then Draws up class policies from the point of view of religion",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1159",
+    "category": "mundane",
+    "text": "If Jupiter, then Establishes laws",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1160",
+    "category": "natal",
+    "text": "If Mercury, then Gives speech",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1161",
+    "category": "natal",
+    "text": "If Mercury, then Gives cunning",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1162",
+    "category": "natal",
+    "text": "If Mercury, then Activates precise vision",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1163",
+    "category": "mundane",
+    "text": "If Saturn, then Does the plowing",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1164",
+    "category": "mundane",
+    "text": "If Saturn, then Draws politics",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1165",
+    "category": "natal",
+    "text": "If Saturn, then Draws regret",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1166",
+    "category": "mundane",
+    "text": "If Mars, then Kindles blood",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1167",
+    "category": "mundane",
+    "text": "If Mars, then Kindles oppression",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1168",
+    "category": "mundane",
+    "text": "If Mars, then Kindles adversaries",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1169",
+    "category": "mundane",
+    "text": "If The Sun, then Gives light to the stars",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1170",
+    "category": "mundane",
+    "text": "If The Sun, then Reforms the world and everything on earth",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1171",
+    "category": "mundane",
+    "text": "If The Sun, then Vanquishes oppression",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1172",
+    "category": "mundane",
+    "text": "If The Sun, then Helps and protects interests",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1173",
+    "category": "natal",
+    "text": "If The Sun, then Spreads out sight",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1174",
+    "category": "natal",
+    "text": "If The Sun, then Exhilarates the soul",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1175",
+    "category": "mundane",
+    "text": "If The Moon, then Helps in spoiling the food",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1176",
+    "category": "mundane",
+    "text": "If The Moon, then Helps in ripening the fruit",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1177",
+    "category": "mundane",
+    "text": "If The Moon, then Helps in making the grass grow",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1178",
+    "category": "horary",
+    "text": "If The ascendant and the seventh agree (for the mother), and Mars and Venus are connected by triangulation., then The person will come in two days.",
+    "planets": [
+      "Mars",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant",
+      "7th"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1179",
+    "category": "natal",
+    "text": "If A planet is 'happy' (well-dignified or well-aspected), then The native (or the quality represented by the planet) is very understanding.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1180",
+    "category": "mundane",
+    "text": "If Your star casts its rays of radiance upon the helpers of the king of Persia, his ministers, and his commanders., then It attracts obedience.",
+    "planets": [
+      "Your Star"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1181",
+    "category": "mundane",
+    "text": "If The power of a star, then The dominance of a kingdom",
+    "planets": [
+      "star"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1182",
+    "category": "natal",
+    "text": "If The philosopher\u2019s spirituality is connected to his star and directs it, then It opens for him the gates of wisdom and enlightens him to what is difficult for him and reveals to him in the right way and teach him the keys to the doors in sleep and wakefulness",
+    "planets": [
+      "star"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1183",
+    "category": "natal",
+    "text": "If Jupiter's nature, then Associated with high ranks, those with precedence, commoners, judges, jurists, rulers, people of justice, kings, caliphs, nobles, ministers, children, listening brothers, requests for peace or compromise.",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1184",
+    "category": "natal",
+    "text": "If Mars's nature, then Associated with bracelets, pimp, Kharijites, representatives, company of authorities, heroes, soldiers, people of disagreement, those who seek to corrupt the house, tear down curtains, shed blood and fire, iron and working with it, warlords, men of animals, shepherds of sheep and moose, wayfarers, castration, hardships, brothers in circles, tuberculosis, slapping, squeezing, cupping, borrowing.",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1185",
+    "category": "natal",
+    "text": "If Venus's nature (The Flower), then Replaces what is complicated and corrects what is spoiled.",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1186",
+    "category": "natal",
+    "text": "If Sun's nature, then Associated with kings, caliphs, presidents, owners of tabjan, people of ugliness, authorities, nobles, princes, brave ones, heroes, upholders of truth, refuters of falsehood, praise, jurists, wise men, philosophers, great men, gentlemen, noble ones, people of tranquility, dignity, high ranks, fathers, elder brothers, money, leadership.",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1187",
+    "category": "natal",
+    "text": "If Venus's nature (Al-Harrah), then Associated with women, slaves, slave girls, mardans, intercourse, children, Matta al-Awlad, Ammaq, people of Atawa, adulterers, lata, nyak, lesbians, players in amusement parks, promiscuity, fetus, circumcised, hermaphrodite, eunuchs, servants, people of flattery, flattery, kindness, people of tyrants, jutes, Idwaj, mothers, aunts, Al-Asagha, Asa\u2019ar, mercy, eagerness, dependence.",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1188",
+    "category": "natal",
+    "text": "If Mercury's nature, then Associated with fortune tellers, arithmeticians, converts, astrologers, eloquent ones, lay people, philosophers, sophisticated ones, people of theology, performers, poets, children of kings, ministers, bureaucrats, workers, tax collectors, money, merchants, people in scientific and practical industries, adversaries, disputants, slaves, Khaiq, As-Sayyan, Wasifa, Asaaghi brothers, Satta\u2019, engravers, photographers, goldsmiths.",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1189",
+    "category": "natal",
+    "text": "If Moon's nature, then Associated with kings, representatives, rulers of covenants, tax collectors, cold, fugues, messengers, travelers, converts, farmers, people of shame, engineers, mariners, agents, shippers, navigators, water managers, family, efforts of people, magicians, wealth from women and beautiful women, mothers, aunts, dear sisters.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1190",
+    "category": "natal",
+    "text": "If Saturn's nature, then Cold and rain, corrupting jinx, malicious, treacherous, fearful.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1191",
+    "category": "natal",
+    "text": "If Saturn's nature, then Associated with miserliness, poverty, disagreement, long bad travels, injustice, hatred, deception, debauchery, licentiousness, lack of interaction with people, evil, oppression, impurity, change, fatigue, toil, idleness, corruption, trials, anger, bitterness, lack of goodness, anguish, sorrows, reproach, death, cheating, accusations, old things.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1192",
+    "category": "natal",
+    "text": "If Saturn's nature, then Associated with gardens, rivers, plowing, cultivation, money-making, sincerity of speech, affection, chat, old age, delay, construction, hollow, khuf, poke of the qar, mother, length of idea, speech, knowledge of secrets and mysterious matters, inheritance.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1193",
+    "category": "natal",
+    "text": "If Saturn returns (retrograde), then Indicates humiliation and weakness, instead of being firm and persistent in matters.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1194",
+    "category": "natal",
+    "text": "If Saturn is weak or its condition is weakest, then Indicates hardship and extreme difficulty.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1195",
+    "category": "natal",
+    "text": "If Saturn has a lot of good fortune and a moderate temperament in its horoscope, then Relieves hardship.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1196",
+    "category": "natal",
+    "text": "If Jupiter's nature, then Moderate strength, moderate humidity, happy faces, represents life, animal bodies, and radiance.",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1197",
+    "category": "natal",
+    "text": "If The Sun, then has its power to bring forth, makes",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1198",
+    "category": "natal",
+    "text": "If The Sun, then corrupts, harms",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1199",
+    "category": "natal",
+    "text": "If The Sun, then reconnaissance, strength, severity, dominance, oppression, severity of brutality and injustice against the violator",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1200",
+    "category": "natal",
+    "text": "If The Sun, then justice towards harmony, kindness to everyone who is far away, abundance of benefit, reward of harm, loyalty",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1201",
+    "category": "natal",
+    "text": "If The Sun, then perfection in purpose, frequent speech, quick response, love in collecting money, good manners, praise and majesty in the eyes of people, every virtue and characteristic of a needy God of kings and presidents in their management and policies and in the management of noble minerals and work",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1202",
+    "category": "natal",
+    "text": "If Mercury in its strength and breadth, then inclined to the powers and goodness of all the planets",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1203",
+    "category": "natal",
+    "text": "If Mercury, then quadrant of arrogance",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1204",
+    "category": "natal",
+    "text": "If Mercury, then reason, speech, remoteness, intelligence, cleverness, goodness, debate, literature, philosophy, advancement of knowledge, arithmetic, surveying, engineering, science, stars, fortune-telling, writing, eloquence, sweetness and speed of speech, knowledge of science, remembrance, praise, initiative, poetry, knowledge of books and collections, tax collection, knowledge on hidden secrets and revelations to the prophets, kindness, compassion, comfort, tranquility, joy, benefit of money, trade, wealth, bounty, taking and giving",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1205",
+    "category": "natal",
+    "text": "If Mercury, then quarrels, tricks, deception, cunning, hatred",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1206",
+    "category": "natal",
+    "text": "If The Moon in its strength, then cold and wet",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1207",
+    "category": "natal",
+    "text": "If The Moon, then essence is happy",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1208",
+    "category": "natal",
+    "text": "If The Moon, then actions, frequent thinking about things, self-talk, quality of opinion, eloquence, habit in one\u2019s livelihood, success, good character, good companionship, subtlety of spirit, circumstance, speed of movement, safety",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1209",
+    "category": "natal",
+    "text": "If The heart, then eating a lot, not having sexual intercourse, safety of the person who is in it, abstaining from bitterness, desire for praise, joy, money, knowledge of higher sciences, goodness, pleasure, marrying women, raising people\u2019s children, kindness to people, love, people honored",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1210",
+    "category": "natal",
+    "text": "If The heart, then desire for impurity, generosity, prostitution, boredom, failure, laziness, humiliation, haste, extravagance",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1211",
+    "category": "natal",
+    "text": "If Saturn in Aquarius, then his home, he rejoices in it, his fortunes will be equal to or equal to his fate",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Aquarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1212",
+    "category": "natal",
+    "text": "If Saturn in Capricorn, then his second home, his fortunes will be equal to or equal to his fate",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [
+      "Capricorn"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1213",
+    "category": "natal",
+    "text": "If Saturn square Mars, then Saturn will be severe, misfortune",
+    "planets": [
+      "Saturn",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1214",
+    "category": "natal",
+    "text": "If Saturn in detriment/fall, then severe, misfortune",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1215",
+    "category": "natal",
+    "text": "If Saturn in detriment/fall or square Mars, then confused soul, need not fulfilled, broken, forgotten, bored person who is busy with himself",
+    "planets": [
+      "Saturn",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1216",
+    "category": "natal",
+    "text": "If Saturn in house 3 or 4, then lack of religion",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "3rd House",
+      "4th House"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1217",
+    "category": "natal",
+    "text": "If Saturn in house 8, then goodness",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "8th House"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1218",
+    "category": "electional",
+    "text": "If Speaking to a planet during its hour and day, then more successful in fulfilling it",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1219",
+    "category": "electional",
+    "text": "If Invoking/using the power of Jupiter, then safety in the seas",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1220",
+    "category": "electional",
+    "text": "If Jupiter in the middle of the sky (Midheaven) for invocation, then optimal time for invocation/ritual",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [
+      "Midheaven"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1221",
+    "category": "mundane",
+    "text": "If Ascendant in Scorpio and the Sun connected, then Disappearance of a king or loss of his kingdom",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1222",
+    "category": "mundane",
+    "text": "If when the sun enters the lion, then they bring a marlin camel",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1223",
+    "category": "mundane",
+    "text": "If Saturn is descending, passing by the Sun, lying low its rays (combust), or in the midst of his return (retrograde), then evil, damage, affliction, crying, poverty, distress, imprisonment, sadness, misery, and trouble",
+    "planets": [
+      "Saturn",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1224",
+    "category": "mundane",
+    "text": "If Saturn is satisfied, then longevity, high male status, prestige, money, and inheritance from children and descendants",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1225",
+    "category": "electional",
+    "text": "If Sun enters Sagittarius or Pisces, then Jupiter will come to Alice",
+    "planets": [
+      "Sun",
+      "Jupiter"
+    ],
+    "signs": [
+      "Sagittarius",
+      "Pisces"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1226",
+    "category": "natal",
+    "text": "If The cleverness of the spirituality of Al-Zashra, then that soul healed the brothers",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1227",
+    "category": "horary",
+    "text": "If Mercury slips, then the spiritual call of Mercury is corrupted",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1228",
+    "category": "natal",
+    "text": "If Saturn ruling the ascendant and being responsible for deprivation, then The person is impoverished",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [
+      "Ascendant"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1229",
+    "category": "electional",
+    "text": "If Venus is retrograde in Taurus AND Mercury is in Virgo, then A ritual performed under these conditions will enable the fulfillment of needs.",
+    "planets": [
+      "Venus",
+      "Mercury"
+    ],
+    "signs": [
+      "Taurus",
+      "Virgo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1230",
+    "category": "electional",
+    "text": "If Sun is at 3 degrees Pisces AND Moon is at 7 degrees Aquarius, then A flask created under these conditions can be used to draw the power of the moon.",
+    "planets": [
+      "Sun",
+      "Moon"
+    ],
+    "signs": [
+      "Pisces",
+      "Aquarius"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1231",
+    "category": "electional",
+    "text": "If Moon is in Scorpio, then Emulsification of its power occurs.",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [
+      "Scorpio"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1232",
+    "category": "mundane",
+    "text": "If The Moon is Full, then Protection from harm",
+    "planets": [
+      "Moon",
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1233",
+    "category": "horary",
+    "text": "If Fasting for seven days from the day of Mercury until the next day, then a sacrifice of a cat that bears fruit and eats liver., then Desired outcomes are decreed and achieved.",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1234",
+    "category": "horary",
+    "text": "If Fasting for seven days from the day of the Moon until its next day, then a censure/sacrifice of a falcon., then Plots are swayed, brings pleasure, improvement, benefits, and enriches; desired outcomes are achieved.",
+    "planets": [
+      "Sun",
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1235",
+    "category": "horary",
+    "text": "If Fasting for seven days from the day of Saturn to the next day, then slaughtering a white dove and eating its liver on the seventh day., then Desired outcomes are granted and achieved.",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1236",
+    "category": "horary",
+    "text": "If Performing a ritual or invocation by Venus, the happy star., then Desired outcomes are granted and achieved.",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1237",
+    "category": "horary",
+    "text": "If Fasting for seven days on behalf of a buyer, until the day no sacrifice has been made for him, with a sacrifice involving 'Black or white or eat a koh'., then Meeting an important person ('the first king') with Mercury's aid, implying successful transaction/negotiation.",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1238",
+    "category": "horary",
+    "text": "If Fasting for seven days from the day of Mars until the next day, then a sacrifice for the Moon on the 8th day, where Nafjah eats her liver on the 7th day., then The Moon provides 'the key to the stars' and 'swift tread' for the 'owner of the highest structure', leading to desired outcomes.",
+    "planets": [
+      "Moon",
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1239",
+    "category": "horary",
+    "text": "If If a body from the ritual is not buried immediately and a smell appears on it, then the spirituality of the Moon will destroy the person",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1240",
+    "category": "mundane",
+    "text": "If Sun's influence, then greatness of goodness, sublimity of character, kingdom of bodies, humiliation of sultans, oppression of oppressors",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1241",
+    "category": "mundane",
+    "text": "If Moon's influence, then facilitate movements, reveal secrets, types of water, Hamoud Clarification, reversal of obvious matters, objectification of destructive desires",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1242",
+    "category": "mundane",
+    "text": "If Saturn's influence, then restrict actions, close secrets, desolate lands, degrade lands, whispering of souls, calming of waters",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1243",
+    "category": "mundane",
+    "text": "If Jupiter's influence, then collect money, correct the vision, ward off obsession, provide relief from heat",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1244",
+    "category": "mundane",
+    "text": "If Mars' influence, then temptation of enmity, audacity to turn away, control of wild beasts, tyranny of desires, kindling flames, generating temptations, befalling enemies",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1245",
+    "category": "mundane",
+    "text": "If Venus' influence, then reconcile souls, send pleasure, repel harm, influence desires, production of offspring",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1246",
+    "category": "mundane",
+    "text": "If Mars in the middle of the sky (Midheaven) or one of the planets fixed on it (conjunct Midheaven) when a truce is built, then The nature of the truce turns dead or aggressive, like those ruled by the sword.",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [
+      "Midheaven"
+    ],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1247",
+    "category": "natal",
+    "text": "If The Sun, then is full of physical power",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1248",
+    "category": "natal",
+    "text": "If The Moon, then is full of natural power",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1249",
+    "category": "natal",
+    "text": "If Saturn, then is the source of holding power",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1250",
+    "category": "natal",
+    "text": "If Jupiter, then is the source of developing power",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1251",
+    "category": "natal",
+    "text": "If Mercury, then is a spring of the power of arrogance",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1252",
+    "category": "natal",
+    "text": "If Mars, then is the source of anger and energy",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1253",
+    "category": "natal",
+    "text": "If Venus, then is the source of power of sensuality",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1254",
+    "category": "natal",
+    "text": "If Mercury, Mars, and Venus at birth, then are evidence of morals Sahiya and its industry",
+    "planets": [
+      "Mercury",
+      "Mars",
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1255",
+    "category": "natal",
+    "text": "If Saturn, then kingship belongs to it",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1256",
+    "category": "natal",
+    "text": "If Jupiter, then justice belongs to it",
+    "planets": [
+      "Jupiter"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1257",
+    "category": "natal",
+    "text": "If Venus, then circumstance belongs to it",
+    "planets": [
+      "Venus"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1258",
+    "category": "natal",
+    "text": "If Mercury, then management belongs to it",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1259",
+    "category": "natal",
+    "text": "If The Moon, then service belongs to it",
+    "planets": [
+      "Moon"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1260",
+    "category": "natal",
+    "text": "If Mars, then injustice belongs to it",
+    "planets": [
+      "Mars"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1261",
+    "category": "natal",
+    "text": "If A benefic planet (Saad) meets another planet with an eye on him (aspects or conjoins), then Its spirituality descends to the earth, potentially harming (killing) the descendant if unaware of the descendant planet's spiritual nature.",
+    "planets": [
+      "Benefic Planet"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1262",
+    "category": "natal",
+    "text": "If The sign Leo, then is based on spirituality; those with this sign should be elegant and talismanic, not afraid of the animal's nature, and know how to use it like a male or rooster.",
+    "planets": [],
+    "signs": [
+      "Leo"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1263",
+    "category": "electional",
+    "text": "If A talisman is shaken, its shape is disturbed, or its type is disturbed (due to a defect), then Its action is weak.",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1264",
+    "category": "mundane",
+    "text": "If an animal that is called hot, then the stone [used for it] is cold",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1265",
+    "category": "mundane",
+    "text": "If an animal is wet, then the stone [used for it] is smooth",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1266",
+    "category": "mundane",
+    "text": "If the animal is cold, such as scorpions, flies, and bugs, or lice and the like, then the stone [used for it] was hot, such as gold, copper, and gold",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1267",
+    "category": "natal",
+    "text": "If If the Moon, Venus, and Saturn were prominent at the origin of one's birth, then The lustful force predominant in his nature turned toward food, drinks, and sexual relations.",
+    "planets": [
+      "Moon",
+      "Venus",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1268",
+    "category": "natal",
+    "text": "If If the Sun and Mercury were prominent at the origin of one's birth, then His love was for knowledge and the study of virtues and justice.",
+    "planets": [
+      "Sun",
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1269",
+    "category": "mundane",
+    "text": "If Engaging with the spirituality of the planets (e.g., through fumigation rituals), then It overflows with its powers and binds them to whatever deeds and deeds they wish",
+    "planets": [
+      "Sun",
+      "Moon",
+      "Jupiter",
+      "Venus",
+      "Saturn",
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1270",
+    "category": "mundane",
+    "text": "If Fumigation with Mercury smoke (prepared as described in the text), then Fiba does not conquer you",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1271",
+    "category": "mundane",
+    "text": "If Fumigation with Saturn smoke (prepared as described in the text), then Repel an enemy or negative influence",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1272",
+    "category": "mundane",
+    "text": "If Mercurial compound, then Spreads the spirituality of science, reliance, intelligence, acceptance, and caution",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1273",
+    "category": "mundane",
+    "text": "If Saturn's compound, then Spreads the spirituality of ignorance, dullness, and lack of intelligence",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1274",
+    "category": "natal",
+    "text": "If Mercury and its father, Saturn (as rational intentions), then may protect from falling (into disputes and evils)",
+    "planets": [
+      "Mercury",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1275",
+    "category": "natal",
+    "text": "If Mercury and its father, Saturn, then are associated with cold, heaviness, and slowness",
+    "planets": [
+      "Mercury",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1276",
+    "category": "mundane",
+    "text": "If The planets and the sun appear to the eye in the right hill of the sky going up during a ritual., then People are in the midst of a commotion and a huge, horrifying noise; smoke continues to rise, then stops; planets begin to set; the eye is completely absent, and so is the case with the sound and the clearness.",
+    "planets": [
+      "Sun",
+      "Planets"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1277",
+    "category": "natal",
+    "text": "If Mercury (implied strong/well-placed), then inspiration and success",
+    "planets": [
+      "Mercury"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1278",
+    "category": "electional",
+    "text": "If Planting olive trees when the Sun is in Cancer, Libra, or Capricorn (at sunset), then a chain of afflictions",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [
+      "Cancer",
+      "Libra",
+      "Capricorn"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1279",
+    "category": "horary",
+    "text": "If Moon is close to Mercury in Gemini (as a condition for a magical ritual involving burying a wound at the root of an olive tree), then owls followed that place, and a small crowd resembling a cedar plant followed in that place Burning with fire (related to magical works)",
+    "planets": [
+      "Moon",
+      "Mercury"
+    ],
+    "signs": [
+      "Gemini"
+    ],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1280",
+    "category": "mundane",
+    "text": "If The tree of Saturn (olive tree), then removes the evil from the dead, populates the wastes",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1281",
+    "category": "mundane",
+    "text": "If Golden oil (from the olive tree), then a cure for ninety-eight ailments and illnesses",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1282",
+    "category": "mundane",
+    "text": "If Oils (from the olive tree), then strengthens the heart, strengthens the body, and soothes the soul",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1283",
+    "category": "mundane",
+    "text": "If Storing branches and paper (of the olive tree) in his house, then will not be spared misery or distress",
+    "planets": [],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1284",
+    "category": "electional",
+    "text": "If Looking at the tree of Saturn (olive tree) when the sun rose and embracing it, then pleased him and made him happy, kept away ailments, atmos, infirmities, sorrows, and bad aunts",
+    "planets": [
+      "Sun",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1285",
+    "category": "electional",
+    "text": "If Performing magic with images (man/woman, lion, stingray, scorpion) and the name of Sun, at an unfavorable hour, then longing, fears, horrors, loss of reason, overwhelming pains",
+    "planets": [
+      "Sun"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1286",
+    "category": "natal",
+    "text": "If the Saturnian pests, then the subject is always warded off and they do not cease",
+    "planets": [
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  },
+  {
+    "id": "PICA_1287",
+    "category": "mundane",
+    "text": "If The Moon is in one of Saturn's rays, then He will be cooked (i.e., experience misfortune or difficulty)",
+    "planets": [
+      "Moon",
+      "Saturn"
+    ],
+    "signs": [],
+    "houses": [],
+    "confidence": 0.7,
+    "source": "Picatrix (Ghayat al-Hakim)"
+  }
+]
