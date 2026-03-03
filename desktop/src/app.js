@@ -3,6 +3,39 @@
 
 const API_BASE = 'http://localhost:8765';
 
+// ─── Logging ───────────────────────────────────────────────────────────────────
+
+const LOG_FILE = 'thia-lite-debug.log';
+
+function log(level, ...args) {
+    const timestamp = new Date().toISOString();
+    const message = args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+    const logLine = `[${timestamp}] [${level.toUpperCase()}] ${message}`;
+
+    // Console log
+    console[level] || console.log(logLine, ...args);
+
+    // Try to write to file (via Tauri API if available)
+    if (window.__TAURI__) {
+        window.__TAURI__.fs.writeTextFile(LOG_FILE, logLine + '\n', { append: true })
+            .catch(() => {}); // Silently fail if file writing doesn't work
+    }
+}
+
+function logError(...args) { log('error', ...args); }
+function logWarn(...args) { log('warn', ...args); }
+function logInfo(...args) { log('info', ...args); }
+function logDebug(...args) { log('debug', ...args); }
+
+// Global error handler
+window.addEventListener('error', (event) => {
+    logError('Uncaught error:', event.message, event.filename, event.lineno, event.colno, event.error);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    logError('Unhandled promise rejection:', event.reason);
+});
+
 // ─── State ──────────────────────────────────────────────────────────────────
 
 let currentConversation = null;
@@ -31,6 +64,23 @@ const tempValue = document.getElementById('temp-value');
 // ─── Initialization ──────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
+    logInfo('App initializing...');
+
+    // Check DOM elements
+    const elements = {
+        chatMessages, inputBox, sendBtn, newChatBtn, conversationList,
+        welcomeScreen, settingsBtn, settingsModal, modelIndicator,
+        providerSelect, hostInput, modelSelect, tempInput, tempValue
+    };
+
+    for (const [name, el] of Object.entries(elements)) {
+        if (!el) {
+            logWarn(`Missing element: ${name}`);
+        } else {
+            logDebug(`Found element: ${name}`);
+        }
+    }
+
     loadConversations();
 
     sendBtn?.addEventListener('click', sendMessage);
@@ -51,6 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load settings
     loadSettings();
+
+    logInfo('App initialized successfully');
 });
 
 // ─── Chat ────────────────────────────────────────────────────────────────────
@@ -59,6 +111,7 @@ async function sendMessage() {
     const content = inputBox?.value?.trim();
     if (!content || isStreaming) return;
 
+    logInfo('Sending message:', content);
     inputBox.value = '';
     isStreaming = true;
 
@@ -71,6 +124,7 @@ async function sendMessage() {
     thinkingEl.innerHTML = '<div class="thinking-dots"><span class="eso">☾</span><span class="eso">✦</span><span class="eso">☽</span></div>';
 
     try {
+        logDebug('Fetching:', `${API_BASE}/chat`);
         const res = await fetch(`${API_BASE}/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -80,7 +134,9 @@ async function sendMessage() {
             }),
         });
 
+        logDebug('Response status:', res.status);
         const data = await res.json();
+        logDebug('Response data:', data);
 
         // Remove thinking indicator
         thinkingEl.remove();
@@ -104,12 +160,14 @@ async function sendMessage() {
         // Update conversation ID
         if (data.conversation_id) {
             currentConversation = data.conversation_id;
+            logDebug('Conversation ID:', currentConversation);
         }
 
         // Refresh conversation list
         loadConversations();
 
     } catch (err) {
+        logError('Chat error:', err);
         thinkingEl.remove();
         appendMessage('assistant', `Error: ${err.message}. Is the Thia backend running on port 8765?`);
     }
@@ -169,11 +227,13 @@ function extractSVG(text) {
 
 async function loadConversations() {
     try {
+        logDebug('Loading conversations...');
         const res = await fetch(`${API_BASE}/conversations`);
         conversations = await res.json();
+        logDebug('Loaded conversations:', conversations.length);
         renderConversationList();
     } catch (err) {
-        console.log('Backend not available');
+        logWarn('Backend not available for conversations:', err.message);
     }
 }
 
@@ -190,6 +250,7 @@ function renderConversationList() {
 }
 
 async function loadConversation(convId) {
+    logInfo('Loading conversation:', convId);
     currentConversation = convId;
     try {
         const res = await fetch(`${API_BASE}/conversations/${convId}/messages`);
@@ -200,12 +261,13 @@ async function loadConversation(convId) {
             appendMessage(msg.role, msg.content);
         }
     } catch (err) {
-        console.error(err);
+        logError('Failed to load conversation:', err);
     }
     renderConversationList();
 }
 
 function newConversation() {
+    logInfo('New conversation');
     currentConversation = null;
     if (chatMessages) chatMessages.innerHTML = '';
     if (welcomeScreen) welcomeScreen.style.display = 'flex';
@@ -222,6 +284,7 @@ function initVoice() {
 
 function loadSettings() {
     const settings = JSON.parse(localStorage.getItem('thia-settings') || '{}');
+    logDebug('Loading settings:', settings);
     if (providerSelect) providerSelect.value = settings.provider || 'ollama';
     if (hostInput) hostInput.value = settings.ollamaHost || 'http://localhost:11434';
     if (modelSelect) modelSelect.value = settings.model || 'qwen2.5:7b';
@@ -238,23 +301,34 @@ function saveSettings() {
         model: modelSelect?.value || 'qwen2.5:7b',
         temperature: parseFloat(tempInput?.value || 0.3),
     };
+    logInfo('Saving settings:', settings);
     localStorage.setItem('thia-settings', JSON.stringify(settings));
     closeSettings();
 }
 
 function openSettings() {
+    logDebug('Opening settings');
     if (settingsModal) settingsModal.classList.remove('hidden');
 }
 
 function closeSettings() {
+    logDebug('Closing settings');
     if (settingsModal) settingsModal.classList.add('hidden');
 }
 
 // ─── Suggestions ─────────────────────────────────────────────────────────────
 
 function sendSuggestion(text) {
+    logInfo('Sending suggestion:', text);
     if (inputBox) {
         inputBox.value = text;
         sendMessage();
     }
+}
+
+// ─── Chart Display ────────────────────────────────────────────────────────────
+
+function showChart(svg) {
+    logDebug('Showing chart');
+    // Chart display not implemented in current UI
 }
