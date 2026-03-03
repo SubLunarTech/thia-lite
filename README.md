@@ -2,7 +2,7 @@
 
 **AI-Native Astrological Prediction Assistant** — a lightweight, local-first clone of [thia-libre](https://github.com/thia-libre/thia-libre) that runs on 8GB RAM with no Docker required.
 
-Powered by **Ollama (Qwen 3.5)** + **Swiss Ephemeris** + **William Lilly & Ptolemy** traditional rules.
+Powered by **Ollama (Qwen 3.5)** + **Swiss Ephemeris** + **multi-source traditional rules RAG**.
 
 ## Quick Start
 
@@ -45,7 +45,18 @@ All 175+ tools from thia-libre's Swiss Ephemeris engine:
 ### 📚 Traditional Rules (RAG)
 - William Lilly — *Christian Astrology* (1647)
 - Ptolemy — *Tetrabiblos* (2nd century CE)
-- All public domain, vector-indexed for semantic search
+- Picatrix — *Ghayat al-Hakim* (public-domain source pipeline)
+- Firmicus Maternus — *Mathesis*
+- Vettius Valens — *Anthologies* (public-domain source pipeline)
+- All public domain, loaded from `thia_lite/rules/*_rules_data.json` and searchable via `astrology_rules_rag_search`
+
+Current corpus counts (local build):
+- Lilly: 2785
+- Ptolemy: 1068
+- Picatrix: 288
+- Firmicus: 216
+- Valens: 2415
+- Total: 6772
 
 ## Interfaces
 
@@ -68,14 +79,18 @@ thia-lite
 │   ├── engines/
 │   │   └── astrology.py    # Swiss Ephemeris (full port)
 │   ├── llm/
-│   │   ├── ollama_client.py
+│   │   ├── client.py
 │   │   ├── tool_executor.py
 │   │   └── conversation.py
 │   ├── mcp/
 │   │   ├── server.py       # MCP server (stdio/HTTP)
 │   │   └── client.py       # MCP client
 │   └── rules/
-│       └── lilly_rules.py  # William Lilly corpus
+│       ├── lilly_rules_data.json
+│       ├── ptolemy_rules_data.json
+│       ├── picatrix_rules_data.json
+│       ├── firmicus_rules_data.json
+│       └── valens_rules_data.json
 └── install.sh              # One-command installer
 ```
 
@@ -84,14 +99,21 @@ thia-lite
 Edit `~/.thia-lite/config.toml`:
 
 ```toml
-[ollama]
+[llm]
+provider = "ollama"
 host = "http://localhost:11434"
-model = "qwen2.5:7b"
+model = "qwen3.5:9b"
 temperature = 0.3
 
 [mcp]
 server_mode = "stdio"
 server_port = 8443
+```
+
+Quick rules verification:
+```bash
+cd /home/opc/thia-lite
+python3 -c "from thia_lite.rules import get_rules_stats; print(get_rules_stats())"
 ```
 
 ## Claude Desktop Integration

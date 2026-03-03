@@ -26,13 +26,8 @@
       "../src/**/*"
     ],
     "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": "x64"
-        }
-      ],
-      "icon": "../src-tauri/icons/icon.ico"
+      "target": "nsis",
+      "icon": "icons/icon.ico"
     },
     "nsis": {
       "oneClick": true,
@@ -43,12 +38,12 @@
     },
     "mac": {
       "target": "dmg",
-      "icon": "../src-tauri/icons/icon.icns",
+      "icon": "icons/icon.png",
       "category": "public.app-category.medical"
     },
     "linux": {
       "target": "AppImage",
-      "icon": "../src-tauri/icons/icon.png",
+      "icon": "icons/icon.png",
       "category": "Science"
     }
   }
