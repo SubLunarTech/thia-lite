@@ -1,0 +1,39 @@
+{
+    "productName": "Thia-Lite",
+    "version": "0.1.0",
+    "identifier": "com.thia-libre.thia-lite",
+    "build": {
+        "beforeDevCommand": "",
+        "devUrl": "http://localhost:1420",
+        "beforeBuildCommand": "",
+        "frontendDist": "../src"
+    },
+    "app": {
+        "title": "Thia-Lite",
+        "windows": [
+            {
+                "title": "Thia-Lite — AI Astrology Assistant",
+                "width": 1200,
+                "height": 800,
+                "minWidth": 800,
+                "minHeight": 600,
+                "resizable": true,
+                "decorations": true,
+                "transparent": false
+            }
+        ],
+        "security": {
+            "csp": null
+        }
+    },
+    "bundle": {
+        "active": true,
+        "targets": "all",
+        "icon": [
+            "icons/32x32.png",
+            "icons/128x128.png",
+            "icons/icon.icns",
+            "icons/icon.ico"
+        ]
+    }
+}

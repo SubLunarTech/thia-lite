@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Thia-Lite local data
+*.db
+*.sqlite
+*.log
+logs/
+
+# Config (may contain local paths)
+config.toml
+
+# Ephemeris data (downloaded at install)
+data/ephe/
+
+# Tauri build
+desktop/src-tauri/target/
+
+# Node modules (if Pi agent configured)
+node_modules/
+
+# Installer artifacts
+*.AppImage
+*.dmg
+*.exe
+mcp-config.json

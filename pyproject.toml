@@ -1,0 +1,82 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "thia-lite"
+version = "0.1.0"
+description = "AI-Native Astrological Prediction Assistant — lightweight, local, no Docker required"
+readme = "README.md"
+license = "GPL-3.0-or-later"
+requires-python = ">=3.9"
+authors = [
+    { name = "Thia-Libre Contributors" },
+]
+keywords = ["astrology", "ai", "mcp", "ollama", "swiss-ephemeris"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Astronomy",
+]
+
+dependencies = [
+    # Core
+    "pyswisseph>=2.10",
+    "numpy>=1.24,<2.0",
+    "scipy>=1.11",
+
+    # Database
+    "sqlite-vec>=0.1.1",
+
+    # LLM Integration
+    "httpx>=0.25",
+
+    # CLI
+    "typer[all]>=0.12",
+    "rich>=13.0",
+
+    # TUI
+    "textual>=0.80",
+
+    # MCP Protocol
+    "websockets>=12.0",
+
+    # Configuration
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "tomli>=2.0; python_version < '3.11'",
+
+    # Utilities
+    "timezonefinder>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.5",
+]
+desktop = [
+    # Tauri frontend dev dependencies managed via npm
+]
+
+[project.scripts]
+thia-lite = "thia_lite.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/thia-libre/thia-lite"
+Repository = "https://github.com/thia-libre/thia-lite"
+
+[tool.hatch.build.targets.wheel]
+packages = ["thia_lite"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

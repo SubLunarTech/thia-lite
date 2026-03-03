@@ -1,0 +1,129 @@
+# Thia-Lite GitHub Actions CI/CD
+# Builds and publishes releases for all platforms
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[dev]"
+          pip install pyinstaller
+
+      - name: Build AppImage
+        run: |
+          pyinstaller --onefile --name thia-lite \
+            --add-data "thia_lite/rules:thia_lite/rules" \
+            thia_lite/__main__.py
+          # Package as AppImage
+          mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons
+          cp dist/thia-lite AppDir/usr/bin/
+          echo "[Desktop Entry]
+          Name=Thia-Lite
+          Exec=thia-lite chat
+          Icon=thia-lite
+          Type=Application
+          Categories=Science;" > AppDir/usr/share/applications/thia-lite.desktop
+          wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+          ./appimagetool-x86_64.AppImage AppDir Thia-Lite-x86_64.AppImage
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-appimage
+          path: Thia-Lite-x86_64.AppImage
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build macOS app
+        run: |
+          pip install -e ".[dev]"
+          pip install pyinstaller
+          pyinstaller --onefile --name thia-lite \
+            --add-data "thia_lite/rules:thia_lite/rules" \
+            thia_lite/__main__.py
+          # Create DMG
+          mkdir -p dmg_contents
+          cp dist/thia-lite dmg_contents/
+          hdiutil create -volname "Thia-Lite" -srcfolder dmg_contents \
+            -ov -format UDZO Thia-Lite.dmg
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: macos-dmg
+          path: Thia-Lite.dmg
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build Windows exe
+        run: |
+          pip install -e ".[dev]"
+          pip install pyinstaller
+          pyinstaller --onefile --name thia-lite `
+            --add-data "thia_lite/rules;thia_lite/rules" `
+            thia_lite/__main__.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-exe
+          path: dist/thia-lite.exe
+
+  release:
+    needs: [build-linux, build-macos, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            linux-appimage/Thia-Lite-x86_64.AppImage
+            macos-dmg/Thia-Lite.dmg
+            windows-exe/thia-lite.exe
+          body: |
+            ## Thia-Lite ${{ github.ref_name }}
+
+            ### Download
+            | Platform | File |
+            |----------|------|
+            | **Linux** | `Thia-Lite-x86_64.AppImage` (double-click to run) |
+            | **macOS** | `Thia-Lite.dmg` (drag to Applications) |
+            | **Windows** | `thia-lite.exe` (run installer) |
+            | **Android** | `curl -fsSL https://raw.githubusercontent.com/thia-libre/thia-lite/main/install_termux.sh \| bash` |
+
+            ### Requirements
+            - 8GB RAM recommended (6GB minimum)
+            - Ollama (auto-installed)
+            - ~2GB disk for model download (first run)
+
+            ### What's New
+            See [CHANGELOG.md](CHANGELOG.md) for details.
+          generate_release_notes: true
