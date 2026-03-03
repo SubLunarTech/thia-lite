@@ -370,6 +370,17 @@ def serve(
         raise typer.Exit(1)
 
 
+# ─── Desktop Command (API Server for Electron) ──────────────────────────────
+
+@app.command()
+def desktop(
+    port: int = typer.Option(8765, "--port", "-p", help="API server port"),
+):
+    """Start the HTTP API server for the desktop Electron app."""
+    from thia_lite.api_server import run_server
+    run_server(port)
+
+
 # ─── Health Command ──────────────────────────────────────────────────────────
 
 @app.command()

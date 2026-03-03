@@ -18,7 +18,7 @@ function log(level, ...args) {
     // Try to write to file (via Tauri API if available)
     if (window.__TAURI__) {
         window.__TAURI__.fs.writeTextFile(LOG_FILE, logLine + '\n', { append: true })
-            .catch(() => {}); // Silently fail if file writing doesn't work
+            .catch(() => { }); // Silently fail if file writing doesn't work
     }
 }
 
@@ -336,5 +336,172 @@ function sendSuggestion(text) {
 
 function showChart(svg) {
     logDebug('Showing chart');
-    // Chart display not implemented in current UI
+    const overlay = document.getElementById('chart-overlay');
+    const display = document.getElementById('chart-display');
+    if (overlay && display) {
+        display.innerHTML = svg;
+        overlay.classList.remove('hidden');
+        // Make SVG responsive
+        const svgEl = display.querySelector('svg');
+        if (svgEl) {
+            svgEl.setAttribute('width', '100%');
+            svgEl.setAttribute('height', '100%');
+            svgEl.style.maxWidth = '600px';
+            svgEl.style.margin = '0 auto';
+            svgEl.style.display = 'block';
+        }
+    }
 }
+
+function closeChart() {
+    const overlay = document.getElementById('chart-overlay');
+    if (overlay) overlay.classList.add('hidden');
+}
+
+// ─── Voice Input (Web Speech API) ────────────────────────────────────────────
+
+let recognition = null;
+let isListening = false;
+
+function toggleVoice() {
+    if (isListening) {
+        stopVoice();
+    } else {
+        startVoice();
+    }
+}
+
+function startVoice() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+        logWarn('Speech recognition not supported');
+        appendMessage('assistant', 'Voice input is not supported in this environment. Try typing your question instead.');
+        return;
+    }
+
+    recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = true;
+    recognition.continuous = false;
+    recognition.maxAlternatives = 1;
+
+    const voiceBtn = document.getElementById('voice-btn');
+    const inputBox = document.getElementById('message-input');
+
+    recognition.onstart = () => {
+        isListening = true;
+        if (voiceBtn) {
+            voiceBtn.classList.add('listening');
+            voiceBtn.style.background = '#ef4444';
+            voiceBtn.style.color = '#fff';
+        }
+        logInfo('Voice recognition started');
+    };
+
+    recognition.onresult = (event) => {
+        let transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            transcript += event.results[i][0].transcript;
+        }
+        if (inputBox) inputBox.value = transcript;
+
+        // Auto-send on final result
+        if (event.results[event.results.length - 1].isFinal) {
+            logInfo('Voice final:', transcript);
+            stopVoice();
+            if (transcript.trim()) {
+                sendMessage();
+            }
+        }
+    };
+
+    recognition.onerror = (event) => {
+        logError('Voice error:', event.error);
+        stopVoice();
+        if (event.error === 'not-allowed') {
+            appendMessage('assistant', 'Microphone access denied. Please allow microphone access in your system settings.');
+        }
+    };
+
+    recognition.onend = () => {
+        stopVoice();
+    };
+
+    recognition.start();
+}
+
+function stopVoice() {
+    isListening = false;
+    const voiceBtn = document.getElementById('voice-btn');
+    if (voiceBtn) {
+        voiceBtn.classList.remove('listening');
+        voiceBtn.style.background = '';
+        voiceBtn.style.color = '';
+    }
+    if (recognition) {
+        try { recognition.stop(); } catch { }
+        recognition = null;
+    }
+}
+
+// ─── In-App Updates ──────────────────────────────────────────────────────────
+
+async function checkForUpdates() {
+    const label = document.getElementById('update-label');
+    if (label) label.textContent = 'Checking...';
+
+    try {
+        const res = await fetch(`${API_BASE}/update/check`);
+        const data = await res.json();
+
+        // Update version display
+        const versionInfo = document.getElementById('version-info');
+        if (versionInfo && data.current) {
+            versionInfo.textContent = `v${data.current}`;
+        }
+
+        if (data.available) {
+            if (label) label.textContent = `Update to v${data.version}`;
+            const btn = document.getElementById('update-btn');
+            if (btn) {
+                btn.style.background = 'var(--accent, #7c3aed)';
+                btn.style.color = '#fff';
+                btn.onclick = () => applyUpdate(data);
+            }
+        } else {
+            if (label) label.textContent = 'Up to date ✓';
+            setTimeout(() => {
+                if (label) label.textContent = 'Check for Updates';
+            }, 3000);
+        }
+    } catch (err) {
+        logWarn('Update check failed:', err.message);
+        if (label) label.textContent = 'Check for Updates';
+    }
+}
+
+async function applyUpdate(updateInfo) {
+    const label = document.getElementById('update-label');
+    if (label) label.textContent = 'Updating...';
+
+    try {
+        const res = await fetch(`${API_BASE}/update/apply`, { method: 'POST' });
+        const data = await res.json();
+
+        if (data.success) {
+            if (label) label.textContent = 'Restart to finish';
+            appendMessage('assistant',
+                `✨ Updated to v${updateInfo.version}! Please restart the app to use the new version.`
+            );
+        } else {
+            if (label) label.textContent = 'Update failed';
+            appendMessage('assistant', `Update failed: ${data.message}`);
+        }
+    } catch (err) {
+        logError('Update apply failed:', err);
+        if (label) label.textContent = 'Update failed';
+    }
+}
+
+// Auto-check for updates on startup (non-blocking)
+setTimeout(checkForUpdates, 5000);

@@ -1,8 +1,13 @@
 const { app, BrowserWindow, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { spawn } = require('child_process');
 
 let mainWindow;
+let backendProcess = null;
+
+const API_PORT = 8765;
+const API_BASE = `http://localhost:${API_PORT}`;
 
 if (process.platform === 'win32') {
   // Avoid common startup crashes caused by unstable GPU drivers on Windows.
@@ -25,6 +30,110 @@ function logMain(message) {
     // Best effort logging only.
   }
 }
+
+// ─── Python Backend Management ───────────────────────────────────────────────
+
+function findPython() {
+  // Try common Python paths in order of preference
+  const candidates = [];
+
+  // 1. Bundled venv (development or pip-installed)
+  const projectRoot = path.resolve(__dirname, '..', '..');
+  const venvPy = process.platform === 'win32'
+    ? path.join(projectRoot, '.venv', 'Scripts', 'python.exe')
+    : path.join(projectRoot, '.venv', 'bin', 'python3');
+  candidates.push(venvPy);
+
+  // 2. System Python
+  if (process.platform === 'win32') {
+    candidates.push('python', 'python3', 'py');
+  } else {
+    candidates.push('python3', 'python');
+  }
+
+  for (const py of candidates) {
+    try {
+      if (path.isAbsolute(py) && fs.existsSync(py)) {
+        logMain(`Found Python at: ${py}`);
+        return py;
+      }
+      // For non-absolute, we'll try it and let spawn fail if missing
+      if (!path.isAbsolute(py)) {
+        logMain(`Will try system Python: ${py}`);
+        return py;
+      }
+    } catch {
+      continue;
+    }
+  }
+  return 'python3'; // fallback
+}
+
+function startBackend() {
+  return new Promise((resolve, reject) => {
+    const pythonPath = findPython();
+    logMain(`Starting Python API server with: ${pythonPath}`);
+
+    backendProcess = spawn(pythonPath, ['-m', 'thia_lite.api_server'], {
+      cwd: path.resolve(__dirname, '..', '..'),
+      env: { ...process.env, PYTHONUNBUFFERED: '1' },
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+
+    let started = false;
+    const timeout = setTimeout(() => {
+      if (!started) {
+        started = true;
+        logMain('Backend start timeout — proceeding anyway');
+        resolve(); // proceed, might just be slow
+      }
+    }, 15000);
+
+    backendProcess.stdout.on('data', (data) => {
+      const msg = data.toString();
+      logMain(`[backend] ${msg.trim()}`);
+      if (!started && msg.includes('ready')) {
+        started = true;
+        clearTimeout(timeout);
+        logMain('Backend API server ready');
+        resolve();
+      }
+    });
+
+    backendProcess.stderr.on('data', (data) => {
+      logMain(`[backend-err] ${data.toString().trim()}`);
+    });
+
+    backendProcess.on('error', (err) => {
+      logMain(`Backend spawn error: ${err.message}`);
+      if (!started) {
+        started = true;
+        clearTimeout(timeout);
+        reject(err);
+      }
+    });
+
+    backendProcess.on('exit', (code, signal) => {
+      logMain(`Backend exited code=${code} signal=${signal}`);
+      backendProcess = null;
+      if (!started) {
+        started = true;
+        clearTimeout(timeout);
+        reject(new Error(`Backend exited with code ${code}`));
+      }
+    });
+  });
+}
+
+function stopBackend() {
+  if (backendProcess) {
+    logMain('Stopping backend...');
+    backendProcess.kill();
+    backendProcess = null;
+  }
+}
+
+// ─── Window ──────────────────────────────────────────────────────────────────
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -74,8 +183,23 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(() => {
+// ─── App Lifecycle ───────────────────────────────────────────────────────────
+
+app.whenReady().then(async () => {
   logMain('App ready');
+
+  // Start the Python API backend before creating the window
+  try {
+    await startBackend();
+    logMain('Backend started successfully');
+  } catch (err) {
+    logMain(`Backend start failed: ${err.message}`);
+    dialog.showErrorBox(
+      'Thia Backend Failed to Start',
+      `Could not start the Python API server.\n\n${err.message}\n\nMake sure Python 3.9+ and thia-lite are installed:\n  pip install -e .\n\nLog: ${getMainLogPath()}`
+    );
+  }
+
   createWindow();
 
   app.on('activate', () => {
@@ -86,10 +210,15 @@ app.whenReady().then(() => {
 });
 
 app.on('window-all-closed', () => {
+  stopBackend();
   if (process.platform !== 'darwin') {
     logMain('All windows closed, quitting');
     app.quit();
   }
+});
+
+app.on('before-quit', () => {
+  stopBackend();
 });
 
 app.on('child-process-gone', (_event, details) => {

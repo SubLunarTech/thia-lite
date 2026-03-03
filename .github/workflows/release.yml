@@ -1,5 +1,6 @@
-# Thia-Lite GitHub Actions CI/CD
-# Builds and publishes releases for all platforms
+# Thia-Lite Release CI/CD
+# Builds desktop apps (Electron + Python backend) and publishes to GitHub Releases
+# Triggered on version tags (v*)
 
 name: Release
 
@@ -7,10 +8,83 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  # ─── Electron Desktop Builds (one-click install) ────────────────────────────
+  build-electron:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'windows-latest'
+            os: 'windows'
+          - platform: 'ubuntu-22.04'
+            os: 'linux'
+          - platform: 'macos-latest'
+            os: 'macos'
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Electron dependencies
+        run: npm install
+        working-directory: ./desktop/electron
+
+      - name: Build Electron app (Linux)
+        if: matrix.os == 'linux'
+        run: npm run build
+        working-directory: ./desktop/electron
+        env:
+          NODE_ENV: production
+
+      - name: Build Electron app (Windows)
+        if: matrix.os == 'windows'
+        shell: pwsh
+        run: npm run build:win
+        working-directory: ./desktop/electron
+        env:
+          NODE_ENV: production
+
+      - name: Build Electron app (macOS)
+        if: matrix.os == 'macos'
+        run: npm run build:mac
+        working-directory: ./desktop/electron
+        env:
+          NODE_ENV: production
+
+      - name: Upload Electron artifacts
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: electron-${{ matrix.os }}
+          path: |
+            desktop/electron/dist/*.exe
+            desktop/electron/dist/*.AppImage
+            desktop/electron/dist/*.dmg
+          if-no-files-found: ignore
+
+  # ─── Python CLI Builds (PyInstaller standalone) ─────────────────────────────
+  build-cli:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'ubuntu-latest'
+            os: 'linux'
+          - platform: 'windows-latest'
+            os: 'windows'
+          - platform: 'macos-latest'
+            os: 'macos'
+
+    runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,83 +96,18 @@ jobs:
           pip install -e ".[dev]"
           pip install pyinstaller
 
-      - name: Build AppImage
-        run: |
-          pyinstaller --onefile --name thia-lite \
-            --add-data "thia_lite/rules:thia_lite/rules" \
-            thia_lite/__main__.py
-          # Package as AppImage
-          mkdir -p AppDir/usr/bin AppDir/usr/share/applications AppDir/usr/share/icons
-          cp dist/thia-lite AppDir/usr/bin/
-          cat > AppDir/usr/share/applications/thia-lite.desktop << 'EOF'
-          [Desktop Entry]
-          Name=Thia-Lite
-          Exec=thia-lite chat
-          Icon=thia-lite
-          Type=Application
-          Categories=Science;
-          EOF
-          wget -q https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage
-          chmod +x appimagetool-x86_64.AppImage
-          ./appimagetool-x86_64.AppImage AppDir Thia-Lite-x86_64.AppImage || true
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: linux-appimage
-          path: Thia-Lite-x86_64.AppImage
-        if: hashFiles('Thia-Lite-x86_64.AppImage') != ''
-        continue-on-error: true
-
-  build-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Build macOS app
-        run: |
-          pip install -e ".[dev]"
-          pip install pyinstaller
-          pyinstaller --onefile --name thia-lite \
-            --add-data "thia_lite/rules:thia_lite/rules" \
-            thia_lite/__main__.py
-          # Create DMG
-          mkdir -p dmg_contents
-          cp dist/thia-lite dmg_contents/
-          hdiutil create -volname "Thia-Lite" -srcfolder dmg_contents -ov -format UDZO Thia-Lite.dmg
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: macos-dmg
-          path: Thia-Lite.dmg
-        if: hashFiles('Thia-Lite.dmg') != ''
-        continue-on-error: true
-
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        run: |
-          pip install -e ".[dev]"
-          pip install pyinstaller
-
-      - name: Build Windows exe
+      - name: Build standalone binary
         run: pyinstaller thia-lite.spec
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload CLI artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: windows-exe
-          path: dist/thia-lite.exe
+          name: cli-${{ matrix.os }}
+          path: dist/thia-lite*
 
+  # ─── GitHub Release ─────────────────────────────────────────────────────────
   release:
-    needs: [build-linux, build-macos, build-windows]
+    needs: [build-electron, build-cli]
     if: always()
     runs-on: ubuntu-latest
     permissions:
@@ -108,27 +117,45 @@ jobs:
       - uses: actions/download-artifact@v4
         continue-on-error: true
 
+      - name: List artifacts
+        run: find . -type f | head -50
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            linux-appimage/Thia-Lite-x86_64.AppImage
-            macos-dmg/Thia-Lite.dmg
-            windows-exe/thia-lite.exe
+            electron-windows/*.exe
+            electron-linux/*.AppImage
+            electron-macos/*.dmg
+            cli-windows/thia-lite.exe
+            cli-linux/thia-lite
+            cli-macos/thia-lite
           fail_on_unmatched_files: false
           body: |
             ## Thia-Lite ${{ github.ref_name }}
 
-            ### Download
-            | Platform | File |
-            |----------|------|
-            | **Windows** | `thia-lite.exe` (run installer) |
-            | **Android** | `curl -fsSL https://raw.githubusercontent.com/thia-libre/thia-lite/main/install_termux.sh \| bash` |
+            ### Desktop App (One-Click Install)
+            | Platform | Download | Notes |
+            |----------|----------|-------|
+            | **Windows** | `thia.exe` | Portable — no install needed |
+            | **Linux** | `thia.AppImage` | `chmod +x thia.AppImage && ./thia.AppImage` |
+            | **macOS** | `thia.dmg` | Open DMG and drag to Applications |
+
+            ### CLI Only (Advanced)
+            | Platform | Download |
+            |----------|----------|
+            | **Windows** | `thia-lite.exe` |
+            | **Linux** | `thia-lite` |
+            | **macOS** | `thia-lite` |
 
             ### Requirements
             - 8GB RAM recommended (6GB minimum)
-            - Ollama (auto-installed)
+            - Ollama (auto-installed on first run)
             - ~2GB disk for model download (first run)
+            - Python 3.9+ (for desktop app backend)
+
+            ### Updates
+            The desktop app checks for updates automatically. Click **🔄 Check for Updates** in the sidebar.
 
             ### What's New
             See [CHANGELOG.md](CHANGELOG.md) for details.

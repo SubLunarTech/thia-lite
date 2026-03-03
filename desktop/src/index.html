@@ -33,6 +33,9 @@
             </div>
 
             <div class="sidebar-footer">
+                <button id="update-btn" class="sidebar-btn" onclick="checkForUpdates()" title="Check for updates">
+                    <span>🔄</span> <span id="update-label">Check for Updates</span>
+                </button>
                 <button id="settings-btn" class="sidebar-btn">
                     <span>⚙️</span> Settings
                 </button>
@@ -52,7 +55,7 @@
                             <div class="feature-icon">🔭</div>
                             <div class="feature-text">
                                 <strong>Swiss Ephemeris</strong>
-                                <span>175+ astrology tools with arc-second precision</span>
+                                <span>56 astrology tools with arc-second precision</span>
                             </div>
                         </div>
                         <div class="feature-card">
@@ -99,7 +102,16 @@
             <!-- Input Area -->
             <div id="input-area" class="input-area">
                 <div class="input-container">
-                    <textarea id="message-input" placeholder="Ask about astrology..." rows="1" autofocus></textarea>
+                    <textarea id="message-input" placeholder="Ask about astrology... (or click 🎤 to speak)" rows="1"
+                        autofocus></textarea>
+                    <button id="voice-btn" class="voice-btn" title="Voice Input (click to speak)"
+                        onclick="toggleVoice()">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 13a3 3 0 003-3V5a3 3 0 00-6 0v5a3 3 0 003 3z" />
+                            <path d="M5 10a5 5 0 0010 0h-1a4 4 0 01-8 0H5z" />
+                            <rect x="9" y="15" width="2" height="3" rx="1" />
+                        </svg>
+                    </button>
                     <button id="send-btn" class="send-btn" title="Send (Enter)">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                             <path
@@ -109,7 +121,7 @@
                 </div>
                 <div class="input-footer">
                     <span class="model-indicator" id="model-indicator">Qwen 3.5 · Local</span>
-                    <span class="shortcut-hint">Enter to send · Shift+Enter for new line</span>
+                    <span class="shortcut-hint">Enter to send · Shift+Enter for new line · 🎤 Voice</span>
                 </div>
             </div>
         </main>
@@ -124,6 +136,17 @@
                 <!-- Populated by JS -->
             </div>
         </aside>
+
+        <!-- Chart Display Overlay -->
+        <div id="chart-overlay" class="chart-overlay hidden">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>🌟 Natal Chart</h3>
+                    <button class="icon-btn" onclick="closeChart()">✕</button>
+                </div>
+                <div id="chart-display" class="chart-display"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Settings Modal -->
