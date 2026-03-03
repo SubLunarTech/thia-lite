@@ -142,14 +142,20 @@ async function sendMessage() {
         thinkingEl.remove();
 
         // Show tool calls if any
-        if (data.tool_calls_made?.length > 0) {
+        if (data.tool_calls_made && data.tool_calls_made.length > 0) {
             for (const tc of data.tool_calls_made) {
                 appendToolCall(tc);
             }
         }
 
-        // Show response
-        appendMessage('assistant', data.content || 'No response');
+        // Show response or error
+        if (data.error) {
+            appendMessage('assistant', `⚠️ **Backend Error:** ${data.error}`);
+        } else if (data.content && data.content.startsWith('Error communicating')) {
+            appendMessage('assistant', `⚠️ **AI Engine Error:** ${data.content}\n\nMake sure Ollama is installed and running locally on port 11434.`);
+        } else {
+            appendMessage('assistant', data.content || 'No response from the agent.');
+        }
 
         // Check for SVG chart in response
         if (data.content?.includes('<svg') || data.svg) {
@@ -195,17 +201,34 @@ function appendMessage(role, content) {
 }
 
 function appendToolCall(tc) {
-    const div = document.createElement('div');
-    div.className = 'tool-call';
-    div.innerHTML = `
-        <div class="tool-header">
+    if (!tc) return;
+
+    // Safely format arguments, handling both objects and strings
+    let argsStr = '';
+    if (tc.arguments) {
+        if (typeof tc.arguments === 'string') {
+            argsStr = tc.arguments;
+        } else {
+            try {
+                argsStr = JSON.stringify(tc.arguments);
+            } catch (e) {
+                argsStr = '[Object]';
+            }
+        }
+    }
+
+    const html = `
+        <div class="tool-call success">
             <span class="tool-icon">⚡</span>
-            <span class="tool-name">${tc.tool || 'unknown'}</span>
-            <span class="tool-status">✓</span>
+            <span class="tool-name">${tc.name || 'tool'}</span>
+            <span class="tool-args">${argsStr.slice(0, 100)}${argsStr.length > 100 ? '...' : ''}</span>
         </div>
-        <div class="tool-result">${tc.result_summary || ''}</div>
     `;
-    chatMessages?.appendChild(div);
+    const container = document.getElementById('messages-container');
+    if (container) {
+        container.insertAdjacentHTML('beforeend', html);
+        scrollToBottom();
+    }
 }
 
 function formatMarkdown(text) {

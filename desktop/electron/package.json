@@ -55,5 +55,8 @@
       "icon": "icons/icon.png",
       "category": "Science"
     }
+  },
+  "dependencies": {
+    "decompress": "^4.2.1"
   }
 }
