@@ -212,12 +212,25 @@ const { exec } = require('child_process');
 const decompress = require('decompress');
 
 async function ensureOllama() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
+    const platform = process.platform;
+
+    // Safety Timeout: Don't let the app hang forever if Ollama check is stuck
+    const safetyTimeout = setTimeout(() => {
+      logMain('Ollama check timed out - force proceeding to main window');
+      resolve();
+    }, 45000);
+
+    const done = () => {
+      clearTimeout(safetyTimeout);
+      resolve();
+    };
+
     // 1. Check if Ollama is already running on port 11434
     const req = require('http').get('http://localhost:11434/api/tags', (res) => {
       if (res.statusCode === 200) {
         logMain('Ollama is already running. Proceeding.');
-        resolve();
+        done();
       } else {
         startInstallFlow();
       }
@@ -254,9 +267,13 @@ async function ensureOllama() {
           logMain('User selected Cloud API. Skipping Ollama installation.');
           ipcMain.removeListener('install-choice', handleInstallChoice);
           if (installWindow && !installWindow.isDestroyed()) installWindow.close();
-          resolve();
+          done();
           return;
         }
+
+        // Choice was 'local', proceed with install
+        const downloadsDir = app.getPath('downloads');
+        let downloadUrl, installerPath, installCmd;
 
         const getOllamaPath = () => {
           if (platform === 'win32') {
@@ -267,11 +284,6 @@ async function ensureOllama() {
           }
           return 'ollama';
         };
-
-        // Choice was 'local', proceed with install
-        const platform = process.platform;
-        const downloadsDir = app.getPath('downloads');
-        let downloadUrl, installerPath, installCmd;
 
         if (platform === 'win32') {
           downloadUrl = 'https://ollama.com/download/OllamaSetup.exe';
@@ -459,7 +471,7 @@ async function ensureOllama() {
               setTimeout(() => {
                 ipcMain.removeListener('install-choice', handleInstallChoice);
                 if (installWindow && !installWindow.isDestroyed()) installWindow.close();
-                resolve();
+                done();
               }, 1500);
             });
 
@@ -469,10 +481,10 @@ async function ensureOllama() {
               if (ollamaPath !== 'ollama') {
                 logMain('Retrying with global ollama...');
                 const retryProcess = spawn('ollama', ['pull', 'qwen2.5:1.5b']);
-                retryProcess.on('close', resolve);
-                retryProcess.on('error', resolve);
+                retryProcess.on('close', done);
+                retryProcess.on('error', done);
               } else {
-                resolve();
+                done();
               }
             });
           }, 2000);
