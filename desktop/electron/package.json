@@ -1,0 +1,41 @@
+{
+  "name": "thia-lite-desktop",
+  "version": "0.1.0",
+  "description": "Thia-Lite AI Astrology Assistant",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64 --pm",
+    "build:all": "electron-builder -wml"
+  },
+  "author": "Thia-Libre Contributors",
+  "license": "GPL-3.0-or-later",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "productName": "Thia-Lite",
+    "appId": "com.thia-libre.thia-lite",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "../src/**/*"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "../src-tauri/icons/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "../src-tauri/icons/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "../src-tauri/icons/icon.png"
+    }
+  }
+}

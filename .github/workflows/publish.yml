@@ -40,29 +40,36 @@ jobs:
         run: npm install
         working-directory: ./desktop
 
+      - name: install tauri cli
+        run: npm install -g @tauri-apps/cli
+        working-directory: ./desktop
+
       - name: build tauri app
-        run: npm run tauri build
+        run: npx tauri build
         working-directory: ./desktop
         env:
           TAURI_BUNDLE_IDENTIFIER: com.thia-libre.thia-lite
 
       - name: upload windows artifacts
         uses: actions/upload-artifact@v4
-        if: matrix.os == 'windows'
+        if: success() && matrix.os == 'windows'
         with:
           name: windows-setup
-          path: desktop/src-tauri/target/release/bundle/msi/Thia-Lite_*.msi
+          path: desktop/src-tauri/target/release/bundle/msi/*.msi
+          if-no-files-found: ignore
 
       - name: upload linux artifacts
         uses: actions/upload-artifact@v4
-        if: matrix.os == 'linux'
+        if: success() && matrix.os == 'linux'
         with:
           name: linux-appimage
-          path: desktop/src-tauri/target/release/bundle/appimage/thia-lite*.AppImage
+          path: desktop/src-tauri/target/release/bundle/appimage/*.AppImage
+          if-no-files-found: ignore
 
       - name: upload macos artifacts
         uses: actions/upload-artifact@v4
-        if: matrix.os == 'macos'
+        if: success() && matrix.os == 'macos'
         with:
           name: macos-dmg
-          path: desktop/src-tauri/target/release/bundle/dmg/Thia-Lite*.dmg
+          path: desktop/src-tauri/target/release/bundle/dmg/*.dmg
+          if-no-files-found: ignore

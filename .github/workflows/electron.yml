@@ -1,0 +1,63 @@
+name: "Build Electron Desktop App"
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-electron:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: 'windows-latest'
+            os: 'windows'
+          - platform: 'ubuntu-22.04'
+            os: 'linux'
+          - platform: 'macos-latest'
+            os: 'macos'
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./desktop/electron
+
+      - name: Build Electron app
+        run: npm run build
+        working-directory: ./desktop/electron
+        env:
+          NODE_ENV: production
+
+      - name: Upload Windows artifacts
+        uses: actions/upload-artifact@v4
+        if: success() && matrix.os == 'windows'
+        with:
+          name: windows-installer
+          path: desktop/electron/dist/*.exe
+          if-no-files-found: ignore
+
+      - name: Upload Linux artifacts
+        uses: actions/upload-artifact@v4
+        if: success() && matrix.os == 'linux'
+        with:
+          name: linux-appimage
+          path: desktop/electron/dist/*.AppImage
+          if-no-files-found: ignore
+
+      - name: Upload macOS artifacts
+        uses: actions/upload-artifact@v4
+        if: success() && matrix.os == 'macos'
+        with:
+          name: macos-dmg
+          path: desktop/electron/dist/*.dmg
+          if-no-files-found: ignore
