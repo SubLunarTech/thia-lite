@@ -1,5 +1,6 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, dialog } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 let mainWindow;
 
@@ -18,8 +19,18 @@ function createWindow() {
     title: 'Thia-Lite — AI Astrology Assistant'
   });
 
-  // Load the frontend
-  mainWindow.loadFile(path.join(__dirname, '../src/index.html'));
+  // Load renderer from packaged location first, with dev fallback.
+  const packagedIndex = path.join(__dirname, 'src', 'index.html');
+  const devIndex = path.join(__dirname, '..', 'src', 'index.html');
+  const indexPath = fs.existsSync(packagedIndex) ? packagedIndex : devIndex;
+  mainWindow.loadFile(indexPath);
+
+  mainWindow.webContents.on('did-fail-load', (_event, errorCode, errorDescription, validatedURL) => {
+    dialog.showErrorBox(
+      'Thia Desktop Failed to Load',
+      `Could not load UI.\nCode: ${errorCode}\nError: ${errorDescription}\nURL: ${validatedURL}`
+    );
+  });
 
   // Open DevTools in development
   if (process.env.NODE_ENV === 'development') {

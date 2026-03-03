@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thia-Lite — AI Astrology Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <div class="app-logo">
+                    <span class="logo-icon">🌟</span>
+                    <span class="logo-text">Thia-Lite</span>
+                </div>
+                <button id="new-chat-btn" class="icon-btn" title="New Chat (Ctrl+N)">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 1v14M1 8h14" stroke="currentColor" stroke-width="2" fill="none" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="sidebar-section">
+                <div class="section-label">Recent Chats</div>
+                <div id="conversation-list" class="conversation-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button id="settings-btn" class="sidebar-btn">
+                    <span>⚙️</span> Settings
+                </button>
+                <div class="version-info" id="version-info">v0.1.0</div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main id="chat-area">
+            <!-- Welcome Screen (shown when no messages) -->
+            <div id="welcome-screen" class="welcome-screen">
+                <div class="welcome-content">
+                    <h1 class="welcome-title">🌟 Thia-Lite</h1>
+                    <p class="welcome-subtitle">AI-Native Astrological Prediction Assistant</p>
+                    <div class="welcome-features">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔭</div>
+                            <div class="feature-text">
+                                <strong>Swiss Ephemeris</strong>
+                                <span>175+ astrology tools with arc-second precision</span>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📚</div>
+                            <div class="feature-text">
+                                <strong>Traditional Sources</strong>
+                                <span>William Lilly & Ptolemy's Tetrabiblos</span>
+                            </div>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <div class="feature-text">
+                                <strong>100% Local</strong>
+                                <span>All data stays on your machine</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="welcome-suggestions">
+                        <button class="suggestion-btn"
+                            onclick="sendSuggestion('Calculate my natal chart for January 15, 1990 at 2:30 PM in New York')">
+                            Calculate a natal chart
+                        </button>
+                        <button class="suggestion-btn"
+                            onclick="sendSuggestion('What are the current planetary transits?')">
+                            Current planetary transits
+                        </button>
+                        <button class="suggestion-btn"
+                            onclick="sendSuggestion('Is the Moon void of course right now?')">
+                            Moon void of course?
+                        </button>
+                        <button class="suggestion-btn"
+                            onclick="sendSuggestion('Find auspicious windows this week for starting a new project in San Francisco')">
+                            Electional astrology
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="messages" class="messages-container">
+                <!-- Chat messages rendered here -->
+            </div>
+
+            <!-- Input Area -->
+            <div id="input-area" class="input-area">
+                <div class="input-container">
+                    <textarea id="message-input" placeholder="Ask about astrology..." rows="1" autofocus></textarea>
+                    <button id="send-btn" class="send-btn" title="Send (Enter)">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path
+                                d="M2.925 5.025L9.18333 7.70833L2.91667 6.875L2.925 5.025ZM9.175 12.2917L2.91667 14.975V13.125L9.175 12.2917ZM1.25833 3.33333L1.25 8.33333L13.75 10L1.25 11.6667L1.25833 16.6667L18.75 10L1.25833 3.33333Z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-footer">
+                    <span class="model-indicator" id="model-indicator">Qwen 3.5 · Local</span>
+                    <span class="shortcut-hint">Enter to send · Shift+Enter for new line</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Tools Panel (right sidebar) -->
+        <aside id="tools-panel" class="tools-panel hidden">
+            <div class="panel-header">
+                <h3>⚡ Tools</h3>
+                <button id="close-tools-btn" class="icon-btn">✕</button>
+            </div>
+            <div id="tools-list" class="tools-list">
+                <!-- Populated by JS -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="icon-btn" onclick="closeSettings()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label>LLM Provider</label>
+                    <select id="setting-provider">
+                        <option value="ollama">Ollama (Local/Pi)</option>
+                        <option value="openai">OpenAI</option>
+                        <option value="anthropic">Anthropic</option>
+                        <option value="qwen">Qwen (Cloud)</option>
+                        <option value="moonshot">Moonshot</option>
+                        <option value="glm">Zhipu GLM</option>
+                        <option value="openrouter">OpenRouter</option>
+                    </select>
+                </div>
+                <div class="setting-group" id="host-group">
+                    <label>Ollama Host</label>
+                    <input type="text" id="setting-ollama-host" value="http://localhost:11434">
+                </div>
+                <div class="setting-group">
+                    <label>Model Configuration (Optional for Cloud)</label>
+                    <select id="setting-model">
+                        <option value="qwen2.5:7b">Qwen 2.5 7B (Default - Fits in 8GB RAM)</option>
+                        <option value="qwen2.5:14b">Qwen 2.5 14B (Pro Local)</option>
+                        <option value="qwen2.5:32b">Qwen 2.5 32B (Ultra Local)</option>
+                        <option value="">-- Use Provider Default --</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>Temperature</label>
+                    <input type="range" id="setting-temp" min="0" max="1" step="0.1" value="0.3">
+                    <span id="temp-value">0.3</span>
+                </div>
+                <div class="setting-group">
+                    <label>Rule Sources</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" checked disabled> Ptolemy (Tetrabiblos)</label>
+                        <label><input type="checkbox" checked disabled> William Lilly</label>
+                        <label><input type="checkbox" checked disabled> Picatrix (Ghayat al-Hakim)</label>
+                        <label><input type="checkbox" checked disabled> Firmicus Maternus</label>
+                        <label><input type="checkbox" checked disabled> Vettius Valens</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeSettings()">Cancel</button>
+                <button class="btn-primary" onclick="saveSettings()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
