@@ -42,8 +42,8 @@ class LLMSettings(BaseSettings):
     
     # Ollama settings (Local default)
     host: str = Field(default="http://localhost:11434", description="Ollama server URL")
-    model: str = Field(default="qwen3.5:9b", description="Default model for chat/tool calling")
-    fallback_model: str = Field(default="qwen3.5:4b", description="Fallback if primary too large")
+    model: str = Field(default="qwen3.5:4b", description="Default model for chat/tool calling")
+    fallback_model: str = Field(default="qwen3.5:2b", description="Fallback if primary too large")
     
     # General LLM settings
     timeout: int = Field(default=120, description="Request timeout in seconds")

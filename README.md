@@ -102,7 +102,7 @@ Edit `~/.thia-lite/config.toml`:
 [llm]
 provider = "ollama"
 host = "http://localhost:11434"
-model = "qwen3.5:9b"
+model = "qwen3.5:4b"
 temperature = 0.3
 
 [mcp]

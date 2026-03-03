@@ -88,7 +88,7 @@ class LLMClient:
             return True
         
         host = getattr(self.config, 'host', 'http://localhost:11434').rstrip('/')
-        model = getattr(self.config, 'model', 'qwen3.5:9b')
+        model = getattr(self.config, 'model', 'qwen3.5:4b')
         try:
             resp = await self._client.get(f"{host}/api/tags", timeout=5)
             if resp.status_code == 200:
@@ -139,7 +139,7 @@ class LLMClient:
 
     async def _chat_ollama(self, messages, tools, temperature):
         host = getattr(self.config, 'host', 'http://localhost:11434').rstrip('/')
-        model = getattr(self.config, 'model', 'qwen3.5:9b')
+        model = getattr(self.config, 'model', 'qwen3.5:4b')
         
         payload = {
             "model": model,
@@ -190,7 +190,7 @@ class LLMClient:
         
         base_url = base_urls[provider]
         model = getattr(self.config, 'model', None)
-        if model == "qwen3.5:9b" or not model: # Override default ollama model
+        if model in ("qwen3.5:9b", "qwen3.5:4b") or not model: # Override default ollama model
             model = default_models[provider]
             
         api_key = api_keys[provider]
@@ -261,7 +261,7 @@ class LLMClient:
         
         base_url = base_urls[provider]
         model = getattr(self.config, 'model', None)
-        if model == "qwen3.5:9b" or not model:
+        if model in ("qwen3.5:9b", "qwen3.5:4b") or not model:
             model = default_models[provider]
             
         api_key = api_keys[provider]
@@ -339,7 +339,7 @@ class LLMClient:
             return
             
         host = getattr(self.config, 'host', 'http://localhost:11434').rstrip('/')
-        model = getattr(self.config, 'model', 'qwen3.5:9b')
+        model = getattr(self.config, 'model', 'qwen3.5:4b')
         payload = {
             "model": model,
             "messages": messages,
@@ -360,7 +360,7 @@ class LLMClient:
     async def embed(self, text: str) -> Optional[List[float]]:
         """Generate embeddings using Ollama regardless of configured chat provider."""
         host = getattr(self.config, 'host', 'http://localhost:11434').rstrip('/')
-        model = getattr(self.config, 'model', 'qwen3.5:9b') # Could use tinyllama or all-minilm
+        model = getattr(self.config, 'model', 'qwen3.5:4b') # Could use tinyllama or all-minilm
         try:
             resp = await self._client.post(
                 f"{host}/api/embed",

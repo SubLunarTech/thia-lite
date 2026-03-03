@@ -96,11 +96,11 @@ fi
 
 # Choose model based on RAM
 if [ "$TOTAL_RAM_GB" -ge 12 ]; then
-    MODEL="qwen3.5:9b"
-    info "Selecting Qwen 3.5 9B (premium tool calling for your RAM)"
+    MODEL="qwen3.5:4b"
+    info "Selecting Qwen 3.5 4B (small/fast default)"
 elif [ "$TOTAL_RAM_GB" -ge 8 ]; then
     MODEL="qwen3.5:4b"
-    info "Selecting Qwen 3.5 4B (optimized for 8GB RAM)"
+    info "Selecting Qwen 3.5 4B (small/fast default)"
 else
     MODEL="qwen3.5:2b"
     info "Selecting Qwen 3.5 2B (power-efficient model for limited RAM)"
