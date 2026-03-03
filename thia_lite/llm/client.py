@@ -70,6 +70,34 @@ class LLMClient:
         """Close the HTTP client."""
         await self._client.aclose()
 
+    async def is_healthy(self) -> bool:
+        """Check if the configured LLM provider is reachable."""
+        if self.provider == "ollama":
+            host = getattr(self.config, 'host', 'http://localhost:11434').rstrip('/')
+            try:
+                resp = await self._client.get(f"{host}/api/tags", timeout=5)
+                return resp.status_code == 200
+            except:
+                return False
+        # For remote providers, we just check internet connectivity or trust the API keys
+        return True
+
+    async def is_model_available(self) -> bool:
+        """Check if the configured model is available locally (for Ollama)."""
+        if self.provider != "ollama":
+            return True
+        
+        host = getattr(self.config, 'host', 'http://localhost:11434').rstrip('/')
+        model = getattr(self.config, 'model', 'qwen3.5:9b')
+        try:
+            resp = await self._client.get(f"{host}/api/tags", timeout=5)
+            if resp.status_code == 200:
+                models = [m.get("name") for m in resp.json().get("models", [])]
+                return model in models or any(m.startswith(f"{model}:") for m in models)
+        except:
+            pass
+        return False
+
     # ─── Chat Completion ──────────────────────────────────────────────────
 
     async def chat(

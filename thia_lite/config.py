@@ -104,10 +104,24 @@ def get_settings() -> AppSettings:
 
 
 def _ensure_dirs():
-    """Create required directories."""
+    """Create required directories and initialize logging."""
     s = get_settings()
     for d in [s.config_dir, s.config_dir / "data" / "ephe", s.config_dir / "logs"]:
         d.mkdir(parents=True, exist_ok=True)
+    
+    # Initialize file logging
+    log_file = s.config_dir / "logs" / "thia.log"
+    import logging.handlers
+    handler = logging.handlers.RotatingFileHandler(
+        log_file, maxBytes=10*1024*1024, backupCount=5
+    )
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    
+    root = logging.getLogger()
+    root.addHandler(handler)
+    if not root.level:
+        root.setLevel(logging.INFO)
 
 
 def save_config(overrides: Dict[str, Any]) -> None:

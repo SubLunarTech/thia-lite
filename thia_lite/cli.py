@@ -64,10 +64,11 @@ def chat(
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Show debug info"),
 ):
     """Start an interactive chat session (Claude Code style)."""
-    if verbose:
-        logging.basicConfig(level=logging.DEBUG)
-    else:
-        logging.basicConfig(level=logging.WARNING)
+    from thia_lite.config import get_settings
+    get_settings()
+    
+    level = logging.DEBUG if verbose else logging.WARNING
+    logging.getLogger().setLevel(level)
 
     asyncio.run(_chat_loop(message, conversation, model))
 
@@ -75,7 +76,7 @@ def chat(
 async def _chat_loop(initial_message: Optional[str], conv_id: Optional[str], model: Optional[str]):
     """Main interactive chat loop."""
     from thia_lite.llm.conversation import ConversationManager
-    from thia_lite.llm.ollama_client import get_ollama_client
+    from thia_lite.llm.client import get_llm_client
     from thia_lite.llm.tool_executor import get_tool_names
 
     # Initialize
@@ -83,10 +84,10 @@ async def _chat_loop(initial_message: Optional[str], conv_id: Optional[str], mod
     manager = ConversationManager()
 
     if model:
-        get_ollama_client().model = model
+        get_llm_client().config.model = model
 
     # Check Ollama health
-    client = get_ollama_client()
+    client = get_llm_client()
     healthy = await client.is_healthy()
     if not healthy:
         console.print(Panel(
@@ -102,12 +103,12 @@ async def _chat_loop(initial_message: Optional[str], conv_id: Optional[str], mod
 
     model_ok = await client.is_model_available()
     if not model_ok:
-        console.print(f"[warning]Model '{client.model}' not found. Pulling...[/warning]")
-        console.print(f"  Run: [bold]ollama pull {client.model}[/bold]")
+        console.print(f"[warning]Model '{getattr(client.config, 'model', 'unknown')}' not found. Pulling...[/warning]")
+        console.print(f"  Run: [bold]ollama pull {getattr(client.config, 'model', 'unknown')}[/bold]")
         raise typer.Exit(1)
 
     # Header
-    _print_header(client.model, len(get_tool_names()))
+    _print_header(getattr(client.config, 'model', 'unknown'), len(get_tool_names()))
 
     # Load or create conversation
     if conv_id:
@@ -378,12 +379,12 @@ def health():
 
 
 async def _health_check():
-    from thia_lite.llm.ollama_client import get_ollama_client
+    from thia_lite.llm.client import get_llm_client
     from thia_lite.db import get_db
     from thia_lite.config import get_settings
 
     settings = get_settings()
-    client = get_ollama_client()
+    client = get_llm_client()
     db = get_db()
 
     table = Table(title="Thia-Lite Health Check", box=box.ROUNDED, border_style="cyan")
@@ -391,18 +392,18 @@ async def _health_check():
     table.add_column("Status")
     table.add_column("Details", style="dim")
 
-    # Ollama
+    # LLM Provider
     healthy = await client.is_healthy()
     model_ok = await client.is_model_available() if healthy else False
     table.add_row(
-        "Ollama",
+        f"LLM ({client.provider})",
         "[green]✓[/green]" if healthy else "[red]✗[/red]",
-        f"{settings.ollama.host}",
+        f"{getattr(client.config, 'host', 'Remote')}",
     )
     table.add_row(
         "Model",
         "[green]✓[/green]" if model_ok else "[red]✗[/red]",
-        f"{settings.ollama.model}",
+        f"{getattr(client.config, 'model', 'unknown')}",
     )
 
     # Database
@@ -429,6 +430,14 @@ async def _health_check():
         "Tools",
         "[green]✓[/green]" if tool_count > 0 else "[yellow]⚠[/yellow]",
         f"{tool_count} tools registered",
+    )
+
+    # Logging
+    log_file = settings.config_dir / "logs" / "thia.log"
+    table.add_row(
+        "Logging",
+        "[green]✓[/green]" if log_file.exists() else "[yellow]⚠[/yellow]",
+        f"{log_file}",
     )
 
     console.print(table)
