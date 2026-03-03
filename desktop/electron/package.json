@@ -1,6 +1,6 @@
 {
   "name": "thia-lite-desktop",
-  "version": "0.3.20",
+  "version": "0.3.21",
   "description": "Thia-Lite AI Astrology Assistant",
   "main": "main.js",
   "scripts": {
@@ -40,7 +40,7 @@
       "icon": "icons/icon.ico"
     },
     "nsis": {
-      "oneClick": true,
+      "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
