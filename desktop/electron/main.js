@@ -211,6 +211,17 @@ const https = require('https');
 const { exec } = require('child_process');
 const decompress = require('decompress');
 
+const getOllamaPath = () => {
+  const platform = process.platform;
+  if (platform === 'win32') {
+    return path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe');
+  }
+  if (platform === 'darwin') {
+    return '/Applications/Ollama.app/Contents/Resources/ollama';
+  }
+  return 'ollama';
+};
+
 async function ensureOllama() {
   return new Promise((resolve) => {
     const platform = process.platform;
@@ -232,13 +243,28 @@ async function ensureOllama() {
         logMain('Ollama is already running. Proceeding.');
         done();
       } else {
-        startInstallFlow();
+        checkDisk();
       }
     }).on('error', () => {
-      startInstallFlow();
+      checkDisk();
     });
 
-    req.setTimeout(2000, () => { req.abort(); startInstallFlow(); });
+    req.setTimeout(2000, () => { req.abort(); checkDisk(); });
+
+    function checkDisk() {
+      const ollamaExe = getOllamaPath();
+      if (fs.existsSync(ollamaExe) || platform !== 'win32') {
+        logMain(`Ollama found at ${ollamaExe} but not running. Attempting start...`);
+        if (platform === 'win32') {
+          exec(`start "" "${ollamaExe}"`);
+        } else if (platform === 'linux') {
+          exec('ollama serve &');
+        }
+        waitForOllamaAndPull(true); // pass 'isSilent' flag
+      } else {
+        startInstallFlow();
+      }
+    }
 
     function startInstallFlow() {
       // Create installer window instead of main window
@@ -274,16 +300,6 @@ async function ensureOllama() {
         // Choice was 'local', proceed with install
         const downloadsDir = app.getPath('downloads');
         let downloadUrl, installerPath, installCmd;
-
-        const getOllamaPath = () => {
-          if (platform === 'win32') {
-            return path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe');
-          }
-          if (platform === 'darwin') {
-            return '/Applications/Ollama.app/Contents/Resources/ollama';
-          }
-          return 'ollama';
-        };
 
         if (platform === 'win32') {
           downloadUrl = 'https://ollama.com/download/OllamaSetup.exe';
@@ -391,13 +407,15 @@ async function ensureOllama() {
 
           runInstallProcess();
 
-          function waitForOllamaAndPull() {
+          function waitForOllamaAndPull(isSilent = false) {
             let attempts = 0;
             const maxAttempts = 60; // 60 seconds
 
             const check = setInterval(() => {
               attempts++;
-              updateUI(`Starting AI Service (Attempt ${attempts}/${maxAttempts})...`, 100, true);
+              if (!isSilent) {
+                updateUI(`Starting AI Service (Attempt ${attempts}/${maxAttempts})...`, 100, true);
+              }
 
               const checkReq = require('http').get({
                 hostname: 'localhost',
