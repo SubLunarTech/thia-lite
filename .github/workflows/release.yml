@@ -133,6 +133,9 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
+          name: Thia ${{ github.ref_name }}
+          draft: false
+          prerelease: false
           files: |
             electron-windows/thia.exe
             electron-linux/thia.AppImage
