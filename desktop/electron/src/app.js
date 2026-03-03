@@ -284,10 +284,13 @@ function initVoice() {
 
 function loadSettings() {
     const settings = JSON.parse(localStorage.getItem('thia-settings') || '{}');
+    if (settings.model === 'qwen2.5:7b') settings.model = 'qwen3.5:4b';
+    if (settings.model === 'qwen2.5:14b') settings.model = 'qwen3.5:8b';
+    if (settings.model === 'qwen2.5:32b') settings.model = 'qwen3.5:14b';
     logDebug('Loading settings:', settings);
     if (providerSelect) providerSelect.value = settings.provider || 'ollama';
     if (hostInput) hostInput.value = settings.ollamaHost || 'http://localhost:11434';
-    if (modelSelect) modelSelect.value = settings.model || 'qwen2.5:7b';
+    if (modelSelect) modelSelect.value = settings.model || 'qwen3.5:4b';
     if (tempInput) {
         tempInput.value = settings.temperature || 0.3;
         if (tempValue) tempValue.textContent = settings.temperature || 0.3;
@@ -298,9 +301,12 @@ function saveSettings() {
     const settings = {
         provider: providerSelect?.value || 'ollama',
         ollamaHost: hostInput?.value || 'http://localhost:11434',
-        model: modelSelect?.value || 'qwen2.5:7b',
+        model: modelSelect?.value || 'qwen3.5:4b',
         temperature: parseFloat(tempInput?.value || 0.3),
     };
+    if (settings.model === 'qwen2.5:7b') settings.model = 'qwen3.5:4b';
+    if (settings.model === 'qwen2.5:14b') settings.model = 'qwen3.5:8b';
+    if (settings.model === 'qwen2.5:32b') settings.model = 'qwen3.5:14b';
     logInfo('Saving settings:', settings);
     localStorage.setItem('thia-settings', JSON.stringify(settings));
     closeSettings();
