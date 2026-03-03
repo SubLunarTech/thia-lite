@@ -5,33 +5,50 @@ hidden_imports = [
     'swisseph',
     'sqlite_vec',
     'sqlite_vec._sqlite_vec',
-    'nest_asyncio',
-    'pydantic',
-    'pydantic_settings',
-    'textual',
-    'websockets',
-    'timezonefinder',
+    'thia_lite.rules',
+    'thia_lite.llm.rlm_engine',
+    'thia_lite.llm.conversation',
+    'thia_lite.llm.tool_executor',
 ]
 
 import os
-import sqlite_vec
+import sys # Added for sys.version
+# import sqlite_vec # Removed as it's not used in the new binary discovery
 
-# Find sqlite_vec binary dynamically
-sqlite_vec_dir = os.path.dirname(sqlite_vec.__file__)
-sqlite_vec_bin = None
-for f in os.listdir(sqlite_vec_dir):
-    if f.startswith('vec0') and (f.endswith('.so') or f.endswith('.dll') or f.endswith('.dylib')):
-        sqlite_vec_bin = os.path.join(sqlite_vec_dir, f)
-        break
+def find_file(name, path):
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            if name in file:
+                return os.path.join(root, file)
+    return None
 
-added_binaries = []
+# Find sqlite-vec binary
+venv_path = os.environ.get('VIRTUAL_ENV', os.path.join(os.getcwd(), '.venv'))
+site_packages = os.path.join(venv_path, 'lib', 'python' + sys.version[:3], 'site-packages')
+if not os.path.exists(site_packages):
+    site_packages = os.path.join(venv_path, 'Lib', 'site-packages') # Windows
+
+sqlite_vec_bin = find_file('sqlite_vec', site_packages)
+if not sqlite_vec_bin:
+    sqlite_vec_bin = find_file('sqlite_vec', '.')
+
+# Find swisseph binary
+swisseph_bin = find_file('swisseph', site_packages)
+if not swisseph_bin:
+    swisseph_bin = find_file('swisseph', '.')
+
+binaries = []
 if sqlite_vec_bin:
-    added_binaries.append((sqlite_vec_bin, 'sqlite_vec'))
+    binaries.append((sqlite_vec_bin, '.'))
+if swisseph_bin:
+    binaries.append((swisseph_bin, '.'))
+
+print(f"Bundling binaries: {binaries}")
 
 a = Analysis(
     ['thia_lite/__main__.py'],
     pathex=[],
-    binaries=added_binaries,
+    binaries=binaries, # Changed from added_binaries to binaries
     datas=[('thia_lite/rules', 'thia_lite/rules')],
     hiddenimports=hidden_imports,
     hookspath=[],

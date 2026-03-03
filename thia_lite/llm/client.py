@@ -17,6 +17,9 @@ import httpx
 logger = logging.getLogger(__name__)
 
 
+_client: Optional['LLMClient'] = None
+
+
 # ─── Tool Schema Helpers ──────────────────────────────────────────────────────
 
 def make_ollama_tool(name: str, description: str,

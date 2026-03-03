@@ -13,17 +13,24 @@ Endpoints:
 Runs on port 8765 (matching desktop/src/app.js API_BASE).
 """
 
-import asyncio
-import json
-import logging
-import re
-import sys
-import threading
-from functools import lru_cache
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from typing import Any, Dict, Optional
+import os
 
+# Ensure log directory exists
+LOG_DIR = os.path.expanduser("~/.thia-lite/logs")
+os.makedirs(LOG_DIR, exist_ok=True)
+STARTUP_LOG = os.path.join(LOG_DIR, "api_server_startup.log")
+
+# Early logging setup
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+    handlers=[
+        logging.FileHandler(STARTUP_LOG),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
 logger = logging.getLogger(__name__)
+logger.info("Initializing Thia API Server...")
 
 DEFAULT_PORT = 8765
 

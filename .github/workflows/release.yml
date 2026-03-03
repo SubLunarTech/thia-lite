@@ -119,7 +119,6 @@ jobs:
   # ─── GitHub Release ─────────────────────────────────────────────────────────
   release:
     needs: [build-electron, build-cli]
-    if: always()
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -140,7 +139,9 @@ jobs:
             electron-macos/thia.dmg
             cli-windows/thia-lite.exe
             cli-linux/thia-lite
+            cli-linux/thia-lite
             cli-macos/thia-lite
+          tag_name: ${{ github.ref_name }}
           fail_on_unmatched_files: false
           body: |
             ## Thia-Lite ${{ github.ref_name }}
