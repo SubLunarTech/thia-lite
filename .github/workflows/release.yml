@@ -79,13 +79,14 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Build Windows exe
+      - name: Install dependencies
         run: |
           pip install -e ".[dev]"
           pip install pyinstaller
-          pyinstaller --onefile --name thia-lite `
-            --add-data "thia_lite/rules;thia_lite/rules" `
-            thia_lite/__main__.py
+
+      - name: Build Windows exe
+        shell: pwsh
+        run: pyinstaller --onefile --name thia-lite --add-data "thia_lite/rules;thia_lite/rules" thia_lite/__main__.py
 
       - uses: actions/upload-artifact@v4
         with:
