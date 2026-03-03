@@ -132,29 +132,19 @@ jobs:
         run: find . -type f | head -50
 
       - name: Create or Update Release
+        uses: softprops/action-gh-release@v2
+        if: always()
+        with:
+          name: Thia ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: |
+            electron-windows/thia.exe
+            electron-linux/thia.AppImage
+            electron-macos/thia.dmg
+            cli-windows/thia-lite.exe
+            cli-linux/thia-lite
+            cli-macos/thia-lite
+          generate_release_notes: true
+          fail_on_unmatched_files: false
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Try to create the release first (don't fail if it exists)
-          gh release create "${{ github.ref_name }}" \
-            --title "Thia ${{ github.ref_name }}" \
-            --generate-notes || true
-          
-          # Upload assets one by one with clobbering for maximum reliability
-          assets=(
-            "electron-windows/thia.exe"
-            "electron-linux/thia.AppImage"
-            "electron-macos/thia.dmg"
-            "cli-windows/thia-lite.exe"
-            "cli-linux/thia-lite"
-            "cli-macos/thia-lite"
-          )
-          
-          for asset in "${assets[@]}"; do
-            if [ -f "$asset" ]; then
-              echo "Uploading $asset..."
-              gh release upload "${{ github.ref_name }}" "$asset" --clobber || echo "Failed to upload $asset, continuing..."
-            else
-              echo "Asset $asset not found, skipping..."
-            fi
-          done
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
