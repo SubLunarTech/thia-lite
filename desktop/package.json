@@ -4,13 +4,12 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "tauri": "tauri",
-        "build": "tauri build"
-    },
-    "dependencies": {
-        "@tauri-apps/api": "^1"
-    },
-    "devDependencies": {
-        "@tauri-apps/cli": "^1"
+        "build": "npm --prefix ./electron run build",
+        "build:electron": "npm --prefix ./electron run build",
+        "build:electron:win": "npm --prefix ./electron run build:win",
+        "build:electron:mac": "npm --prefix ./electron run build:mac",
+        "build:electron:all": "npm --prefix ./electron run build:all",
+        "start:electron": "npm --prefix ./electron run start",
+        "install:electron": "npm --prefix ./electron install"
     }
 }

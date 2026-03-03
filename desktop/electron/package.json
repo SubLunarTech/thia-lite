@@ -1,11 +1,13 @@
 {
   "name": "thia-lite-desktop",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Thia-Lite AI Astrology Assistant",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win --x64 --pm",
+    "build": "electron-builder --linux AppImage --x64",
+    "build:win": "electron-builder --win nsis --x64",
+    "build:mac": "electron-builder --mac dmg",
     "build:all": "electron-builder -wml"
   },
   "author": "Thia-Libre Contributors",

@@ -14,7 +14,7 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true
     },
-    icon: path.join(__dirname, '../src-tauri/icons/icon.png'),
+    icon: path.join(__dirname, 'icons/icon.png'),
     title: 'Thia-Lite — AI Astrology Assistant'
   });
 

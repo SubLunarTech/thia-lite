@@ -64,7 +64,7 @@ Current corpus counts (local build):
 |-----------|---------|-------|
 | **CLI** | `./thia-lite chat` | Claude Code |
 | **TUI** | `./thia-lite-tui` | Claude Code (Textual) |
-| **Desktop** | *Coming soon* | Claude Desktop (Tauri) |
+| **Desktop** | `cd desktop && npm run build` | Claude Desktop (Electron) |
 | **MCP Server** | `./thia-lite serve` | For Claude Desktop / Pi |
 
 ## Architecture
@@ -130,6 +130,30 @@ Add to your Claude Desktop MCP config:
     }
 }
 ```
+
+## Desktop Build Status
+
+- Primary desktop target: **Electron** (`desktop/electron`)
+
+Build Electron locally:
+```bash
+cd /home/opc/thia-lite/desktop
+npm run install:electron
+npm run build
+```
+
+Build a Windows installer locally (on Windows):
+```bash
+cd /home/opc/thia-lite/desktop
+npm run install:electron
+npm run build:electron:win
+```
+
+GitHub Actions artifacts:
+- Workflow: `.github/workflows/electron.yml`
+- Windows output: `desktop/electron/dist/*.exe`
+- Linux output: `desktop/electron/dist/*.AppImage`
+- macOS output: `desktop/electron/dist/*.dmg`
 
 ## Requirements
 
