@@ -10,5 +10,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
   onInstallProgress: (callback) => ipcRenderer.on('install-progress', (_event, data) => callback(data)),
 
   // IPC events sent from installer window to main
-  sendInstallChoice: (choice) => ipcRenderer.send('install-choice', choice)
+  sendInstallChoice: (choice) => ipcRenderer.send('install-choice', choice),
+
+  // Log management
+  openLogs: () => ipcRenderer.send('open-logs'),
+  getLogContent: () => ipcRenderer.invoke('get-log-content')
 });

@@ -404,6 +404,32 @@ app.whenReady().then(async () => {
       createWindow();
     }
   });
+
+  const { ipcMain, shell } = require('electron');
+
+  // Handle log opening
+  ipcMain.on('open-logs', () => {
+    const logPath = getMainLogPath();
+    logMain(`User requested to open log at: ${logPath}`);
+    if (fs.existsSync(logPath)) {
+      shell.showItemInFolder(logPath);
+    } else {
+      shell.openPath(app.getPath('userData'));
+    }
+  });
+
+  // Handle log content retrieval for UI dump
+  ipcMain.handle('get-log-content', async () => {
+    try {
+      const logPath = getMainLogPath();
+      if (fs.existsSync(logPath)) {
+        return fs.readFileSync(logPath, 'utf8');
+      }
+      return 'No log file found.';
+    } catch (err) {
+      return `Error reading log: ${err.message}`;
+    }
+  });
 });
 
 app.on('window-all-closed', () => {

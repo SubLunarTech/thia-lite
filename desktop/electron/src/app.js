@@ -528,3 +528,12 @@ async function applyUpdate(updateInfo) {
 
 // Auto-check for updates on startup (non-blocking)
 setTimeout(checkForUpdates, 5000);
+// ─── Log Dumping ─────────────────────────────────────────────────────────────
+window.dumpLogs = function () {
+    logInfo('User triggered log dump');
+    if (window.electronAPI && window.electronAPI.openLogs) {
+        window.electronAPI.openLogs();
+    } else {
+        alert('Log dumping is not available in this environment.');
+    }
+};
