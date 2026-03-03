@@ -8,21 +8,15 @@ const API_BASE = 'http://localhost:8765';
 let currentConversation = null;
 let conversations = [];
 let isStreaming = false;
-let liveChartInterval = null;
-let isVoiceMode = false;
-let recognition = null;
 
 // ─── DOM Elements ────────────────────────────────────────────────────────────
 
-const chatMessages = document.getElementById('chat-messages');
-const inputBox = document.getElementById('input-box');
+const chatMessages = document.getElementById('messages');
+const inputBox = document.getElementById('message-input');
 const sendBtn = document.getElementById('send-btn');
-const voiceBtn = document.getElementById('voice-btn');
-const newChatBtn = document.getElementById('new-chat');
-const liveChartContainer = document.getElementById('live-chart');
+const newChatBtn = document.getElementById('new-chat-btn');
 const conversationList = document.getElementById('conversation-list');
 const welcomeScreen = document.getElementById('welcome-screen');
-const chartToggle = document.getElementById('chart-toggle');
 const settingsBtn = document.getElementById('settings-btn');
 const settingsModal = document.getElementById('settings-modal');
 const modelIndicator = document.getElementById('model-indicator');
@@ -38,13 +32,10 @@ const tempValue = document.getElementById('temp-value');
 
 document.addEventListener('DOMContentLoaded', () => {
     loadConversations();
-    initVoice();
-    startLiveChart();
 
     sendBtn?.addEventListener('click', sendMessage);
-    voiceBtn?.addEventListener('click', toggleVoice);
     newChatBtn?.addEventListener('click', newConversation);
-    chartToggle?.addEventListener('click', toggleLiveChart);
+    settingsBtn?.addEventListener('click', openSettings);
 
     inputBox?.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -52,6 +43,14 @@ document.addEventListener('DOMContentLoaded', () => {
             sendMessage();
         }
     });
+
+    // Temperature slider
+    tempInput?.addEventListener('input', (e) => {
+        if (tempValue) tempValue.textContent = e.target.value;
+    });
+
+    // Load settings
+    loadSettings();
 });
 
 // ─── Chat ────────────────────────────────────────────────────────────────────
@@ -216,104 +215,46 @@ function newConversation() {
 // ─── Voice Interaction ───────────────────────────────────────────────────────
 
 function initVoice() {
-    if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-        if (voiceBtn) voiceBtn.style.display = 'none';
-        return;
+    // Not implemented in current UI
+}
+
+// ─── Settings ───────────────────────────────────────────────────────────────
+
+function loadSettings() {
+    const settings = JSON.parse(localStorage.getItem('thia-settings') || '{}');
+    if (providerSelect) providerSelect.value = settings.provider || 'ollama';
+    if (hostInput) hostInput.value = settings.ollamaHost || 'http://localhost:11434';
+    if (modelSelect) modelSelect.value = settings.model || 'qwen2.5:7b';
+    if (tempInput) {
+        tempInput.value = settings.temperature || 0.3;
+        if (tempValue) tempValue.textContent = settings.temperature || 0.3;
     }
+}
 
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = true;
-    recognition.lang = 'en-US';
-
-    recognition.onresult = (event) => {
-        let transcript = '';
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-            transcript += event.results[i][0].transcript;
-        }
-        if (inputBox) inputBox.value = transcript;
-
-        // Auto-send when speech ends
-        if (event.results[event.results.length - 1].isFinal) {
-            setTimeout(() => {
-                if (inputBox?.value?.trim()) sendMessage();
-            }, 500);
-        }
+function saveSettings() {
+    const settings = {
+        provider: providerSelect?.value || 'ollama',
+        ollamaHost: hostInput?.value || 'http://localhost:11434',
+        model: modelSelect?.value || 'qwen2.5:7b',
+        temperature: parseFloat(tempInput?.value || 0.3),
     };
-
-    recognition.onerror = (event) => {
-        console.error('Speech error:', event.error);
-        stopVoice();
-    };
-
-    recognition.onend = () => {
-        stopVoice();
-    };
+    localStorage.setItem('thia-settings', JSON.stringify(settings));
+    closeSettings();
 }
 
-function toggleVoice() {
-    if (isVoiceMode) {
-        stopVoice();
-    } else {
-        startVoice();
+function openSettings() {
+    if (settingsModal) settingsModal.classList.remove('hidden');
+}
+
+function closeSettings() {
+    if (settingsModal) settingsModal.classList.add('hidden');
+}
+
+// ─── Suggestions ─────────────────────────────────────────────────────────────
+
+function sendSuggestion(text) {
+    if (inputBox) {
+        inputBox.value = text;
+        sendMessage();
     }
-}
-
-function startVoice() {
-    if (!recognition) return;
-    isVoiceMode = true;
-    if (voiceBtn) {
-        voiceBtn.classList.add('active');
-        voiceBtn.textContent = '🔴';
-    }
-    recognition.start();
-}
-
-function stopVoice() {
-    if (!recognition) return;
-    isVoiceMode = false;
-    if (voiceBtn) {
-        voiceBtn.classList.remove('active');
-        voiceBtn.textContent = '🎤';
-    }
-    try { recognition.stop(); } catch (e) { }
-}
-
-// ─── Live Chart ──────────────────────────────────────────────────────────────
-
-function startLiveChart() {
-    refreshLiveChart();
-    liveChartInterval = setInterval(refreshLiveChart, 60000); // Every minute
-}
-
-async function refreshLiveChart() {
-    if (!liveChartContainer) return;
-    try {
-        const res = await fetch(`${API_BASE}/live-chart`);
-        const data = await res.json();
-        if (data.svg) {
-            liveChartContainer.innerHTML = data.svg;
-        }
-    } catch (err) {
-        // Backend not available
-        liveChartContainer.innerHTML = `
-            <div style="text-align:center;color:#666;padding:40px;">
-                <div style="font-size:48px;margin-bottom:12px;">✦</div>
-                <div>Live chart updates when backend is running</div>
-            </div>`;
-    }
-}
-
-function toggleLiveChart() {
-    if (!liveChartContainer) return;
-    const isHidden = liveChartContainer.style.display === 'none';
-    liveChartContainer.style.display = isHidden ? 'block' : 'none';
-    if (chartToggle) chartToggle.textContent = isHidden ? '📉 Hide Chart' : '📊 Live Chart';
-}
-
-function showChart(svg) {
-    if (!liveChartContainer) return;
-    liveChartContainer.innerHTML = svg;
-    liveChartContainer.style.display = 'block';
 }
