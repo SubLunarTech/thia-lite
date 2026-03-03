@@ -16,14 +16,10 @@ def check_tauri_config():
     
     # Check icons
     icon_dir = Path("desktop/src-tauri/icons")
-    if not icon_dir.exists():
-        print("❌ Icons directory not found!")
-        return False
-    
-    required_icons = ["32x32.png", "128x128.png", "128x128@2x.png", "icon.png"]
-    for icon in required_icons:
-        if not (icon_dir / icon).exists():
-            print(f"❌ Missing icon: {icon}")
+    for icon_rel_path in conf["tauri"]["bundle"]["icon"]:
+        icon_path = (conf_path.parent / icon_rel_path).resolve()
+        if not icon_path.exists():
+            print(f"❌ Missing icon: {icon_rel_path} (expected at {icon_path})")
             return False
     
     # Check distDir
