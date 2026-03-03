@@ -141,7 +141,12 @@ jobs:
           pyinstaller thia-lite.spec
           echo "=== Build Complete ==="
           echo "Dist contents:"
-          ls -la dist/
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            Get-ChildItem dist/
+          else
+            ls -la dist/
+          fi
+        shell: bash
 
       - name: Upload CLI artifact
         uses: actions/upload-artifact@v4
