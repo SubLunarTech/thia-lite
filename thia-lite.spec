@@ -45,11 +45,22 @@ if swisseph_bin:
 
 print(f"Bundling binaries: {binaries}")
 
+from PyInstaller.utils.hooks import collect_all
+
+datas = [('thia_lite/rules', 'thia_lite/rules')]
+binaries = binaries
+
+# Robust collection of thia_lite package
+tmp_ret = collect_all('thia_lite')
+datas += tmp_ret[0]
+binaries += tmp_ret[1]
+hidden_imports += tmp_ret[2]
+
 a = Analysis(
     ['thia_lite/__main__.py'],
-    pathex=[],
-    binaries=binaries, # Changed from added_binaries to binaries
-    datas=[('thia_lite/rules', 'thia_lite/rules')],
+    pathex=['.'],
+    binaries=binaries,
+    datas=datas,
     hiddenimports=hidden_imports,
     hookspath=[],
     hooksconfig={},

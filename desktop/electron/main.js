@@ -280,52 +280,68 @@ async function ensureOllama() {
         logMain(`Starting Ollama auto-install. URL: ${downloadUrl}`);
         updateUI('Downloading Local AI Engine...', 0, true);
 
-        const file = fs.createWriteStream(installerPath);
-        https.get(downloadUrl, (response) => {
-          if (response.statusCode !== 200) {
-            logMain(`Download failed: ${response.statusCode}`);
-            reject(new Error(`Download failed: ${response.statusCode}`));
-            return;
-          }
-
-          const totalBytes = parseInt(response.headers['content-length'], 10);
-          let downloadedBytes = 0;
-
-          response.on('data', (chunk) => {
-            downloadedBytes += chunk.length;
-            if (totalBytes) {
-              const percent = Math.min(100, Math.round((downloadedBytes / totalBytes) * 100));
-              updateUI(`Downloading Installer (${Math.round(downloadedBytes / 1024 / 1024)}mb)`, percent);
+        const downloadFile = (url, dest, onProgress, onDone, onError) => {
+          const file = fs.createWriteStream(dest);
+          const request = https.get(url, (response) => {
+            if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
+              file.close();
+              fs.unlink(dest, () => {
+                downloadFile(response.headers.location, dest, onProgress, onDone, onError);
+              });
+              return;
             }
+            if (response.statusCode !== 200) {
+              onError(new Error(`Download failed: ${response.statusCode}`));
+              return;
+            }
+
+            const totalBytes = parseInt(response.headers['content-length'], 10);
+            let downloadedBytes = 0;
+
+            response.on('data', (chunk) => {
+              downloadedBytes += chunk.length;
+              if (totalBytes) {
+                const percent = Math.min(100, Math.round((downloadedBytes / totalBytes) * 100));
+                onProgress(`Downloading Installer (${Math.round(downloadedBytes / 1024 / 1024)}mb)`, percent);
+              }
+            });
+
+            response.pipe(file);
+
+            file.on('finish', () => {
+              file.close();
+              onDone();
+            });
+          }).on('error', (err) => {
+            onError(err);
           });
+        };
 
-          response.pipe(file);
+        downloadFile(downloadUrl, installerPath, (status, percent) => {
+          updateUI(status, percent);
+        }, () => {
+          updateUI('Installing AI Engine (May prompt for password)...', 100, true);
+          logMain(`Download complete. Executing: ${installCmd}`);
 
-          file.on('finish', () => {
-            file.close();
-            updateUI('Installing AI Engine (May prompt for password)...', 100, true);
-            logMain(`Download complete. Executing: ${installCmd}`);
-
-            if (platform === 'darwin') {
-              updateUI('Extracting AI Engine...', 100, true);
-              decompress(installerPath, '/Applications').then(() => {
-                logMain('Mac Zip Extracted to /Applications');
-                exec('open -a Ollama', (err) => {
-                  if (err) logMain(`Mac Open Error: ${err}`);
-                  pullModel();
-                });
-              }).catch(err => reject(err));
-            } else {
-              exec(installCmd, (error, stdout, stderr) => {
-                if (error) {
-                  logMain(`Install error: ${error.message}`);
-                }
-                logMain('Installer finished. Waiting for daemon to start.');
+          if (platform === 'darwin') {
+            updateUI('Extracting AI Engine...', 100, true);
+            decompress(installerPath, '/Applications').then(() => {
+              logMain('Mac Zip Extracted to /Applications');
+              exec('open -a Ollama', (err) => {
+                if (err) logMain(`Mac Open Error: ${err}`);
                 pullModel();
               });
-            }
-          });
-        }).on('error', (err) => {
+            }).catch(err => reject(err));
+          } else {
+            exec(installCmd, (error, stdout, stderr) => {
+              if (error) {
+                logMain(`Install error: ${error.message}`);
+              }
+              logMain('Installer finished. Waiting for daemon to start.');
+              pullModel();
+            });
+          }
+        }, (err) => {
           fs.unlink(installerPath, () => { });
           logMain(`Download error: ${err.message}`);
           reject(err);
