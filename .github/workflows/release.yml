@@ -139,7 +139,6 @@ jobs:
             electron-macos/thia.dmg
             cli-windows/thia-lite.exe
             cli-linux/thia-lite
-            cli-linux/thia-lite
             cli-macos/thia-lite
           tag_name: ${{ github.ref_name }}
           fail_on_unmatched_files: false

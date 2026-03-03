@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "thia-lite"
-version = "0.3.14"
+version = "0.3.15"
 description = "AI-Native Astrological Prediction Assistant — lightweight, local, no Docker required"
 readme = "README.md"
 license = "GPL-3.0-or-later"
