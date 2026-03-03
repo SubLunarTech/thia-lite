@@ -19,11 +19,27 @@ from typing import Any, Dict, List, Optional
 logger = logging.getLogger(__name__)
 
 _rules_cache: Optional[Dict[str, List[Dict[str, Any]]]] = None
+_rules_signature: Optional[tuple] = None
 
 
 def _rules_dir() -> str:
     """Get the rules directory path."""
     return os.path.dirname(os.path.abspath(__file__))
+
+
+def _compute_rules_signature() -> tuple:
+    """Compute a signature of all *_data.json files for cache invalidation."""
+    directory = _rules_dir()
+    entries = []
+    for filename in sorted(os.listdir(directory)):
+        if filename.endswith("_data.json"):
+            path = os.path.join(directory, filename)
+            try:
+                st = os.stat(path)
+                entries.append((filename, int(st.st_mtime), st.st_size))
+            except OSError:
+                entries.append((filename, 0, 0))
+    return tuple(entries)
 
 
 def load_lilly_rules() -> List[Dict[str, Any]]:
@@ -60,8 +76,9 @@ def load_ptolemy_rules() -> List[Dict[str, Any]]:
 
 def load_all_rules() -> List[Dict[str, Any]]:
     """Load all rules from all *_data.json files in the rules directory."""
-    global _rules_cache
-    if _rules_cache is None:
+    global _rules_cache, _rules_signature
+    signature = _compute_rules_signature()
+    if _rules_cache is None or _rules_signature != signature:
         _rules_cache = {}
         directory = _rules_dir()
         for filename in os.listdir(directory):
@@ -75,6 +92,7 @@ def load_all_rules() -> List[Dict[str, Any]]:
                         logger.info(f"Loaded {len(rules)} rules from {path}")
                 except Exception as e:
                     logger.error(f"Failed to load {path}: {e}")
+        _rules_signature = signature
 
     all_rules = []
     for rules in _rules_cache.values():

@@ -2,7 +2,7 @@
   "build": {
     "beforeDevCommand": "",
     "beforeBuildCommand": "",
-    "devPath": "http://localhost:1420",
+    "devPath": "../src",
     "distDir": "../src"
   },
   "package": {
