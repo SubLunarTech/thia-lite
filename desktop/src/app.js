@@ -270,17 +270,6 @@ function stopVoice() {
     try { recognition.stop(); } catch (e) { }
 }
 
-// Also speak responses (TTS)
-function speak(text) {
-    if (!('speechSynthesis' in window)) return;
-    // Strip markdown
-    const clean = text.replace(/[*_`#\[\]]/g, '').replace(/<[^>]+>/g, '');
-    const utterance = new SpeechSynthesisUtterance(clean.substring(0, 500));
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
-    speechSynthesis.speak(utterance);
-}
-
 // ─── Live Chart ──────────────────────────────────────────────────────────────
 
 function startLiveChart() {
