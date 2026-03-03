@@ -18,7 +18,7 @@ import time
 from typing import Any, Dict, List, Optional
 
 from thia_lite.db import get_db
-from thia_lite.llm.ollama_client import get_ollama_client
+from thia_lite.llm.client import get_llm_client
 from thia_lite.llm.tool_executor import ToolExecutor, SYSTEM_PROMPT
 
 logger = logging.getLogger(__name__)

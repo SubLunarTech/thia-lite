@@ -33,6 +33,7 @@ dependencies = [
 
     # LLM Integration
     "httpx>=0.25",
+    "nest-asyncio>=1.6",
 
     # CLI
     "typer[all]>=0.12",

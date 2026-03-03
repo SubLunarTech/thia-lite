@@ -256,6 +256,143 @@ class EventCorrelator:
         )
         return event_id
 
+    # ─── Total Awareness ported from thia-libre ───
+
+    def _safe_float(self, v: Any, default: float = 0.0) -> float:
+        try:
+            return float(v)
+        except:
+            return default
+
+    def calculate_lagged_cross_correlation(self, series_a: List[float], series_b: List[float], max_lag: int = 30) -> Dict[str, Any]:
+        """Computes cross-correlation between two normalized time-series to find optimal lead/lag times."""
+        try:
+            import numpy as np
+            from scipy.signal import correlate
+        except ImportError:
+            return {"error": "numpy/scipy required for correlation"}
+            
+        if not series_a or not series_b or len(series_a) != len(series_b) or len(series_a) < 2:
+            return {"error": "Invalid or mismatched series"}
+
+        a = np.array(series_a)
+        b = np.array(series_b)
+        
+        a = (a - np.mean(a)) / (np.std(a) + 1e-9)
+        b = (b - np.mean(b)) / (np.std(b) + 1e-9)
+
+        correlations = correlate(a, b, mode='full')
+        lags = np.arange(-len(a) + 1, len(a))
+
+        valid_indices = np.where((lags >= -max_lag) & (lags <= max_lag))
+        valid_lags = lags[valid_indices]
+        valid_corr = correlations[valid_indices] / len(a)
+
+        best_idx = np.argmax(np.abs(valid_corr))
+        best_lag = int(valid_lags[best_idx])
+        best_corr = float(valid_corr[best_idx])
+
+        return {
+            "best_lag": best_lag,
+            "max_correlation": best_corr,
+            "significance": "High" if abs(best_corr) > 0.5 else "Moderate" if abs(best_corr) > 0.3 else "Low",
+            "lag_interpretation": f"Series B leads Series A by {abs(best_lag)} units" if best_lag < 0 else f"Series A leads Series B by {best_lag} units" if best_lag > 0 else "Synchronous"
+        }
+
+    def perform_spectral_analysis(self, series: List[float], sampling_rate: float = 1.0) -> Dict[str, Any]:
+        """Extracts dominant cyclical frequencies (e.g., market cycles) using Fast Fourier Transform."""
+        try:
+            import numpy as np
+            from scipy.fft import fft, fftfreq
+        except ImportError:
+            return {"error": "numpy/scipy required for spectral analysis"}
+            
+        if not series or len(series) < 10:
+            return {"error": "Series too short for FFT"}
+            
+        s = np.array(series)
+        s = s - np.mean(s)
+        
+        n = len(s)
+        yf = fft(s)
+        xf = fftfreq(n, 1 / sampling_rate)
+        
+        pos_mask = xf > 0
+        freqs = xf[pos_mask]
+        power = np.abs(yf[pos_mask])
+        
+        if len(power) == 0:
+            return {"error": "No frequencies found"}
+
+        top_indices = np.argsort(power)[-3:][::-1]
+        
+        cycles = []
+        for idx in top_indices:
+            f = freqs[idx]
+            p = power[idx]
+            period = 1 / f if f > 0 else 0
+            cycles.append({
+                "frequency": round(float(f), 6),
+                "period_days": round(float(period), 2),
+                "power": round(float(p), 2)
+            })
+            
+        return {
+            "dominant_cycles": cycles,
+            "primary_period_days": cycles[0]["period_days"] if cycles else None
+        }
+
+    def analyze_total_awareness(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Total Awareness: Ingest aligned multimodal data and discover statistical patterns.
+        Expected format: {"aligned_time_series": [{"date": "...", "market": 100, "sun_long": 15}, ...]}
+        """
+        import numpy as np
+        ts = payload.get("aligned_time_series", [])
+        if not ts or len(ts) < 10:
+            return {"error": "Insufficient time-series data provided."}
+            
+        columns = ts[0].keys()
+        data_arrays = {c: [] for c in columns if c != "date"}
+        dates = []
+        
+        for row in ts:
+            dates.append(row.get("date"))
+            for c in data_arrays.keys():
+                data_arrays[c].append(self._safe_float(row.get(c, 0.0)))
+
+        results = {
+            "dates_analyzed": len(dates),
+            "start_date": dates[0],
+            "end_date": dates[-1],
+            "fft_cycles": {},
+            "correlations": []
+        }
+
+        target_metric = list(data_arrays.keys())[0]
+            
+        results["fft_cycles"][target_metric] = self.perform_spectral_analysis(data_arrays[target_metric])
+        target_series = data_arrays[target_metric]
+        
+        for feature_name, series in data_arrays.items():
+            if feature_name == target_metric or np.std(series) == 0:
+                continue
+                
+            corr_info = self.calculate_lagged_cross_correlation(target_series, series)
+            results["correlations"].append({
+                "feature": feature_name,
+                "target": target_metric,
+                "analysis": corr_info
+            })
+            
+        results["correlations"] = sorted(results["correlations"], 
+                                         key=lambda x: abs(x["analysis"].get("max_correlation", 0) if isinstance(x["analysis"], dict) else 0), 
+                                         reverse=True)
+
+        return results
+
+    # ──────────────────────────────────────────────
+
     def find_correlations(
         self,
         event_type: str,
@@ -471,6 +608,9 @@ def register_verification_tools():
                 expected_value=args.get("expected_value", ""),
             )
 
+        elif tool_name == "analyze_total_awareness":
+            return _correlator.analyze_total_awareness(args)
+
         return {"error": f"Unknown verification tool: {tool_name}"}
 
     register_tool("create_prediction",
@@ -544,4 +684,14 @@ def register_verification_tools():
         }, "required": ["rule_condition", "event_type"]},
         verification_dispatch)
 
-    logger.info("Registered verification/correlation tools")
+    register_tool("analyze_total_awareness",
+        "Perform spectral analysis (Fast Fourier Transform) and lagged cross-correlation on aligned time-series data to discover profound statistical patterns and lead/lag relationships.",
+        {"type": "object", "properties": {
+            "aligned_time_series": {
+                "type": "array",
+                "items": {"type": "object"}
+            }
+        }, "required": ["aligned_time_series"]},
+        verification_dispatch)
+
+    logger.info("Registered verification/correlation/total-awareness tools")

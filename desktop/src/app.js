@@ -23,6 +23,16 @@ const liveChartContainer = document.getElementById('live-chart');
 const conversationList = document.getElementById('conversation-list');
 const welcomeScreen = document.getElementById('welcome-screen');
 const chartToggle = document.getElementById('chart-toggle');
+const settingsBtn = document.getElementById('settings-btn');
+const settingsModal = document.getElementById('settings-modal');
+const modelIndicator = document.getElementById('model-indicator');
+
+// Settings Inputs
+const providerSelect = document.getElementById('setting-provider');
+const hostInput = document.getElementById('setting-ollama-host');
+const modelSelect = document.getElementById('setting-model');
+const tempInput = document.getElementById('setting-temp');
+const tempValue = document.getElementById('temp-value');
 
 // ─── Initialization ──────────────────────────────────────────────────────────
 

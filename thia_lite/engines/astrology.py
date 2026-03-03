@@ -258,13 +258,26 @@ def _astrology_dispatch(tool_name: str, payload: Dict[str, Any]) -> Dict[str, An
 
     # ── Natal Chart ───────────────────────────────────────────────────────
     if tool_name == "calculate_natal_chart":
+        from thia_lite.engines.timezone_manager import get_timezone_manager
+        tz_manager = get_timezone_manager()
+
         date = payload.get("date", "2000-01-01")
         time_str = payload.get("time", "12:00")
         lat = float(payload.get("latitude", 0))
         lon = float(payload.get("longitude", 0))
+        tz_name = payload.get("timezone", "UTC")
         house_system = payload.get("house_system", "Placidus")
 
-        jd = _to_jd(date, time_str)
+        # Adjust time sequence to UTC using timezone manager
+        local_tz = tz_manager.parse_timezone(tz_name) or timezone.utc
+        dt_naive = datetime.strptime(f"{date} {time_str}", "%Y-%m-%d %H:%M")
+        dt_local = dt_naive.replace(tzinfo=local_tz)
+        dt_utc = dt_local.astimezone(timezone.utc)
+        
+        utc_date = dt_utc.strftime("%Y-%m-%d")
+        utc_time = dt_utc.strftime("%H:%M")
+
+        jd = _to_jd(utc_date, utc_time)
 
         positions = []
         for name, pid in PLANETS.items():
@@ -959,6 +972,7 @@ def register_astrology_tools():
                 "time": {"type": "string", "description": "Birth time (HH:MM)"},
                 "latitude": {"type": "number", "description": "Birth latitude"},
                 "longitude": {"type": "number", "description": "Birth longitude"},
+                "timezone": {"type": "string", "description": "Timezone name (e.g. America/Denver, PST, UTC) of the provided time"},
                 "house_system": {"type": "string", "description": "House system (default: Placidus)"},
             },
             "required": ["date", "time", "latitude", "longitude"],

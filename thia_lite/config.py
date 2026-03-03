@@ -27,16 +27,30 @@ EPHE_DIR = CONFIG_DIR / "data" / "ephe"
 LOG_DIR = CONFIG_DIR / "logs"
 
 
-class OllamaSettings(BaseSettings):
-    """Ollama LLM backend configuration."""
+class LLMSettings(BaseSettings):
+    """Universal LLM backend configuration."""
+    provider: str = Field(default="ollama", description="LLM Provider: ollama, openai, anthropic, minimax, glm, qwen, moonshot, openrouter")
+    
+    # Provider keys
+    openai_api_key: str = Field(default="", description="OpenAI API Key")
+    anthropic_api_key: str = Field(default="", description="Anthropic API Key")
+    minimax_api_key: str = Field(default="", description="MiniMax API Key")
+    glm_api_key: str = Field(default="", description="Zhipu GLM API Key")
+    qwen_api_key: str = Field(default="", description="DashScope Qwen API Key")
+    moonshot_api_key: str = Field(default="", description="Moonshot Kimi API Key")
+    openrouter_api_key: str = Field(default="", description="OpenRouter API Key")
+    
+    # Ollama settings (Local default)
     host: str = Field(default="http://localhost:11434", description="Ollama server URL")
     model: str = Field(default="qwen3.5:9b", description="Default model for chat/tool calling")
     fallback_model: str = Field(default="qwen3.5:4b", description="Fallback if primary too large")
+    
+    # General LLM settings
     timeout: int = Field(default=120, description="Request timeout in seconds")
     context_length: int = Field(default=32768, description="Max context window tokens")
     temperature: float = Field(default=0.3, description="Sampling temperature for tool calling")
 
-    model_config = {"env_prefix": "THIA_OLLAMA_"}
+    model_config = {"env_prefix": "THIA_LLM_"}
 
 
 class MCPSettings(BaseSettings):
@@ -58,7 +72,7 @@ class AppSettings(BaseSettings):
     interface: str = Field(default="cli", description="Default UI: cli, tui, desktop")
 
     # Sub-configs
-    ollama: OllamaSettings = Field(default_factory=OllamaSettings)
+    llm: LLMSettings = Field(default_factory=LLMSettings)
     mcp: MCPSettings = Field(default_factory=MCPSettings)
 
     # Paths

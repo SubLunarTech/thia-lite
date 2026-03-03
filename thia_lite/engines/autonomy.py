@@ -422,6 +422,40 @@ def register_autonomy_tools():
             except Exception as e:
                 return {"error": f"Search failed: {e}"}
 
+        elif tool_name == "get_polymarket_markets":
+            import httpx
+            params = {}
+            for k in ["active", "closed", "order", "query", "limit", "startDate_min", "startDate_max", "endDate_min", "endDate_max", "ascending"]:
+                if args.get(k) is not None:
+                    if k in ["active", "closed"]:
+                        params[k] = "true" if args.get(k) else "false"
+                    else:
+                        params[k] = str(args.get(k))
+            
+            if not params or (len(params) == 1 and "limit" in params):
+                params.update({"active": "true", "closed": "false", "order": "volume24hr", "ascending": "false"})
+            
+            try:
+                response = httpx.get("https://gamma-api.polymarket.com/markets", params=params, timeout=10.0)
+                markets = response.json() if response.status_code == 200 else []
+                limit = int(args.get("limit", 20) or 20)
+                return {"markets": markets[:limit], "count": len(markets), "params_used": params, "source": "polymarket"}
+            except Exception as e:
+                return {"error": f"Polymarket API error: {e}"}
+
+        elif tool_name == "get_prediction_odds":
+            import httpx
+            slug = str(args.get("slug", "")).lower()
+            try:
+                response = httpx.get("https://gamma-api.polymarket.com/markets", params={"active": "true", "closed": "false", "limit": 100}, timeout=10.0)
+                markets = response.json() if response.status_code == 200 else []
+                for m in markets:
+                    if slug and slug in str(m.get("slug", "")).lower():
+                        return {"market": m, "source": "polymarket"}
+                return {"market": markets[0] if markets else None, "source": "polymarket"}
+            except Exception as e:
+                return {"error": f"Polymarket API error: {e}"}
+
         return {"error": f"Unknown autonomy tool: {tool_name}"}
 
     register_tool(
@@ -470,4 +504,30 @@ def register_autonomy_tools():
         autonomy_dispatch,
     )
 
-    logger.info("Registered autonomy tools (scanner, planner, web search)")
+    register_tool(
+        "get_polymarket_markets",
+        "Get Polymarket prediction markets with flexible filtering and sorting. Returns current active real-money markets on future events.",
+        {
+            "type": "object",
+            "properties": {
+                "limit": {"type": "integer", "description": "Maximum number of markets to return (default: 20)"},
+                "query": {"type": "string", "description": "Search text for tracking a topic on polymarket"},
+            },
+        },
+        autonomy_dispatch,
+    )
+
+    register_tool(
+        "get_prediction_odds",
+        "Get the current prediction odds and statistics for a specific Polymarket event by its identifier or slug.",
+        {
+            "type": "object",
+            "properties": {
+                "slug": {"type": "string", "description": "The URL slug or partial keyword for the polymarket market"},
+            },
+            "required": ["slug"],
+        },
+        autonomy_dispatch,
+    )
+
+    logger.info("Registered autonomy tools (scanner, planner, web search, polymarket)")

@@ -4,7 +4,7 @@ Core logic for Nakshatras, Tithis, Vargas (Divisional Charts), and Yogas.
 """
 
 from typing import Dict, Any, List
-from vedic_yogas_data import NAKSHATRAS, TITHIS, VIMSHOTTARI_YEARS
+from thia_lite.engines.vedic_yogas_data import NAKSHATRAS, TITHIS, VIMSHOTTARI_YEARS
 
 def calculate_nakshatra(longitude: float) -> Dict[str, Any]:
     """Calculate the Nakshatra and Pada (quarter) from a sidereal longitude."""

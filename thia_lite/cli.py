@@ -94,7 +94,7 @@ async def _chat_loop(initial_message: Optional[str], conv_id: Optional[str], mod
             "Make sure Ollama is running:\n"
             "  [bold]ollama serve[/bold]\n\n"
             "Then pull the model:\n"
-            "  [bold]ollama pull qwen3.5:9b[/bold]",
+            "  [bold]ollama pull qwen3.5:4b[/bold]",
             title="⚠️  Connection Error",
             border_style="red",
         ))

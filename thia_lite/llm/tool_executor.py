@@ -13,7 +13,7 @@ import logging
 import time
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from thia_lite.llm.ollama_client import OllamaClient, make_ollama_tool, get_ollama_client
+from thia_lite.llm.client import LLMClient, make_ollama_tool, get_llm_client
 
 logger = logging.getLogger(__name__)
 
@@ -88,10 +88,10 @@ class ToolExecutor:
     4. If LLM returns text → return to user
     """
 
-    def __init__(self, client: Optional[OllamaClient] = None,
+    def __init__(self, client: Optional[LLMClient] = None,
                  max_iterations: int = 10,
                  system_prompt: str = SYSTEM_PROMPT):
-        self.client = client or get_ollama_client()
+        self.client = client or get_llm_client()
         self.max_iterations = max_iterations
         self.system_prompt = system_prompt
         self._on_tool_call: Optional[Callable] = None
@@ -248,19 +248,37 @@ def _memory_dispatch(tool_name: str, args: Dict[str, Any]) -> Any:
     if tool_name == "remember_fact":
         key = args.get("key", "")
         value = args.get("value", "")
-        category = args.get("category", "general")
-        db.kv_set("memory", key, {
-            "value": value,
-            "category": category,
-        })
-        return {"status": "saved", "key": key}
+        
+        from thia_lite.llm.conversation import ConversationManager
+        mgr = ConversationManager()
+        mgr.remember(key, value)
+        return {"status": "success", "message": f"Remembered '{key}'"}
 
     elif tool_name == "recall_fact":
         key = args.get("key", "")
-        data = db.kv_get("memory", key)
-        if data and isinstance(data, dict):
-            return {"key": key, "value": data.get("value"), "category": data.get("category")}
-        return {"key": key, "value": None, "message": "Not found"}
+        from thia_lite.llm.conversation import ConversationManager
+        mgr = ConversationManager()
+        val = mgr.recall(key)
+        return {"status": "success", "value": val} if val else {"key": key, "value": None, "message": "Not found"}
+
+    elif tool_name == "analyze_with_rlm":
+        prompt = args.get("prompt", "")
+        if not prompt:
+            return {"error": "Prompt is required"}
+        
+        from thia_lite.llm.rlm_engine import RecursiveLanguageModel
+        import asyncio
+        rlm = RecursiveLanguageModel()
+        
+        try:
+            loop = asyncio.get_running_loop()
+            import nest_asyncio
+            nest_asyncio.apply()
+            result = loop.run_until_complete(rlm.process(prompt=prompt))
+        except RuntimeError:
+            result = asyncio.run(rlm.process(prompt=prompt))
+
+        return {"response": result.response, "iterations": result.iterations}
 
     elif tool_name == "search_memories":
         query = args.get("query", "")
@@ -391,6 +409,19 @@ def register_memory_tools():
         {
             "type": "object",
             "properties": {},
+        },
+        _memory_dispatch,
+    )
+
+    register_tool(
+        "analyze_with_rlm",
+        "Perform deep Recursive Language Modeling (RLM) analysis on a complex prompt. Useful for multi-step reasoning.",
+        {
+            "type": "object",
+            "properties": {
+                "prompt": {"type": "string", "description": "The complex task or question requiring deep analysis"}
+            },
+            "required": ["prompt"]
         },
         _memory_dispatch,
     )

@@ -25,7 +25,7 @@ from typing import Dict, List, Optional, Any, Tuple
 import swisseph as swe
 
 # Primary Directions integration
-from primary_directions import calculate_primary_directions
+from .primary_directions import calculate_primary_directions
 
 # Planet IDs for Swiss Ephemeris
 PLANETS = {
