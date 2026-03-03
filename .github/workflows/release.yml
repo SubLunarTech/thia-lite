@@ -148,7 +148,7 @@ jobs:
             ### Desktop App (One-Click Install)
             | Platform | Download | Notes |
             |----------|----------|-------|
-            | **Windows** | `thia.exe` | Portable — no install needed |
+            | **Windows** | `thia.exe` | Windows Installer — sets up shortcuts |
             | **Linux** | `thia.AppImage` | `chmod +x thia.AppImage && ./thia.AppImage` |
             | **macOS** | `thia.dmg` | Open DMG and drag to Applications |
 

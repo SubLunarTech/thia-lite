@@ -1,12 +1,12 @@
 {
   "name": "thia-lite-desktop",
-  "version": "0.3.18",
+  "version": "0.3.19",
   "description": "Thia-Lite AI Astrology Assistant",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --linux AppImage --x64 --publish never",
-    "build:win": "electron-builder --win portable --x64 --publish never",
+    "build:win": "electron-builder --win nsis --x64 --publish never",
     "build:mac": "electron-builder --mac dmg --publish never",
     "build:all": "electron-builder -wml --publish never",
     "smoke-test": "node scripts/smoke-test-asar.js"
