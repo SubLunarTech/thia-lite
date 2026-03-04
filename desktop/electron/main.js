@@ -216,18 +216,36 @@ const getOllamaPath = () => {
   if (platform === 'win32') {
     // Check multiple common Windows locations
     const paths = [
-      path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe'),
+      path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Ollama', 'ollama.exe'),
       path.join(process.env.PROGRAMFILES || '', 'Ollama', 'ollama.exe'),
+      path.join(process.env['PROGRAMFILES(X86)'] || '', 'Ollama', 'ollama.exe'),
+      path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe'),
       path.join(process.env.USERPROFILE || '', 'AppData', 'Local', 'Programs', 'Ollama', 'ollama.exe'),
-      'ollama.exe'
     ];
+    
+    // Check filesystem paths first
     for (const p of paths) {
       if (fs.existsSync(p)) {
         logMain(`Found Ollama at: ${p}`);
         return p;
       }
     }
-    return 'ollama.exe'; // fallback to PATH
+    
+    // Try using where.exe to find ollama in PATH
+    try {
+      const { execSync } = require('child_process');
+      const result = execSync('where ollama.exe', { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+      if (result) {
+        const foundPath = result.split('\n')[0].trim();
+        logMain(`Found Ollama via PATH: ${foundPath}`);
+        return foundPath;
+      }
+    } catch (e) {
+      logMain(`Ollama not found in PATH: ${e.message}`);
+    }
+    
+    logMain('Ollama executable not found on system');
+    return null;
   }
   if (platform === 'darwin') {
     return '/Applications/Ollama.app/Contents/Resources/ollama';
@@ -274,11 +292,8 @@ async function ensureOllama() {
 
     function checkDisk() {
       const ollamaExe = getOllamaPath();
-      logMain(`Checking for Ollama executable at: ${ollamaExe}`);
-      const exists = fs.existsSync(ollamaExe);
-      logMain(`Ollama executable exists: ${exists}`);
       
-      if (exists || platform !== 'win32') {
+      if (ollamaExe && fs.existsSync(ollamaExe)) {
         logMain(`Ollama found at ${ollamaExe} but not running. Attempting start...`);
         if (platform === 'win32') {
           exec(`start "" "${ollamaExe}"`, (err) => {
@@ -291,7 +306,7 @@ async function ensureOllama() {
             else logMain('Ollama start command executed');
           });
         }
-        waitForOllamaAndPull(true); // pass 'isSilent' flag
+        waitForOllamaAndPull(true);
       } else {
         logMain('Ollama not found on disk, starting install flow');
         startInstallFlow();
