@@ -178,7 +178,21 @@ async function sendMessage() {
     } catch (err) {
         logError('Chat error:', err);
         thinkingEl.remove();
-        appendMessage('assistant', `Error: ${err.message}. Is the Thia backend running on port 8765?`);
+
+        // Check if it's a connection error (backend not running)
+        if (err.message.includes('Failed to fetch') || err.message.includes('ECONNREFUSED')) {
+            appendMessage('assistant', `**Thia Backend Not Connected**
+
+The backend API server is not responding. This could mean:
+
+1. **Python is not installed** - Download from https://www.python.org/downloads/
+2. **thia-lite is not installed** - Run: \`pip install thia-lite\`
+3. **Ollama is not running** - Make sure Ollama is started
+
+Check the logs for more details (press F12 in the app).`);
+        } else {
+            appendMessage('assistant', `Error: ${err.message}`);
+        }
     }
 
     isStreaming = false;

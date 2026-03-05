@@ -59,25 +59,46 @@ function findBackendBinary() {
   return null;
 }
 
-function findPython() {
-  const candidates = [];
-  const projectRoot = path.resolve(__dirname, '..', '..');
-  const venvPy = process.platform === 'win32'
-    ? path.join(projectRoot, '.venv', 'Scripts', 'python.exe')
-    : path.join(projectRoot, '.venv', 'bin', 'python3');
-  candidates.push(venvPy);
+async function findPython() {
+  const { execSync } = require('child_process');
 
   if (process.platform === 'win32') {
-    candidates.push('py', 'python3', 'python');
+    // Try Python launcher, Python 3, then Python
+    const candidates = ['py', 'python3', 'python'];
+    for (const py of candidates) {
+      try {
+        const result = execSync(`where ${py}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+        if (result && result.trim()) {
+          const pythonPath = result.trim().split('\n')[0].trim();
+          logMain(`Found Python at: ${pythonPath}`);
+          return pythonPath;
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+    return null;
   } else {
-    candidates.push('python3', 'python');
+    // Unix-like systems
+    const candidates = ['python3', 'python'];
+    for (const py of candidates) {
+      try {
+        const result = execSync(`which ${py}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+        if (result && result.trim()) {
+          const pythonPath = result.trim();
+          logMain(`Found Python at: ${pythonPath}`);
+          return pythonPath;
+        }
+      } catch (e) {
+        continue;
+      }
+    }
+    return null;
   }
-
-  return candidates[0]; // fallback
 }
 
-function startBackend() {
-  return new Promise((resolve, reject) => {
+async function startBackend() {
+  return new Promise(async (resolve, reject) => {
     const backendPath = findBackendBinary();
 
     if (backendPath) {
@@ -93,11 +114,22 @@ function startBackend() {
         stdio: ['ignore', 'pipe', 'pipe'],
       });
     } else {
-      const pythonPath = findPython();
+      const pythonPath = await findPython();
+      if (!pythonPath) {
+        const error = new Error('Python not found. Please install Python 3.9+ from https://www.python.org/downloads/');
+        logMain(error.message);
+        reject(error);
+        return;
+      }
+
       logMain(`Falling back to Python API server with: ${pythonPath}`);
+
+      // Check if thia_lite is installed, if not, try to install it
+      const thiaLitePath = path.join(process.resourcesPath || path.resolve(__dirname, '..', '..'), 'thia_lite');
+
       backendProcess = spawn(pythonPath, ['-m', 'thia_lite.api_server'], {
-        cwd: path.resolve(__dirname, '..', '..'),
-        env: { ...process.env, PYTHONUNBUFFERED: '1' },
+        cwd: process.resourcesPath || path.resolve(__dirname, '..', '..'),
+        env: { ...process.env, PYTHONPATH: thiaLitePath, PYTHONUNBUFFERED: '1' },
         stdio: ['ignore', 'pipe', 'pipe'],
       });
     }
@@ -581,9 +613,13 @@ app.whenReady().then(async () => {
     logMain('Backend started successfully');
   } catch (err) {
     logMain(`Backend start failed: ${err.message}`);
+    let message = err.message;
+    if (err.message.includes('Python not found')) {
+      message = 'Python is not installed on your system.\n\nPlease install Python 3.9 or higher from:\nhttps://www.python.org/downloads/\n\nDuring installation, make sure to check "Add Python to PATH".';
+    }
     dialog.showErrorBox(
       'Thia Backend Failed to Start',
-      `Could not start the Python API server.\n\n${err.message}\n\nMake sure Python 3.9+ and thia-lite are installed:\n  pip install -e .\n\nLog: ${getMainLogPath()}`
+      `${message}\n\nLog: ${getMainLogPath()}`
     );
   }
 
