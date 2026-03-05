@@ -178,6 +178,13 @@ class ToolExecutor:
 
             # Check for tool calls
             if response.get("tool_calls"):
+                # Add assistant message with tool calls ONCE (before executing)
+                messages.append({
+                    "role": "assistant",
+                    "content": response.get("content", ""),
+                    "tool_calls": response["tool_calls"],
+                })
+
                 for tc in response["tool_calls"]:
                     fn = tc.get("function", {})
                     tool_name = fn.get("name", "")
@@ -196,13 +203,6 @@ class ToolExecutor:
 
                     if self._on_tool_result:
                         self._on_tool_result(tool_name, result)
-
-                    # Add assistant message with tool call
-                    messages.append({
-                        "role": "assistant",
-                        "content": response.get("content", ""),
-                        "tool_calls": response["tool_calls"],
-                    })
 
                     # Add tool result
                     messages.append({

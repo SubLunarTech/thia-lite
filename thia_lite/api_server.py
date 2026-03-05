@@ -265,14 +265,14 @@ def run_server(port: int = DEFAULT_PORT):
 
     server = ThreadingHTTPServer(("0.0.0.0", port), ThiaRequestHandler)
     logger.info("Thia API server listening on http://0.0.0.0:%d", port)
-    print(f"✦ Thia API server ready on http://localhost:{port}")
+    print(f"* Thia API server ready on http://localhost:{port}")
     print(f"  Endpoints: /health, /chat, /conversations")
     print(f"  Press Ctrl+C to stop")
 
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\n✦ Server stopped.")
+        print("\n* Server stopped.")
     finally:
         server.server_close()
         if _loop and not _loop.is_closed():

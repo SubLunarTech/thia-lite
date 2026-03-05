@@ -202,6 +202,11 @@ class LLMClient:
         if not api_key:
             return {"role": "assistant", "content": f"Missing API key for {provider}", "tool_calls": None, "done": True}
 
+        base_url = base_urls[provider]
+        model = getattr(self.config, 'model', None)
+        if not model or model.startswith('qwen3.5:'):
+            model = default_models[provider]
+
         headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
         if provider == "openrouter":
             headers["HTTP-Referer"] = "https://github.com/SubLunarTech/thia-lite"
@@ -393,8 +398,23 @@ def get_llm_client(provider: Optional[str] = None, config: Optional[Any] = None,
     """Get or create the global LLM client, or create a temporary one if kwargs overlap."""
     global _client
     if provider is not None:
-        c = LLMClient(provider=provider, config=config, api_key=api_key)
-        if model: c.config = type('Config', (), {'model': model})()
+        from thia_lite.config import get_settings
+        cfg = get_settings().llm
+        c = LLMClient(provider=provider, config=cfg, api_key=api_key)
+        if model:
+            c.config = type('Config', (), {
+                'model': model,
+                'host': cfg.host,
+                'timeout': cfg.timeout,
+                'temperature': temperature if temperature is not None else cfg.temperature,
+                'openai_api_key': cfg.openai_api_key,
+                'anthropic_api_key': cfg.anthropic_api_key,
+                'minimax_api_key': cfg.minimax_api_key,
+                'glm_api_key': cfg.glm_api_key,
+                'qwen_api_key': cfg.qwen_api_key,
+                'moonshot_api_key': cfg.moonshot_api_key,
+                'openrouter_api_key': cfg.openrouter_api_key,
+            })()
         if temperature is not None: c.temperature = temperature
         return c
 
