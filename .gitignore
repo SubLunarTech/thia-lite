@@ -47,3 +47,4 @@ node_modules/
 *.dmg
 *.exe
 mcp-config.json
+desktop/electron/bin/
