@@ -388,11 +388,11 @@ async function ensureOllama() {
 
       function pullModel() {
         const ollamaPath = getOllamaPath();
-        updateUI('Downloading AI Knowledge Model (qwen2.5:1.5b)...', 0, true);
-        logMain(`Pulling qwen2.5:1.5b using: ${ollamaPath}`);
+        updateUI('Downloading AI Knowledge Model (qwen3.5:4b)...', 0, true);
+        logMain(`Pulling qwen3.5:4b using: ${ollamaPath}`);
 
         setTimeout(() => {
-          const pullProcess = spawn(ollamaPath, ['pull', 'qwen2.5:1.5b'], {
+          const pullProcess = spawn(ollamaPath, ['pull', 'qwen3.5:4b'], {
             env: { ...process.env }
           });
 
@@ -423,7 +423,7 @@ async function ensureOllama() {
             // Fallback to global command
             if (ollamaPath !== 'ollama') {
               logMain('Retrying with global ollama...');
-              const retryProcess = spawn('ollama', ['pull', 'qwen2.5:1.5b']);
+              const retryProcess = spawn('ollama', ['pull', 'qwen3.5:4b']);
               retryProcess.on('close', done);
               retryProcess.on('error', done);
             } else {
