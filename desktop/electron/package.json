@@ -7,7 +7,7 @@
     "start": "electron .",
     "prebuild": "node scripts/prebuild.js",
     "build": "npm run prebuild && electron-builder --linux AppImage --x64 --publish never",
-    "build:win": "npm run prebuild && electron-builder --win nsis --x64 --publish never",
+    "build:win": "node scripts/build-win-bundle.js && electron-builder --win nsis --x64 --publish never",
     "build:mac": "npm run prebuild && electron-builder --mac dmg --publish never",
     "build:all": "npm run prebuild && electron-builder -wml --publish never",
     "smoke-test": "node scripts/smoke-test-asar.js"
@@ -32,7 +32,8 @@
       "icons/**/*"
     ],
     "extraResources": [
-      "bin/**/*"
+      "bin/**/*",
+      "resources/**/*"
     ],
     "win": {
       "target": "nsis",

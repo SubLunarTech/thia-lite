@@ -114,7 +114,22 @@ async function startBackend() {
         stdio: ['ignore', 'pipe', 'pipe'],
       });
     } else {
-      const pythonPath = await findPython();
+      // Check for bundled Python first (Windows all-in-one package)
+      let pythonPath = null;
+
+      if (process.platform === 'win32') {
+        const bundledPython = path.join(process.resourcesPath, 'python', 'python.exe');
+        if (fs.existsSync(bundledPython)) {
+          pythonPath = bundledPython;
+          logMain(`Using bundled Python: ${pythonPath}`);
+        }
+      }
+
+      // Fallback to system Python if bundled not found
+      if (!pythonPath) {
+        pythonPath = await findPython();
+      }
+
       if (!pythonPath) {
         const error = new Error('Python not found. Please install Python 3.9+ from https://www.python.org/downloads/');
         logMain(error.message);
@@ -122,14 +137,11 @@ async function startBackend() {
         return;
       }
 
-      logMain(`Falling back to Python API server with: ${pythonPath}`);
-
-      // Check if thia_lite is installed, if not, try to install it
-      const thiaLitePath = path.join(process.resourcesPath || path.resolve(__dirname, '..', '..'), 'thia_lite');
+      logMain(`Starting Python API server with: ${pythonPath}`);
 
       backendProcess = spawn(pythonPath, ['-m', 'thia_lite.api_server'], {
         cwd: process.resourcesPath || path.resolve(__dirname, '..', '..'),
-        env: { ...process.env, PYTHONPATH: thiaLitePath, PYTHONUNBUFFERED: '1' },
+        env: { ...process.env, PYTHONUNBUFFERED: '1' },
         stdio: ['ignore', 'pipe', 'pipe'],
       });
     }
@@ -613,13 +625,9 @@ app.whenReady().then(async () => {
     logMain('Backend started successfully');
   } catch (err) {
     logMain(`Backend start failed: ${err.message}`);
-    let message = err.message;
-    if (err.message.includes('Python not found')) {
-      message = 'Python is not installed on your system.\n\nPlease install Python 3.9 or higher from:\nhttps://www.python.org/downloads/\n\nDuring installation, make sure to check "Add Python to PATH".';
-    }
     dialog.showErrorBox(
       'Thia Backend Failed to Start',
-      `${message}\n\nLog: ${getMainLogPath()}`
+      `Could not start the backend server.\n\n${err.message}\n\nLog: ${getMainLogPath()}`
     );
   }
 
