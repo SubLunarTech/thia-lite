@@ -59,7 +59,11 @@ jobs:
       - name: Build Electron app (Windows)
         if: matrix.os == 'windows'
         shell: pwsh
-        run: npm run build:win
+        run: |
+          # Run prebuild to copy CLI to bin directory
+          npm run prebuild
+          # Build with electron-builder (skip build-win-bundle.js)
+          npx electron-builder --win nsis --x64 --publish never
         working-directory: ./desktop/electron
         env:
           NODE_ENV: production
