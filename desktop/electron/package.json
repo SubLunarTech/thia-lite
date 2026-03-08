@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "postinstall": "electron-rebuild -f -w node-llama-cpp || true",
     "prebuild": "node scripts/prebuild.js",
     "build": "npm run prebuild && electron-builder --linux AppImage --x64 --publish never",
     "build:win": "node scripts/build-win-bundle.js && electron-builder --win nsis --x64 --publish never",
@@ -16,7 +17,8 @@
   "license": "GPL-3.0-or-later",
   "devDependencies": {
     "electron": "^33.0.0",
-    "electron-builder": "^25.0.0"
+    "electron-builder": "^25.0.0",
+    "electron-rebuild": "^3.2.7"
   },
   "build": {
     "productName": "Thia",
@@ -32,6 +34,10 @@
       "mcp-client.js",
       "src/**/*",
       "icons/**/*"
+    ],
+    "asarUnpack": [
+      "node_modules/node-llama-cpp/**",
+      "node_modules/@node-llama-cpp/**"
     ],
     "extraResources": [
       "bin/**/*",
@@ -65,15 +71,8 @@
     }
   },
   "dependencies": {
+    "node-llama-cpp": "^3.0.0",
     "decompress": "^4.2.1",
     "electron-updater": "^6.0.0"
-  },
-  "peerDependencies": {
-    "node-llama-cpp": "^3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "node-llama-cpp": {
-      "optional": true
-    }
   }
 }

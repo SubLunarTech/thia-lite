@@ -308,7 +308,18 @@ class LLMEngine extends EventEmitter {
 
         try {
             // Dynamic import for node-llama-cpp (ESM module)
-            const { getLlama, LlamaChatSession } = await import('node-llama-cpp');
+            let getLlama, LlamaChatSession;
+            try {
+                const llamaCpp = await import('node-llama-cpp');
+                getLlama = llamaCpp.getLlama;
+                LlamaChatSession = llamaCpp.LlamaChatSession;
+            } catch (importErr) {
+                throw new Error(
+                    'node-llama-cpp module not found. Please reinstall dependencies:\n' +
+                    '  cd desktop/electron && rm -rf node_modules && npm install\n' +
+                    `Original error: ${importErr.message}`
+                );
+            }
 
             this._llamaInstance = await getLlama();
             const model = await this._llamaInstance.loadModel({ modelPath });

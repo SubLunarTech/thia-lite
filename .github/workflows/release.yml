@@ -45,6 +45,18 @@ jobs:
         if: matrix.os != 'windows'
         run: chmod +x desktop/electron/bin/thia-lite || true
 
+      - name: Install build tools for native modules
+        run: |
+          # Install build tools for native modules (node-llama-cpp)
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install -y build-essential cmake python3
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            # Xcode command line tools typically pre-installed
+            xcode-select --install 2>/dev/null || true
+          fi
+        shell: bash
+
       - name: Install Electron dependencies
         run: npm install
         working-directory: ./desktop/electron

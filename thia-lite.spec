@@ -1,14 +1,58 @@
 # -*- mode: python ; coding: utf-8 -*-
 
 hidden_imports = [
+    # Core
     'pyswisseph',
     'swisseph',
     'sqlite_vec',
     'sqlite_vec._sqlite_vec',
+
+    # Pydantic (critical for config)
+    'pydantic',
+    'pydantic_core',
+    'pydantic_settings',
+    'pydantic_settings.base',
+    'annotated_types',
+
+    # LLM/HTTP
+    'httpx',
+    'httpx._transports.default',
+    'nest_asyncio',
+    'anyio',
+    'anyio._backends._asyncio',
+
+    # CLI/TUI
+    'typer',
+    'rich',
+    'rich.markdown',
+    'rich.console',
+    'textual',
+    'textual.app',
+    'textual.widgets',
+
+    # MCP/WebSockets
+    'websockets',
+    'websockets.server',
+    'websockets.client',
+
+    # Utilities
+    'timezonefinder',
+    'timezonefinderL',
+
+    # TOML parsing (Python < 3.11)
+    'tomli',
+    'tomllib',
+
+    # thia_lite modules
     'thia_lite.rules',
     'thia_lite.llm.rlm_engine',
     'thia_lite.llm.conversation',
     'thia_lite.llm.tool_executor',
+    'thia_lite.llm.client',
+    'thia_lite.config',
+    'thia_lite.db',
+    'thia_lite.mcp.server',
+    'thia_lite.mcp.client',
 ]
 
 import os
@@ -81,7 +125,7 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,
+    upx=False,  # Disabled - can cause crashes on Windows with certain DLLs
     upx_exclude=[],
     runtime_tmpdir=None,
     console=True,
