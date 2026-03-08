@@ -15,7 +15,6 @@
   "author": "Thia-Libre Contributors",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "decompress": "^4.2.1",
     "electron": "^33.0.0",
     "electron-builder": "^25.0.0"
   },
@@ -69,6 +68,7 @@
     }
   },
   "dependencies": {
+    "decompress": "^4.2.1",
     "node-llama-cpp": "^3.0.0"
   }
 }
