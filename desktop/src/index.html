@@ -36,8 +36,13 @@
                 <button id="update-btn" class="sidebar-btn" onclick="checkForUpdates()" title="Check for updates">
                     <span>🔄</span> <span id="update-label">Check for Updates</span>
                 </button>
-                <button id="settings-btn" class="sidebar-btn">
-                    <span>⚙️</span> Settings
+                <button id="settings-btn" class="nav-btn">
+                    <span class="icon">⚙️</span>
+                    <span>Settings</span>
+                </button>
+                <button id="memories-btn" class="nav-btn">
+                    <span class="icon">🧠</span>
+                    <span>Memories</span>
                 </button>
                 <div class="version-info" id="version-info">v0.1.0</div>
             </div>
@@ -137,6 +142,26 @@
             </div>
         </aside>
 
+        <!-- Memories Modal -->
+        <div id="memories-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Agent Memory</h2>
+                    <button id="close-memories-btn" class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p style="color:var(--text-dim); margin-bottom: 20px; font-size:14px;">This panel shows the facts
+                        and context Thia has autonomously remembered about you across all conversations.</p>
+
+                    <h3>Birth Data</h3>
+                    <div id="memories-birth-data" class="memories-list"></div>
+
+                    <h3 style="margin-top:20px;">Saved Facts</h3>
+                    <div id="memories-facts-list" class="memories-list"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- Chart Display Overlay -->
         <div id="chart-overlay" class="chart-overlay hidden">
             <div class="chart-container">
@@ -158,29 +183,22 @@
             </div>
             <div class="modal-body">
                 <div class="setting-group">
-                    <label>LLM Provider</label>
+                    <label>AI Provider</label>
                     <select id="setting-provider">
-                        <option value="ollama">Ollama (Local/Pi)</option>
-                        <option value="openai">OpenAI</option>
-                        <option value="anthropic">Anthropic</option>
-                        <option value="qwen">Qwen (Cloud)</option>
-                        <option value="moonshot">Moonshot</option>
-                        <option value="glm">Zhipu GLM</option>
-                        <option value="openrouter">OpenRouter</option>
+                        <option value="local">🖥️ Local (Qwen 3.5 — Offline)</option>
+                        <option value="openai">☁️ OpenAI (GPT-4o Mini)</option>
+                        <option value="anthropic">☁️ Anthropic (Claude)</option>
+                        <option value="openrouter">☁️ OpenRouter (Many Models)</option>
                     </select>
                 </div>
-                <div class="setting-group" id="host-group">
-                    <label>Ollama Host</label>
-                    <input type="text" id="setting-ollama-host" value="http://localhost:11434">
+                <div class="setting-group" id="api-key-group" style="display:none">
+                    <label>API Key</label>
+                    <input type="password" id="setting-api-key" placeholder="sk-... or key-...">
                 </div>
-                <div class="setting-group">
-                    <label>Model Configuration (Optional for Cloud)</label>
-                    <select id="setting-model">
-                        <option value="qwen3.5:4b">Qwen 3.5 4B (Default - Small/Fast)</option>
-                        <option value="qwen3.5:8b">Qwen 3.5 8B (Balanced Local)</option>
-                        <option value="qwen3.5:9b">Qwen 3.5 9B (Higher Quality)</option>
-                        <option value="qwen3.5:14b">Qwen 3.5 14B (Pro Local)</option>
-                        <option value="">-- Use Provider Default --</option>
+                <div class="setting-group" id="local-group" style="display:none">
+                    <label>Local AI Size</label>
+                    <select id="setting-local-model">
+                        <option value="">Loading...</option>
                     </select>
                 </div>
                 <div class="setting-group">

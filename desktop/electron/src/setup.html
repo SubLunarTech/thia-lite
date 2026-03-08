@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thia — Setup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0a1e 0%, #1a1030 40%, #0d1b2a 100%);
+            color: #e8e0f0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            -webkit-app-region: drag;
+        }
+
+        .container {
+            width: 560px;
+            animation: fadeInUp 0.6s ease-out;
+            -webkit-app-region: no-drag;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-icon {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .logo-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .logo-subtitle {
+            font-size: 14px;
+            color: #9a8cb8;
+            margin-top: 4px;
+        }
+
+        /* ─── Provider Choice Cards ─── */
+        .choices {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .choice-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .choice-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(139, 92, 246, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .choice-card.selected {
+            background: rgba(139, 92, 246, 0.12);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+        }
+
+        .choice-icon {
+            font-size: 36px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .choice-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .choice-desc {
+            font-size: 12px;
+            color: #9a8cb8;
+            line-height: 1.5;
+        }
+
+        /* ─── Config Panels ─── */
+        .cloud-config,
+        .local-config {
+            display: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .cloud-config.visible,
+        .local-config.visible {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #c4b8d8;
+            margin-bottom: 6px;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #e8e0f0;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .form-group select option {
+            background: #1a1030;
+            color: #e8e0f0;
+        }
+
+        /* ─── Continue Button ─── */
+        .continue-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .continue-btn:hover {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .continue-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ─── Download Progress ─── */
+        .download-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .download-screen.visible {
+            display: block;
+        }
+
+        .progress-bar-track {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            margin: 20px 0 12px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .download-status {
+            font-size: 14px;
+            color: #c4b8d8;
+            margin-top: 8px;
+        }
+
+        .download-detail {
+            font-size: 12px;
+            color: #7a6b8f;
+            margin-top: 4px;
+        }
+
+        /* ─── Skip link ─── */
+        .skip-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #7a6b8f;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .skip-link:hover {
+            color: #a78bfa;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Setup Screen -->
+        <div id="setup-screen">
+            <div class="logo">
+                <span class="logo-icon">🌟</span>
+                <div class="logo-title">Welcome to Thia</div>
+                <div class="logo-subtitle">AI Astrological Prediction Assistant</div>
+            </div>
+
+            <div class="choices">
+                <div class="choice-card" id="choice-local" onclick="selectChoice('local')">
+                    <span class="choice-icon">🖥️</span>
+                    <div class="choice-title">Run Locally</div>
+                    <div class="choice-desc">
+                        Download Qwen 3.5 (~2.5 GB).<br>
+                        Runs fully offline after setup.<br>
+                        No API key needed.
+                    </div>
+                </div>
+                <div class="choice-card" id="choice-cloud" onclick="selectChoice('cloud')">
+                    <span class="choice-icon">☁️</span>
+                    <div class="choice-title">Use Cloud AI</div>
+                    <div class="choice-desc">
+                        OpenAI, Anthropic, or OpenRouter.<br>
+                        No download required.<br>
+                        Requires an API key.
+                    </div>
+                </div>
+            </div>
+
+            <div class="local-config" id="local-config">
+                <div class="form-group">
+                    <label>Local AI Size</label>
+                    <select id="local-model-size">
+                        <option value="">Loading recommendations...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="cloud-config" id="cloud-config">
+                <div class="form-group">
+                    <label>Cloud Provider</label>
+                    <select id="cloud-provider">
+                        <option value="openai">OpenAI (GPT-4o Mini)</option>
+                        <option value="anthropic">Anthropic (Claude 3.5 Sonnet)</option>
+                        <option value="openrouter">OpenRouter (Many Models)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="password" id="cloud-api-key" placeholder="sk-... or key-...">
+                </div>
+            </div>
+
+            <button class="continue-btn" id="continue-btn" onclick="continueSetup()" disabled>
+                Choose an option above
+            </button>
+        </div>
+
+        <!-- Download Progress Screen -->
+        <div id="download-screen" class="download-screen">
+            <div class="logo">
+                <span class="logo-icon">🌟</span>
+                <div class="logo-title">Downloading AI Model</div>
+                <div class="logo-subtitle">Qwen 3.5 4B — this only happens once</div>
+            </div>
+
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="download-status" id="download-status">Preparing download...</div>
+            <div class="download-detail" id="download-detail"></div>
+        </div>
+    </div>
+
+    <script>
+        let selectedChoice = null;
+
+        function selectChoice(choice) {
+            selectedChoice = choice;
+
+            // Update card visuals
+            document.getElementById('choice-local').classList.toggle('selected', choice === 'local');
+            document.getElementById('choice-cloud').classList.toggle('selected', choice === 'cloud');
+
+            // Show/hide configs
+            const cl = document.getElementById('cloud-config').classList;
+            const ll = document.getElementById('local-config').classList;
+            if (choice === 'cloud') {
+                cl.add('visible');
+                ll.remove('visible');
+            } else {
+                cl.remove('visible');
+                ll.add('visible');
+            }
+
+            // Update button
+            const btn = document.getElementById('continue-btn');
+            btn.disabled = false;
+            btn.textContent = choice === 'local' ? 'Download & Start' : 'Connect & Start';
+        }
+
+        function continueSetup() {
+            if (!selectedChoice) return;
+
+            if (selectedChoice === 'local') {
+                const modelId = document.getElementById('local-model-size')?.value;
+                // Tell main process to start local setup
+                window.electronAPI.setupLocal(modelId);
+
+                // Show download screen
+                document.getElementById('setup-screen').style.display = 'none';
+                document.getElementById('download-screen').classList.add('visible');
+            } else {
+                const provider = document.getElementById('cloud-provider').value;
+                const apiKey = document.getElementById('cloud-api-key').value.trim();
+
+                if (!apiKey) {
+                    document.getElementById('cloud-api-key').style.borderColor = '#ef4444';
+                    document.getElementById('cloud-api-key').placeholder = 'API key is required';
+                    return;
+                }
+
+                // Tell main process to set up cloud provider
+                window.electronAPI.setupCloud(provider, apiKey);
+            }
+        }
+
+        // Listen for download progress from main process
+        if (window.electronAPI?.onDownloadProgress) {
+            window.electronAPI.onDownloadProgress((data) => {
+                const fill = document.getElementById('progress-fill');
+                const status = document.getElementById('download-status');
+                const detail = document.getElementById('download-detail');
+
+                if (data.percent !== undefined) {
+                    fill.style.width = `${data.percent}%`;
+                    status.textContent = `Downloading... ${data.percent}%`;
+                    detail.textContent = `${data.mbDown || 0} MB / ${data.mbTotal || '?'} MB`;
+                }
+            });
+        }
+
+        if (window.electronAPI?.onSetupStatus) {
+            window.electronAPI.onSetupStatus((data) => {
+                const status = document.getElementById('download-status');
+                if (status) status.textContent = data.message || data;
+            });
+        }
+
+        async function initSetup() {
+            if (window.electronAPI?.getLocalModelsConfig) {
+                try {
+                    const config = await window.electronAPI.getLocalModelsConfig();
+                    const select = document.getElementById('local-model-size');
+                    if (select && config) {
+                        select.innerHTML = '';
+                        for (const m of config.models) {
+                            const option = document.createElement('option');
+                            option.value = m.id;
+                            let text = `${m.name} (${Math.round(m.sizeBytes / 1e8) / 10} GB)`;
+                            if (m.id === config.recommendedId) {
+                                text += ' — ⭐ Recommended for your system';
+                            }
+                            option.textContent = text;
+                            select.appendChild(option);
+                        }
+                        select.value = config.recommendedId;
+
+                        const desc = document.querySelector('#choice-local .choice-desc');
+                        if (desc) {
+                            desc.innerHTML = `Your system has ${config.systemRamGb}GB RAM.<br>We pre-selected the best model.<br>Runs fully offline.`;
+                        }
+                    }
+                } catch (e) {
+                    console.error('Failed to get local models config', e);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initSetup);
+    </script>
+</body>
+
+</html>

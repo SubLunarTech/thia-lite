@@ -35,6 +35,9 @@
       "bin/**/*",
       "resources/**/*"
     ],
+    "asarUnpack": [
+      "node_modules/node-llama-cpp/**/*"
+    ],
     "win": {
       "target": "nsis",
       "executableName": "thia",
@@ -42,8 +45,10 @@
       "icon": "icons/icon.ico"
     },
     "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
+      "oneClick": true,
+      "allowToChangeInstallationDirectory": false,
+      "perMachine": false,
+      "runAfterFinish": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "Thia-Lite",
@@ -61,9 +66,6 @@
     }
   },
   "dependencies": {
-    "decompress": "^4.2.1",
-    "call-bind-apply-helpers": "^1.0.2",
-    "call-bind": "^1.0.8",
-    "get-intrinsic": "^1.2.6"
+    "node-llama-cpp": "^3.0.0"
   }
 }

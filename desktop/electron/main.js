@@ -1,20 +1,57 @@
-const { app, BrowserWindow, dialog } = require('electron');
+const { app, BrowserWindow, dialog, ipcMain, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
+const { autoUpdater } = require('electron-updater');
+const { LLMEngine } = require('./llm-engine');
+const { MCPClient } = require('./mcp-client');
 
 let mainWindow;
+let setupWindow;
 let backendProcess = null;
+let mcpClient = null;
+const llmEngine = new LLMEngine();
 
 const API_PORT = 8765;
-const API_BASE = `http://localhost:${API_PORT}`;
+
+// ─── Data Storage ────────────────────────────────────────────────────────────
+
+function getUserDataDir() {
+  return app.getPath('userData');
+}
+
+let appConversations = [];
+const CONV_FILE = path.join(getUserDataDir(), 'conversations.json');
+
+function loadConversations() {
+  try {
+    if (fs.existsSync(CONV_FILE)) {
+      appConversations = JSON.parse(fs.readFileSync(CONV_FILE, 'utf8'));
+    }
+  } catch (e) {
+    logMain(`Failed to load conversations: ${e.message}`);
+  }
+}
+
+function saveConversations() {
+  try {
+    fs.writeFileSync(CONV_FILE, JSON.stringify(appConversations, null, 2), 'utf8');
+  } catch (e) {
+    logMain(`Failed to save conversations: ${e.message}`);
+  }
+}
+
+function initConversations() {
+  loadConversations();
+}
 
 if (process.platform === 'win32') {
-  // Avoid common startup crashes caused by unstable GPU drivers on Windows.
   app.disableHardwareAcceleration();
 }
 
 app.setName('Thia');
+
+// ─── Logging ─────────────────────────────────────────────────────────────────
 
 function getMainLogPath() {
   try {
@@ -26,33 +63,24 @@ function getMainLogPath() {
 
 function logMain(message) {
   const line = `[${new Date().toISOString()}] ${message}\n`;
-  try {
-    fs.appendFileSync(getMainLogPath(), line, 'utf8');
-  } catch {
-    // Best effort logging only.
-  }
+  try { fs.appendFileSync(getMainLogPath(), line, 'utf8'); } catch { }
 }
 
-// ─── Python Backend Management ───────────────────────────────────────────────
+// ─── Python Backend ──────────────────────────────────────────────────────────
 
 function findBackendBinary() {
   const isWin = process.platform === 'win32';
   const binName = isWin ? 'thia-lite.exe' : 'thia-lite';
 
-  // 1. Packaged location (production)
-  // electron-builder puts extraResources in process.resourcesPath
   const packagedPath = path.join(process.resourcesPath, 'bin', binName);
-  logMain(`Looking for packaged backend at: ${packagedPath}`);
   if (fs.existsSync(packagedPath)) {
     logMain(`Found bundled backend at: ${packagedPath}`);
     return packagedPath;
   }
 
-  // 2. Local dev dist folder (if running from source)
   const devPath = path.resolve(__dirname, '..', '..', 'dist', binName);
-  logMain(`Looking for dev backend at: ${devPath}`);
   if (fs.existsSync(devPath)) {
-    logMain(`Found local built backend at: ${devPath}`);
+    logMain(`Found dev backend at: ${devPath}`);
     return devPath;
   }
 
@@ -61,40 +89,21 @@ function findBackendBinary() {
 
 async function findPython() {
   const { execSync } = require('child_process');
+  const isWin = process.platform === 'win32';
+  const cmd = isWin ? 'where' : 'which';
+  const candidates = isWin ? ['py', 'python3', 'python'] : ['python3', 'python'];
 
-  if (process.platform === 'win32') {
-    // Try Python launcher, Python 3, then Python
-    const candidates = ['py', 'python3', 'python'];
-    for (const py of candidates) {
-      try {
-        const result = execSync(`where ${py}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
-        if (result && result.trim()) {
-          const pythonPath = result.trim().split('\n')[0].trim();
-          logMain(`Found Python at: ${pythonPath}`);
-          return pythonPath;
-        }
-      } catch (e) {
-        continue;
+  for (const py of candidates) {
+    try {
+      const result = execSync(`${cmd} ${py}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+      if (result?.trim()) {
+        const pythonPath = result.trim().split('\n')[0].trim();
+        logMain(`Found Python at: ${pythonPath}`);
+        return pythonPath;
       }
-    }
-    return null;
-  } else {
-    // Unix-like systems
-    const candidates = ['python3', 'python'];
-    for (const py of candidates) {
-      try {
-        const result = execSync(`which ${py}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
-        if (result && result.trim()) {
-          const pythonPath = result.trim();
-          logMain(`Found Python at: ${pythonPath}`);
-          return pythonPath;
-        }
-      } catch (e) {
-        continue;
-      }
-    }
-    return null;
+    } catch { continue; }
   }
+  return null;
 }
 
 async function startBackend() {
@@ -102,91 +111,76 @@ async function startBackend() {
     const backendPath = findBackendBinary();
 
     if (backendPath) {
-      logMain(`Starting bundled backend: ${backendPath} desktop`);
-      // Make it executable on UNIX if needed
+      logMain(`Starting bundled backend: ${backendPath} serve --mode stdio`);
       if (process.platform !== 'win32') {
-        try { fs.chmodSync(backendPath, '755'); } catch (e) { logMain(`Chmod warning: ${e.message}`); }
+        try { fs.chmodSync(backendPath, '755'); } catch { }
       }
-
-      backendProcess = spawn(backendPath, ['desktop'], {
+      backendProcess = spawn(backendPath, ['serve', '--mode', 'stdio'], {
         cwd: path.dirname(backendPath),
         env: { ...process.env, PYTHONUNBUFFERED: '1' },
-        stdio: ['ignore', 'pipe', 'pipe'],
+        stdio: ['pipe', 'pipe', 'pipe'],
       });
     } else {
-      // Check for bundled Python first (Windows all-in-one package)
       let pythonPath = null;
-
       if (process.platform === 'win32') {
-        const bundledPython = path.join(process.resourcesPath, 'python', 'python.exe');
-        if (fs.existsSync(bundledPython)) {
-          pythonPath = bundledPython;
-          logMain(`Using bundled Python: ${pythonPath}`);
-        }
+        const bundled = path.join(process.resourcesPath, 'python', 'python.exe');
+        if (fs.existsSync(bundled)) pythonPath = bundled;
       }
-
-      // Fallback to system Python if bundled not found
-      if (!pythonPath) {
-        pythonPath = await findPython();
-      }
+      if (!pythonPath) pythonPath = await findPython();
 
       if (!pythonPath) {
-        const error = new Error('Python not found. Please install Python 3.9+ from https://www.python.org/downloads/');
-        logMain(error.message);
-        reject(error);
+        reject(new Error('Python not found. Install Python 3.9+ from https://www.python.org/downloads/'));
         return;
       }
 
-      logMain(`Starting Python API server with: ${pythonPath}`);
-
-      backendProcess = spawn(pythonPath, ['-m', 'thia_lite.api_server'], {
+      logMain(`Starting Python MCP server with: ${pythonPath}`);
+      backendProcess = spawn(pythonPath, ['-m', 'thia_lite', 'serve', '--mode', 'stdio'], {
         cwd: process.resourcesPath || path.resolve(__dirname, '..', '..'),
         env: { ...process.env, PYTHONUNBUFFERED: '1' },
-        stdio: ['ignore', 'pipe', 'pipe'],
+        stdio: ['pipe', 'pipe', 'pipe'],
       });
     }
 
+    // Initialize MCP Client
+    mcpClient = new MCPClient(backendProcess);
+
+    // Pass the client to LLMEngine
+    llmEngine.mcpClient = mcpClient;
+
     let started = false;
     const timeout = setTimeout(() => {
-      if (!started) {
-        started = true;
-        logMain('Backend start timeout — proceeding anyway');
-        resolve(); // proceed, might just be slow
-      }
+      if (!started) { started = true; logMain('Backend timeout — proceeding'); resolve(); }
     }, 15000);
 
-    backendProcess.stdout.on('data', (data) => {
-      const msg = data.toString();
-      logMain(`[backend] ${msg.trim()}`);
-      if (!started && msg.includes('ready')) {
-        started = true;
-        clearTimeout(timeout);
-        logMain('Backend API server ready');
-        resolve();
-      }
+    mcpClient.on('ready', (tools) => {
+      logMain(`MCP Client ready with ${tools.length} tools`);
+      if (!started) { started = true; clearTimeout(timeout); resolve(); }
+    });
+
+    mcpClient.on('error', (err) => {
+      logMain(`MCP Client error: ${err.message}`);
     });
 
     backendProcess.stderr.on('data', (data) => {
+      // Python's logging statements go to stderr in MCP server to avoid corrupting stdout
       logMain(`[backend-err] ${data.toString().trim()}`);
     });
 
     backendProcess.on('error', (err) => {
       logMain(`Backend spawn error: ${err.message}`);
-      if (!started) {
-        started = true;
-        clearTimeout(timeout);
-        reject(err);
-      }
+      if (!started) { started = true; clearTimeout(timeout); reject(err); }
     });
 
     backendProcess.on('exit', (code, signal) => {
       logMain(`Backend exited code=${code} signal=${signal}`);
       backendProcess = null;
-      if (!started) {
-        started = true;
-        clearTimeout(timeout);
-        reject(new Error(`Backend exited with code ${code}`));
-      }
+      if (!started) { started = true; clearTimeout(timeout); reject(new Error(`Backend exited: ${code}`)); }
+    });
+
+    // Start initialization
+    mcpClient.initialize().catch(err => {
+      logMain(`MCP Init error: ${err.message}`);
+      if (!started) { started = true; clearTimeout(timeout); reject(err); }
     });
   });
 }
@@ -199,9 +193,9 @@ function stopBackend() {
   }
 }
 
-// ─── Window ──────────────────────────────────────────────────────────────────
+// ─── Windows ─────────────────────────────────────────────────────────────────
 
-function createWindow() {
+function createMainWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -210,441 +204,246 @@ function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
-      contextIsolation: true
+      contextIsolation: true,
     },
     icon: path.join(__dirname, 'icons/icon.png'),
-    title: 'Thia-Lite — AI Astrology Assistant'
+    title: 'Thia — AI Astrology Assistant',
   });
 
-  // Load renderer from packaged location first, with dev fallback.
   const packagedIndex = path.join(__dirname, 'src', 'index.html');
   const devIndex = path.join(__dirname, '..', 'src', 'index.html');
   const indexPath = fs.existsSync(packagedIndex) ? packagedIndex : devIndex;
-  logMain(`Loading renderer from: ${indexPath}`);
+  logMain(`Loading chat UI from: ${indexPath}`);
   mainWindow.loadFile(indexPath);
 
-  mainWindow.webContents.on('did-fail-load', (_event, errorCode, errorDescription, validatedURL) => {
-    logMain(`did-fail-load code=${errorCode} error=${errorDescription} url=${validatedURL}`);
-    dialog.showErrorBox(
-      'Thia Desktop Failed to Load',
-      `Could not load UI.\nCode: ${errorCode}\nError: ${errorDescription}\nURL: ${validatedURL}`
-    );
+  mainWindow.webContents.on('did-fail-load', (_e, code, desc, url) => {
+    logMain(`did-fail-load code=${code} error=${desc} url=${url}`);
+    dialog.showErrorBox('Thia Failed to Load', `Could not load UI.\nCode: ${code}\nError: ${desc}`);
   });
 
-  mainWindow.webContents.on('render-process-gone', (_event, details) => {
-    logMain(`render-process-gone reason=${details.reason} exitCode=${details.exitCode}`);
-    dialog.showErrorBox(
-      'Thia Desktop Renderer Crashed',
-      `Renderer exited unexpectedly.\nReason: ${details.reason}\nExit code: ${details.exitCode}\n\nLog: ${getMainLogPath()}`
-    );
-  });
-
-  // Open DevTools in development
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.openDevTools();
   }
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
+  mainWindow.on('closed', () => { mainWindow = null; });
+}
+
+function createSetupWindow() {
+  setupWindow = new BrowserWindow({
+    width: 600,
+    height: 520,
+    resizable: false,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false,
+      contextIsolation: true,
+    },
+    icon: path.join(__dirname, 'icons/icon.png'),
+    title: 'Thia — Setup',
+  });
+
+  const setupPath = path.join(__dirname, 'src', 'setup.html');
+  logMain(`Loading setup from: ${setupPath}`);
+  setupWindow.loadFile(setupPath);
+
+  setupWindow.on('closed', () => { setupWindow = null; });
+}
+
+// ─── LLM IPC Handlers ───────────────────────────────────────────────────────
+
+function registerLLMHandlers() {
+  // Forward LLM engine events to the active window
+  const sendToWindow = (channel, data) => {
+    const win = setupWindow || mainWindow;
+    if (win && !win.isDestroyed()) {
+      win.webContents.send(channel, data);
+    }
+  };
+
+  llmEngine.on('download-start', (data) => sendToWindow('llm-download-progress', { percent: 0, ...data }));
+  llmEngine.on('download-progress', (data) => sendToWindow('llm-download-progress', data));
+  llmEngine.on('download-complete', () => sendToWindow('llm-setup-status', { message: 'Loading model...' }));
+  llmEngine.on('status', (msg) => sendToWindow('llm-setup-status', { message: msg }));
+  llmEngine.on('error', (err) => sendToWindow('llm-error', { message: err.message }));
+  llmEngine.on('ready', (data) => {
+    logMain(`LLM ready: provider=${data.provider}`);
+    sendToWindow('llm-setup-complete', data);
+
+    // If setup window is open, close it and open main window
+    if (setupWindow && !setupWindow.isDestroyed()) {
+      setupWindow.close();
+      setupWindow = null;
+    }
+    if (!mainWindow) {
+      createMainWindow();
+    }
+  });
+
+  // Set up local model list query
+  ipcMain.handle('llm-get-local-models', async () => {
+    return llmEngine.getLocalModelsConfig();
+  });
+
+  // Setup commands from renderer
+  ipcMain.on('llm-setup-local', async (_e, modelId) => {
+    logMain(`User chose: local model (${modelId || 'recommended'})`);
+    try {
+      await llmEngine.setupLocal(modelId);
+    } catch (e) {
+      logMain(`Local setup failed: ${e.message}`);
+      sendToWindow('llm-error', { message: e.message });
+    }
+  });
+
+  ipcMain.on('llm-setup-cloud', async (_e, provider, apiKey) => {
+    logMain(`User chose: cloud (${provider})`);
+    try {
+      await llmEngine.setupCloud(provider, apiKey);
+    } catch (e) {
+      logMain(`Cloud setup failed: ${e.message}`);
+      sendToWindow('llm-error', { message: e.message });
+    }
+  });
+
+  ipcMain.on('llm-switch-provider', async (_e, provider, options) => {
+    logMain(`Switching provider to: ${provider}`);
+    try {
+      await llmEngine.switchProvider(provider, options);
+    } catch (e) {
+      logMain(`Provider switch failed: ${e.message}`);
+    }
+  });
+
+  // Chat handler (used by renderer's chat flow)
+  ipcMain.handle('llm-chat', async (_e, messages, options) => {
+    try {
+      return await llmEngine.chat(messages, options || {});
+    } catch (e) {
+      return { role: 'assistant', content: `LLM Error: ${e.message}`, tool_calls: null, done: true };
+    }
+  });
+
+  // Status query
+  ipcMain.handle('llm-status', async () => {
+    return {
+      configured: llmEngine.isConfigured,
+      ready: llmEngine.isReady,
+      provider: llmEngine.provider,
+      config: llmEngine.config,
+    };
+  });
+
+  // Memory Panel
+  ipcMain.handle('get-memories', async () => {
+    if (mcpClient) {
+      try {
+        const res = await mcpClient.callTool('get_all_memories', {});
+        return res?.content?.[0]?.text ? JSON.parse(res.content[0].text) : null;
+      } catch (e) {
+        logMain(`Failed to get memories: ${e.message}`);
+        return null;
+      }
+    }
+    return null;
+  });
+
+  // Conversation Management
+  ipcMain.handle('get-conversations', () => {
+    return appConversations.map(c => ({ id: c.id, title: c.title, updated_at: c.updated_at })).sort((a, b) => b.updated_at - a.updated_at);
+  });
+
+  ipcMain.handle('get-messages', (_e, convId) => {
+    const conv = appConversations.find(c => c.id === convId);
+    return conv ? conv.messages : [];
+  });
+
+  ipcMain.handle('save-message', (_e, convId, messageData) => {
+    let conv = appConversations.find(c => c.id === convId);
+    if (!conv) {
+      conv = {
+        id: convId,
+        title: messageData.content.substring(0, 30) + '...',
+        created_at: Date.now(),
+        updated_at: Date.now(),
+        messages: []
+      };
+      appConversations.push(conv);
+    }
+
+    // Check if the message is already appended to prevent duplicates
+    const lastMsg = conv.messages[conv.messages.length - 1];
+    if (lastMsg && lastMsg.role === messageData.role && lastMsg.content === messageData.content) {
+      return convId;
+    }
+
+    conv.messages.push(messageData);
+    conv.updated_at = Date.now();
+    saveConversations();
+    return convId;
+  });
+
+  ipcMain.handle('delete-conversation', (_e, convId) => {
+    appConversations = appConversations.filter(c => c.id !== convId);
+    saveConversations();
+    return true;
   });
 }
 
 // ─── App Lifecycle ───────────────────────────────────────────────────────────
 
-const https = require('https');
-const { exec } = require('child_process');
-const decompress = require('decompress');
-
-const getOllamaPath = () => {
-  const platform = process.platform;
-  if (platform === 'win32') {
-    // Check multiple common Windows locations
-    const paths = [
-      path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Ollama', 'ollama.exe'),
-      path.join(process.env.PROGRAMFILES || '', 'Ollama', 'ollama.exe'),
-      path.join(process.env['PROGRAMFILES(X86)'] || '', 'Ollama', 'ollama.exe'),
-      path.join(process.env.LOCALAPPDATA || '', 'Ollama', 'ollama.exe'),
-      path.join(process.env.USERPROFILE || '', 'AppData', 'Local', 'Programs', 'Ollama', 'ollama.exe'),
-    ];
-
-    // Check filesystem paths first
-    for (const p of paths) {
-      if (fs.existsSync(p)) {
-        logMain(`Found Ollama at: ${p}`);
-        return p;
-      }
-    }
-
-    // Try using where.exe to find ollama in PATH
-    try {
-      const { execSync } = require('child_process');
-      const result = execSync('where ollama.exe', { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-      if (result) {
-        const foundPath = result.split('\n')[0].trim();
-        logMain(`Found Ollama via PATH: ${foundPath}`);
-        return foundPath;
-      }
-    } catch (e) {
-      logMain(`Ollama not found in PATH: ${e.message}`);
-    }
-
-    logMain('Ollama executable not found on system');
-    return null;
-  }
-  if (platform === 'darwin') {
-    return '/Applications/Ollama.app/Contents/Resources/ollama';
-  }
-  return 'ollama';
-};
-
-async function ensureOllama() {
-  return new Promise((resolve) => {
-    const platform = process.platform;
-
-    // Safety Timeout: Don't let the app hang forever if Ollama check is stuck
-    const safetyTimeout = setTimeout(() => {
-      logMain('Ollama check timed out - force proceeding to main window');
-      resolve();
-    }, 45000);
-
-    const done = () => {
-      clearTimeout(safetyTimeout);
-      resolve();
-    };
-
-    // 1. Check if Ollama is already running on port 11434
-    logMain('Checking if Ollama is running on port 11434...');
-    const req = require('http').get('http://localhost:11434/api/tags', (res) => {
-      logMain(`Ollama HTTP check response: ${res.statusCode}`);
-      if (res.statusCode === 200) {
-        logMain('Ollama is already running. Proceeding.');
-        done();
-      } else {
-        logMain(`Ollama responded with ${res.statusCode}, checking disk...`);
-        checkDisk();
-      }
-    }).on('error', (err) => {
-      logMain(`Ollama HTTP check error: ${err.message}, checking disk...`);
-      checkDisk();
-    });
-
-    req.setTimeout(2000, () => {
-      logMain('Ollama HTTP check timeout, checking disk...');
-      req.abort();
-      checkDisk();
-    });
-
-    function checkDisk() {
-      const ollamaExe = getOllamaPath();
-
-      if (ollamaExe && fs.existsSync(ollamaExe)) {
-        logMain(`Ollama found at ${ollamaExe} but not running. Attempting start...`);
-        if (platform === 'win32') {
-          exec(`start "" "${ollamaExe}"`, (err) => {
-            if (err) logMain(`Failed to start Ollama: ${err.message}`);
-            else logMain('Ollama start command executed');
-          });
-        } else if (platform === 'linux') {
-          exec('ollama serve &', (err) => {
-            if (err) logMain(`Failed to start Ollama: ${err.message}`);
-            else logMain('Ollama start command executed');
-          });
-        }
-        waitForOllamaAndPull(true);
-      } else {
-        logMain('Ollama not found on disk, starting install flow');
-        startInstallFlow();
-      }
-    }
-
-    function startInstallFlow() {
-      // Create installer window instead of main window
-      let installWindow = new BrowserWindow({
-        width: 600, height: 400,
-        frame: false, resizable: false, show: false,
-        webPreferences: {
-          preload: path.join(__dirname, 'preload.js'),
-          nodeIntegration: false,
-          contextIsolation: true
-        }
-      });
-      installWindow.loadFile(path.join(__dirname, 'src', 'installer.html'));
-      installWindow.once('ready-to-show', () => installWindow.show());
-
-      const updateUI = (status, percent, indeterminate = false) => {
-        if (installWindow && !installWindow.isDestroyed()) {
-          installWindow.webContents.send('install-progress', { status, percent, indeterminate });
-        }
-      };
-
-      const { ipcMain } = require('electron');
-
-      // ── Hoisted helpers (visible from checkDisk AND handleInstallChoice) ──
-
-      function waitForOllamaAndPull(isSilent = false) {
-        let attempts = 0;
-        const maxAttempts = 60; // 60 seconds
-
-        const check = setInterval(() => {
-          attempts++;
-          if (!isSilent) {
-            updateUI(`Starting AI Service (Attempt ${attempts}/${maxAttempts})...`, 100, true);
-          }
-
-          const checkReq = require('http').get({
-            hostname: 'localhost',
-            port: 11434,
-            path: '/api/tags',
-            timeout: 1500
-          }, (res) => {
-            if (res.statusCode === 200) {
-              clearInterval(check);
-              pullModel();
-            }
-          });
-
-          checkReq.on('timeout', () => {
-            checkReq.destroy();
-          });
-
-          checkReq.on('error', () => {
-            // If it's been 15 seconds and still nothing, try to manually poke it
-            if (attempts === 15) {
-              logMain('Ollama daemon slow to start. Attempting manual start...');
-              const ollamaExe = getOllamaPath();
-              if (platform === 'win32') {
-                exec(`start "" "${ollamaExe}"`);
-              } else if (platform === 'linux') {
-                exec('ollama serve &');
-              }
-            }
-
-            if (attempts >= maxAttempts) {
-              clearInterval(check);
-              logMain('Ollama daemon start timed out.');
-              updateUI('Service Time-out. Please restart Thia or start Ollama manually.', 100);
-              setTimeout(resolve, 5000);
-            }
-          });
-          checkReq.end();
-        }, 1000);
-      }
-
-      function pullModel() {
-        const ollamaPath = getOllamaPath();
-        updateUI('Downloading AI Knowledge Model (qwen3.5:4b)...', 0, true);
-        logMain(`Pulling qwen3.5:4b using: ${ollamaPath}`);
-
-        setTimeout(() => {
-          const pullProcess = spawn(ollamaPath, ['pull', 'qwen3.5:4b'], {
-            env: { ...process.env }
-          });
-
-          let lastPercent = 0;
-          pullProcess.stdout.on('data', (data) => {
-            const out = data.toString();
-            const match = out.match(/(\d{1,3})%/);
-            if (match) {
-              lastPercent = parseInt(match[1], 10);
-              updateUI(`Downloading Model (${lastPercent}%)`, lastPercent);
-            } else if (out.includes('pulling')) {
-              updateUI('Initializing Model Pull...', lastPercent);
-            }
-          });
-
-          pullProcess.on('close', (code) => {
-            logMain(`Model pull exited with code ${code}`);
-            updateUI('Setup Complete!', 100);
-            setTimeout(() => {
-              ipcMain.removeListener('install-choice', handleInstallChoice);
-              if (installWindow && !installWindow.isDestroyed()) installWindow.close();
-              done();
-            }, 1500);
-          });
-
-          pullProcess.on('error', (err) => {
-            logMain(`Pull spawn error: ${err.message}`);
-            // Fallback to global command
-            if (ollamaPath !== 'ollama') {
-              logMain('Retrying with global ollama...');
-              const retryProcess = spawn('ollama', ['pull', 'qwen3.5:4b']);
-              retryProcess.on('close', done);
-              retryProcess.on('error', done);
-            } else {
-              done();
-            }
-          });
-        }, 2000);
-      }
-
-      // ── Install choice handler ──
-
-      const handleInstallChoice = (_event, choice) => {
-        if (choice === 'cloud') {
-          logMain('User selected Cloud API. Skipping Ollama installation.');
-          ipcMain.removeListener('install-choice', handleInstallChoice);
-          if (installWindow && !installWindow.isDestroyed()) installWindow.close();
-          done();
-          return;
-        }
-
-        // Choice was 'local', proceed with install
-        const downloadsDir = app.getPath('downloads');
-        let downloadUrl, installerPath, installCmd;
-
-        if (platform === 'win32') {
-          downloadUrl = 'https://ollama.com/download/OllamaSetup.exe';
-          installerPath = path.join(downloadsDir, 'OllamaSetup.exe');
-          installCmd = `"${installerPath}" \/SILENT \/ALLUSERS`; // Silent install
-        } else if (platform === 'darwin') {
-          downloadUrl = 'https://ollama.com/download/Ollama-darwin.zip';
-          installerPath = path.join(downloadsDir, 'Ollama-darwin.zip');
-          installCmd = `unzip -o "${installerPath}" -d /Applications && open /Applications/Ollama.app`;
-        } else {
-          downloadUrl = 'https://ollama.com/install.sh';
-          installerPath = path.join(downloadsDir, 'ollama-install.sh');
-          installCmd = `sh "${installerPath}"`;
-        }
-
-        logMain(`Starting Ollama auto-install. URL: ${downloadUrl}`);
-        updateUI('Downloading Local AI Engine...', 0, true);
-
-        const downloadFile = (url, dest, onProgress, onDone, onError) => {
-          const file = fs.createWriteStream(dest);
-          let downloadedBytes = 0;
-          let totalBytes = 0;
-
-          const request = https.get(url, (response) => {
-            // Handle Redirects (e.g. 307)
-            if (response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
-              file.close();
-              fs.unlink(dest, () => {
-                logMain(`Following redirect to: ${response.headers.location}`);
-                downloadFile(response.headers.location, dest, onProgress, onDone, onError);
-              });
-              return;
-            }
-
-            if (response.statusCode !== 200) {
-              onError(new Error(`Download failed: ${response.statusCode}`));
-              return;
-            }
-
-            totalBytes = parseInt(response.headers['content-length'], 10);
-
-            response.on('data', (chunk) => {
-              downloadedBytes += chunk.length;
-              if (totalBytes > 0) {
-                const percent = Math.min(100, Math.round((downloadedBytes / totalBytes) * 100));
-                onProgress(`Downloading (${Math.round(downloadedBytes / 1024 / 1024)}MB / ${Math.round(totalBytes / 1024 / 1024)}MB)`, percent);
-              } else {
-                onProgress(`Downloading... (${Math.round(downloadedBytes / 1024 / 1024)}MB)`, 0);
-              }
-            });
-
-            response.pipe(file);
-
-            file.on('finish', () => {
-              file.close();
-              onDone();
-            });
-          });
-
-          request.on('error', (err) => {
-            file.close();
-            fs.unlink(dest, () => { });
-            onError(err);
-          });
-        };
-
-        logMain(`Starting Ollama auto-install. URL: ${downloadUrl}`);
-        updateUI('Initializing Download...', 0, true);
-
-        downloadFile(downloadUrl, installerPath, (status, percent) => {
-          updateUI(status, percent);
-        }, () => {
-          logMain(`Download complete. Preparing to execute: ${installCmd}`);
-          updateUI('Preparing Installation...', 100, true);
-
-          const runInstallProcess = () => {
-            updateUI('Installing AI Engine (Waiting for OS)...', 100, true);
-
-            if (platform === 'darwin') {
-              updateUI('Extracting AI Engine...', 100, true);
-              decompress(installerPath, '/Applications').then(() => {
-                logMain('Mac Zip Extracted to /Applications');
-                exec('open -a Ollama', (err) => {
-                  if (err) logMain(`Mac Open Error: ${err}`);
-                  waitForOllamaAndPull();
-                });
-              }).catch(err => reject(err));
-            } else {
-              // On Windows/Linux, the installer might be a long-running process
-              const installProcess = exec(installCmd);
-
-              installProcess.on('exit', (code) => {
-                logMain(`Installer exited with code ${code}`);
-                waitForOllamaAndPull();
-              });
-
-              // Also listen for errors
-              installProcess.on('error', (err) => {
-                logMain(`Installer spawn error: ${err.message}`);
-                // Proceed anyway, maybe it partially worked
-                waitForOllamaAndPull();
-              });
-            }
-          };
-
-          runInstallProcess();
-        }, (err) => {
-          logMain(`Download error: ${err.message}`);
-          updateUI(`Download Failed: ${err.message}`, 0);
-          setTimeout(() => reject(err), 3000);
-        });
-      };
-
-      ipcMain.on('install-choice', handleInstallChoice);
-    }
-  });
-}
-
 app.whenReady().then(async () => {
   logMain('App ready');
+  initConversations();
+  registerLLMHandlers();
 
+  // Setup Auto-Updater (silent check)
+  autoUpdater.logger = {
+    info(msg) { logMain(`autoUpdater: ${msg}`); },
+    warn(msg) { logMain(`autoUpdater WARN: ${msg}`); },
+    error(msg) { logMain(`autoUpdater ERROR: ${msg}`); }
+  };
   try {
-    await ensureOllama();
+    autoUpdater.checkForUpdatesAndNotify();
   } catch (e) {
-    logMain(`Ollama Auto-Install failed: ${e.message}`);
-    // We continue anyway, so the user can see the error in the chat UI
+    logMain(`autoUpdater failed to check: ${e.message}`);
   }
 
-  // Start the Python API backend before creating the window
+  // Start Python backend (handles astrology tools)
   try {
     await startBackend();
-    logMain('Backend started successfully');
+    logMain('Backend started');
   } catch (err) {
     logMain(`Backend start failed: ${err.message}`);
-    dialog.showErrorBox(
-      'Thia Backend Failed to Start',
-      `Could not start the backend server.\n\n${err.message}\n\nLog: ${getMainLogPath()}`
-    );
+    // Non-fatal: backend provides tools, but basic chat still works
   }
 
-  createWindow();
+  // Check if LLM is already configured
+  if (llmEngine.isConfigured) {
+    logMain('LLM already configured, initializing...');
+    createMainWindow();
+    const ok = await llmEngine.initialize();
+    if (!ok) {
+      logMain('LLM init failed, user can reconfigure in settings');
+    }
+  } else {
+    // First launch: show setup screen
+    logMain('First launch — showing setup');
+    createSetupWindow();
+  }
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+      if (llmEngine.isConfigured) {
+        createMainWindow();
+      } else {
+        createSetupWindow();
+      }
     }
   });
 
-  const { ipcMain, shell } = require('electron');
-
-  // Handle log opening
+  // Log management IPC
   ipcMain.on('open-logs', () => {
     const logPath = getMainLogPath();
-    logMain(`User requested to open log at: ${logPath}`);
     if (fs.existsSync(logPath)) {
       shell.showItemInFolder(logPath);
     } else {
@@ -652,16 +451,12 @@ app.whenReady().then(async () => {
     }
   });
 
-  // Handle log content retrieval for UI dump
   ipcMain.handle('get-log-content', async () => {
     try {
       const logPath = getMainLogPath();
-      if (fs.existsSync(logPath)) {
-        return fs.readFileSync(logPath, 'utf8');
-      }
-      return 'No log file found.';
+      return fs.existsSync(logPath) ? fs.readFileSync(logPath, 'utf8') : 'No log file.';
     } catch (err) {
-      return `Error reading log: ${err.message}`;
+      return `Error: ${err.message}`;
     }
   });
 });
@@ -674,18 +469,15 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('before-quit', () => {
+app.on('before-quit', async () => {
   stopBackend();
-});
-
-app.on('child-process-gone', (_event, details) => {
-  logMain(`child-process-gone type=${details.type} reason=${details.reason} exitCode=${details.exitCode}`);
+  await llmEngine.dispose();
 });
 
 process.on('uncaughtException', (err) => {
-  logMain(`uncaughtException: ${err && err.stack ? err.stack : String(err)}`);
+  logMain(`uncaughtException: ${err?.stack || String(err)}`);
 });
 
 process.on('unhandledRejection', (reason) => {
-  logMain(`unhandledRejection: ${reason && reason.stack ? reason.stack : String(reason)}`);
+  logMain(`unhandledRejection: ${reason?.stack || String(reason)}`);
 });

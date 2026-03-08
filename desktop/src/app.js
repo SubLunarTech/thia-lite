@@ -1,25 +1,14 @@
 // Thia-Lite Desktop App
-// Claude Desktop clone with live chart, voice, and chat
+// AI Astrology Assistant with local & cloud LLM support
 
 const API_BASE = 'http://localhost:8765';
 
 // ─── Logging ───────────────────────────────────────────────────────────────────
 
-const LOG_FILE = 'thia-lite-debug.log';
-
 function log(level, ...args) {
     const timestamp = new Date().toISOString();
     const message = args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ');
-    const logLine = `[${timestamp}] [${level.toUpperCase()}] ${message}`;
-
-    // Console log
-    console[level] || console.log(logLine, ...args);
-
-    // Try to write to file (via Tauri API if available)
-    if (window.__TAURI__) {
-        window.__TAURI__.fs.writeTextFile(LOG_FILE, logLine + '\n', { append: true })
-            .catch(() => { }); // Silently fail if file writing doesn't work
-    }
+    console[level]?.(`[${timestamp}] ${message}`) || console.log(`[${timestamp}] [${level}] ${message}`);
 }
 
 function logError(...args) { log('error', ...args); }
@@ -27,14 +16,60 @@ function logWarn(...args) { log('warn', ...args); }
 function logInfo(...args) { log('info', ...args); }
 function logDebug(...args) { log('debug', ...args); }
 
-// Global error handler
 window.addEventListener('error', (event) => {
-    logError('Uncaught error:', event.message, event.filename, event.lineno, event.colno, event.error);
+    logError('Uncaught error:', event.message, event.filename, event.lineno);
+});
+window.addEventListener('unhandledrejection', (event) => {
+    logError('Unhandled rejection:', event.reason);
 });
 
-window.addEventListener('unhandledrejection', (event) => {
-    logError('Unhandled promise rejection:', event.reason);
-});
+// ─── Memories Modal ──────────────────────────────────────────────────────────
+
+async function openMemories() {
+    const modal = document.getElementById('memories-modal');
+    if (modal) modal.classList.remove('hidden');
+
+    const birthDataContainer = document.getElementById('memories-birth-data');
+    const factsContainer = document.getElementById('memories-facts-list');
+
+    if (birthDataContainer) birthDataContainer.innerHTML = 'Loading...';
+    if (factsContainer) factsContainer.innerHTML = 'Loading...';
+
+    if (window.electronAPI?.getMemories) {
+        try {
+            const mems = await window.electronAPI.getMemories();
+            if (mems) {
+                // Render birth data
+                if (mems.birth_info) {
+                    birthDataContainer.innerHTML = `
+                        <div class="memory-item">
+                            ${JSON.stringify(mems.birth_info, null, 2)}
+                        </div>`;
+                } else {
+                    birthDataContainer.innerHTML = '<div class="memory-item">No birth data saved yet.</div>';
+                }
+
+                // Render facts
+                if (mems.facts && Object.keys(mems.facts).length > 0) {
+                    factsContainer.innerHTML = '';
+                    for (const [key, value] of Object.entries(mems.facts)) {
+                        factsContainer.innerHTML += `
+                            <div class="memory-item">
+                                <strong>${key}</strong>: ${value}
+                            </div>`;
+                    }
+                } else {
+                    factsContainer.innerHTML = '<div class="memory-item">No facts saved yet.</div>';
+                }
+            } else {
+                birthDataContainer.innerHTML = 'Failed to load memories (Offline)';
+                factsContainer.innerHTML = 'Failed to load memories (Offline)';
+            }
+        } catch (e) {
+            logError('Error fetching memories:', e);
+        }
+    }
+}
 
 // ─── State ──────────────────────────────────────────────────────────────────
 
@@ -56,36 +91,37 @@ const modelIndicator = document.getElementById('model-indicator');
 
 // Settings Inputs
 const providerSelect = document.getElementById('setting-provider');
-const hostInput = document.getElementById('setting-ollama-host');
-const modelSelect = document.getElementById('setting-model');
+const apiKeyInput = document.getElementById('setting-api-key');
+const localModelSelect = document.getElementById('setting-local-model');
+let localModelsConfig = null;
 const tempInput = document.getElementById('setting-temp');
 const tempValue = document.getElementById('temp-value');
 
 // ─── Initialization ──────────────────────────────────────────────────────────
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     logInfo('App initializing...');
-
-    // Check DOM elements
-    const elements = {
-        chatMessages, inputBox, sendBtn, newChatBtn, conversationList,
-        welcomeScreen, settingsBtn, settingsModal, modelIndicator,
-        providerSelect, hostInput, modelSelect, tempInput, tempValue
-    };
-
-    for (const [name, el] of Object.entries(elements)) {
-        if (!el) {
-            logWarn(`Missing element: ${name}`);
-        } else {
-            logDebug(`Found element: ${name}`);
-        }
-    }
 
     loadConversations();
 
     sendBtn?.addEventListener('click', sendMessage);
+    const memoriesBtn = document.getElementById('memories-btn');
+    const memoriesModal = document.getElementById('memories-modal');
+    const closeMemoriesBtn = document.getElementById('close-memories-btn');
+
     newChatBtn?.addEventListener('click', newConversation);
     settingsBtn?.addEventListener('click', openSettings);
+
+    memoriesBtn?.addEventListener('click', openMemories);
+    closeMemoriesBtn?.addEventListener('click', () => {
+        if (memoriesModal) memoriesModal.classList.add('hidden');
+    });
+
+    if (window.electronAPI?.onToolCall) {
+        window.electronAPI.onToolCall((tc) => {
+            appendToolCall(tc);
+        });
+    }
 
     inputBox?.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' && !e.shiftKey) {
@@ -94,16 +130,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Temperature slider
     tempInput?.addEventListener('input', (e) => {
         if (tempValue) tempValue.textContent = e.target.value;
     });
 
-    // Load settings
-    loadSettings();
+    // Update model indicator with current LLM status
+    await updateModelIndicator();
 
-    logInfo('App initialized successfully');
+    logInfo('App initialized');
 });
+
+async function updateModelIndicator() {
+    if (!modelIndicator || !window.electronAPI?.getLLMStatus) return;
+    try {
+        const status = await window.electronAPI.getLLMStatus();
+        if (status.provider === 'local') {
+            modelIndicator.textContent = 'Qwen 3.5 · Local';
+        } else if (status.provider) {
+            const names = { openai: 'OpenAI', anthropic: 'Anthropic', openrouter: 'OpenRouter' };
+            modelIndicator.textContent = `${names[status.provider] || status.provider} · Cloud`;
+        } else {
+            modelIndicator.textContent = 'Not configured';
+        }
+    } catch {
+        modelIndicator.textContent = 'Qwen 3.5 · Local';
+    }
+}
 
 // ─── Chat ────────────────────────────────────────────────────────────────────
 
@@ -115,67 +167,36 @@ async function sendMessage() {
     inputBox.value = '';
     isStreaming = true;
 
-    // Hide welcome, show user message
     if (welcomeScreen) welcomeScreen.style.display = 'none';
     appendMessage('user', content);
 
-    // Show thinking indicator
     const thinkingEl = appendMessage('assistant', '');
     thinkingEl.innerHTML = '<div class="thinking-dots"><span class="eso">☾</span><span class="eso">✦</span><span class="eso">☽</span></div>';
 
     try {
-        logDebug('Fetching:', `${API_BASE}/chat`);
-        const res = await fetch(`${API_BASE}/chat`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                message: content,
-                conversation_id: currentConversation,
-            }),
+        currentConversation = await window.electronAPI.saveMessage(currentConversation, { role: 'user', content: content });
+        const messages = await window.electronAPI.getMessages(currentConversation);
+
+        const data = await window.electronAPI.chat(messages, {
+            temperature: parseFloat(tempInput?.value || 0.3)
         });
 
-        logDebug('Response status:', res.status);
-        const data = await res.json();
-        logDebug('Response data:', data);
-
-        // Remove thinking indicator
         thinkingEl.remove();
 
-        // Show tool calls if any
-        if (data.tool_calls_made && data.tool_calls_made.length > 0) {
-            for (const tc of data.tool_calls_made) {
-                appendToolCall(tc);
-            }
-        }
-
-        // Show response or error
         if (data.error) {
-            appendMessage('assistant', `⚠️ **Backend Error:** ${data.error}`);
-        } else if (data.content && data.content.startsWith('Error communicating')) {
-            appendMessage('assistant', `⚠️ **AI Engine Error:** ${data.content}\n\nMake sure Ollama is installed and running locally on port 11434.`);
+            appendMessage('assistant', `⚠️ **Error:** ${data.error}`);
         } else {
-            appendMessage('assistant', data.content || 'No response from the agent.');
+            const finalMsg = data.content || 'No response from the agent.';
+            await window.electronAPI.saveMessage(currentConversation, { role: 'assistant', content: finalMsg });
+            appendMessage('assistant', finalMsg);
+
+            // Re-render to update conversation title
+            loadConversations();
         }
-
-        // Check for SVG chart in response
-        if (data.content?.includes('<svg') || data.svg) {
-            const svg = data.svg || extractSVG(data.content);
-            if (svg) showChart(svg);
-        }
-
-        // Update conversation ID
-        if (data.conversation_id) {
-            currentConversation = data.conversation_id;
-            logDebug('Conversation ID:', currentConversation);
-        }
-
-        // Refresh conversation list
-        loadConversations();
-
     } catch (err) {
         logError('Chat error:', err);
         thinkingEl.remove();
-        appendMessage('assistant', `Error: ${err.message}. Is the Thia backend running on port 8765?`);
+        appendMessage('assistant', `⚠️ LLM Error: ${err.message}`);
     }
 
     isStreaming = false;
@@ -250,13 +271,12 @@ function extractSVG(text) {
 
 async function loadConversations() {
     try {
-        logDebug('Loading conversations...');
-        const res = await fetch(`${API_BASE}/conversations`);
-        conversations = await res.json();
-        logDebug('Loaded conversations:', conversations.length);
-        renderConversationList();
+        if (window.electronAPI?.getConversations) {
+            conversations = await window.electronAPI.getConversations();
+            renderConversationList();
+        }
     } catch (err) {
-        logWarn('Backend not available for conversations:', err.message);
+        logWarn('Failed to get conversations via IPC:', err.message);
     }
 }
 
@@ -266,8 +286,35 @@ function renderConversationList() {
     for (const conv of conversations) {
         const item = document.createElement('div');
         item.className = 'conv-item' + (conv.id === currentConversation ? ' active' : '');
-        item.textContent = conv.title || 'New Chat';
         item.onclick = () => loadConversation(conv.id);
+
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'conversation-title';
+        titleSpan.textContent = conv.title || 'New Chat';
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-conv-btn';
+        deleteBtn.innerHTML = '🗑️';
+        deleteBtn.title = 'Delete Conversation';
+
+        deleteBtn.onclick = async (e) => {
+            e.stopPropagation(); // prevent clicking the conversation body
+            if (confirm(`Are you sure you want to delete "${conv.title || 'this chat'}"?`)) {
+                if (window.electronAPI?.deleteConversation) {
+                    await window.electronAPI.deleteConversation(conv.id);
+                    await loadConversations();
+                    // If we deleted the active chat, reset to welcome screen
+                    if (currentConversation === conv.id) {
+                        currentConversation = null;
+                        document.getElementById('messages').innerHTML = '';
+                        document.getElementById('welcome-screen')?.classList.remove('hidden');
+                    }
+                }
+            }
+        };
+
+        item.appendChild(titleSpan);
+        item.appendChild(deleteBtn);
         conversationList.appendChild(item);
     }
 }
@@ -276,12 +323,13 @@ async function loadConversation(convId) {
     logInfo('Loading conversation:', convId);
     currentConversation = convId;
     try {
-        const res = await fetch(`${API_BASE}/conversations/${convId}/messages`);
-        const messages = await res.json();
-        chatMessages.innerHTML = '';
-        if (welcomeScreen) welcomeScreen.style.display = 'none';
-        for (const msg of messages) {
-            appendMessage(msg.role, msg.content);
+        if (window.electronAPI?.getMessages) {
+            const messages = await window.electronAPI.getMessages(convId);
+            chatMessages.innerHTML = '';
+            if (welcomeScreen) welcomeScreen.style.display = 'none';
+            for (const msg of messages) {
+                appendMessage(msg.role, msg.content);
+            }
         }
     } catch (err) {
         logError('Failed to load conversation:', err);
@@ -305,43 +353,98 @@ function initVoice() {
 
 // ─── Settings ───────────────────────────────────────────────────────────────
 
-function loadSettings() {
+async function loadSettings() {
+    if (!localModelsConfig && window.electronAPI?.getLocalModelsConfig) {
+        try {
+            localModelsConfig = await window.electronAPI.getLocalModelsConfig();
+            if (localModelSelect) {
+                localModelSelect.innerHTML = '';
+                for (const m of localModelsConfig.models) {
+                    const option = document.createElement('option');
+                    option.value = m.id;
+                    let text = `${m.name} (${Math.round(m.sizeBytes / 1e8) / 10} GB)`;
+                    if (m.id === localModelsConfig.recommendedId) {
+                        text += ' — Recommended';
+                    }
+                    option.textContent = text;
+                    localModelSelect.appendChild(option);
+                }
+            }
+        } catch (e) {
+            logError('Failed to load local models config', e);
+        }
+    }
+
+    // Load from LLM status via IPC
+    if (window.electronAPI?.getLLMStatus) {
+        try {
+            const status = await window.electronAPI.getLLMStatus();
+            if (providerSelect && status.provider) {
+                providerSelect.value = status.provider;
+            }
+            if (apiKeyInput && status.config?.apiKey) {
+                apiKeyInput.value = status.config.apiKey;
+            }
+            if (localModelSelect && status.provider === 'local' && status.config?.modelId) {
+                localModelSelect.value = status.config.modelId;
+            } else if (localModelSelect && localModelsConfig) {
+                localModelSelect.value = localModelsConfig.recommendedId;
+            }
+        } catch { }
+    }
+
     const settings = JSON.parse(localStorage.getItem('thia-settings') || '{}');
-    if (settings.model === 'qwen2.5:7b') settings.model = 'qwen3.5:4b';
-    if (settings.model === 'qwen2.5:14b') settings.model = 'qwen3.5:8b';
-    if (settings.model === 'qwen2.5:32b') settings.model = 'qwen3.5:14b';
-    logDebug('Loading settings:', settings);
-    if (providerSelect) providerSelect.value = settings.provider || 'ollama';
-    if (hostInput) hostInput.value = settings.ollamaHost || 'http://localhost:11434';
-    if (modelSelect) modelSelect.value = settings.model || 'qwen3.5:4b';
     if (tempInput) {
         tempInput.value = settings.temperature || 0.3;
         if (tempValue) tempValue.textContent = settings.temperature || 0.3;
     }
+
+    // Show/hide API key field based on provider
+    toggleApiKeyVisibility();
+    providerSelect?.addEventListener('change', toggleApiKeyVisibility);
 }
 
-function saveSettings() {
-    const settings = {
-        provider: providerSelect?.value || 'ollama',
-        ollamaHost: hostInput?.value || 'http://localhost:11434',
-        model: modelSelect?.value || 'qwen3.5:4b',
-        temperature: parseFloat(tempInput?.value || 0.3),
-    };
-    if (settings.model === 'qwen2.5:7b') settings.model = 'qwen3.5:4b';
-    if (settings.model === 'qwen2.5:14b') settings.model = 'qwen3.5:8b';
-    if (settings.model === 'qwen2.5:32b') settings.model = 'qwen3.5:14b';
-    logInfo('Saving settings:', settings);
-    localStorage.setItem('thia-settings', JSON.stringify(settings));
+function toggleApiKeyVisibility() {
+    const provider = providerSelect?.value;
+    const apiKeyGroup = document.getElementById('api-key-group');
+    const localGroup = document.getElementById('local-group');
+    if (apiKeyGroup) {
+        apiKeyGroup.style.display = (provider === 'local') ? 'none' : 'block';
+    }
+    if (localGroup) {
+        localGroup.style.display = (provider === 'local') ? 'block' : 'none';
+    }
+}
+
+async function saveSettings() {
+    const provider = providerSelect?.value || 'local';
+    const apiKey = apiKeyInput?.value?.trim() || '';
+    const temperature = parseFloat(tempInput?.value || 0.3);
+    const modelId = localModelSelect?.value;
+
+    // Save temperature locally
+    localStorage.setItem('thia-settings', JSON.stringify({ temperature }));
+
+    // Switch LLM provider via IPC
+    if (window.electronAPI?.switchProvider) {
+        try {
+            await window.electronAPI.switchProvider(provider, { apiKey, modelId });
+            logInfo('Provider switched to:', provider);
+        } catch (e) {
+            logError('Provider switch failed:', e);
+        }
+    }
+
+    await updateModelIndicator();
     closeSettings();
 }
 
 function openSettings() {
-    logDebug('Opening settings');
+    loadSettings();
     if (settingsModal) settingsModal.classList.remove('hidden');
 }
 
 function closeSettings() {
-    logDebug('Closing settings');
     if (settingsModal) settingsModal.classList.add('hidden');
 }
 

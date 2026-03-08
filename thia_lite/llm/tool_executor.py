@@ -316,6 +316,24 @@ def _memory_dispatch(tool_name: str, args: Dict[str, Any]) -> Any:
                     })
         return {"query": query, "results": results[:10]}
 
+    elif tool_name == "parse_message_memory":
+        text = args.get("text", "")
+        if not text:
+            return {"status": "skipped", "message": "No text provided"}
+            
+        from thia_lite.llm.conversation import ConversationManager, extract_entities
+        mgr = ConversationManager()
+        
+        # We don't have a specific conversation ID context here since it's just parsing
+        # But we can extract and save entities
+        entities = extract_entities(text)
+        if entities:
+            mgr._save_entities(entities, "system", text)
+            
+        mgr._auto_save_birth_data(text, "")
+        
+        return {"status": "success", "entities_extracted": bool(entities)}
+        
     elif tool_name == "save_birth_data":
         db.kv_set("user_data", "birth_info", {
             "date": args.get("date", ""),
@@ -333,6 +351,21 @@ def _memory_dispatch(tool_name: str, args: Dict[str, Any]) -> Any:
         if data:
             return data
         return {"message": "No birth data saved. Ask the user for their birth date, time, and location."}
+
+    elif tool_name == "get_all_memories":
+        # Internal tool used by the UI to populate the Memories panel
+        memories = {}
+        for row in db._execute("SELECT key, value FROM kv_store WHERE namespace='memory'"):
+            try:
+                memories[row["key"]] = json.loads(row["value"]).get("value", "")
+            except:
+                memories[row["key"]] = row["value"]
+                
+        birth_info = db.kv_get("user_data", "birth_info")
+        return {
+            "facts": memories,
+            "birth_info": birth_info
+        }
 
     elif tool_name == "astrology_rules_rag_search":
         query = args.get("query", "")
@@ -352,6 +385,23 @@ def _memory_dispatch(tool_name: str, args: Dict[str, Any]) -> Any:
                 ],
                 "total": len(matches),
             }
+        except Exception as e:
+            return {"error": str(e)}
+
+    elif tool_name == "search_web":
+        query = args.get("query", "")
+        if not query:
+            return {"error": "Query is required"}
+            
+        try:
+            from duckduckgo_search import DDGS
+            with DDGS() as ddgs:
+                results = list(ddgs.text(query, max_results=3))
+            if not results:
+                return {"message": "No results found."}
+            return {"results": results}
+        except ImportError:
+            return {"error": "duckduckgo_search not installed. Please run `pip install duckduckgo_search`."}
         except Exception as e:
             return {"error": str(e)}
 
@@ -432,6 +482,16 @@ def register_memory_tools():
     )
 
     register_tool(
+        "get_all_memories",
+        "Retrieve all saved memories, facts, and birth data. For internal UI use.",
+        {
+            "type": "object",
+            "properties": {},
+        },
+        _memory_dispatch,
+    )
+
+    register_tool(
         "analyze_with_rlm",
         "Perform deep Recursive Language Modeling (RLM) analysis on a complex prompt. Useful for multi-step reasoning.",
         {
@@ -454,6 +514,32 @@ def register_memory_tools():
                 "max_results": {"type": "integer", "description": "Maximum number of rules to return (default: 5)"},
             },
             "required": ["query"],
+        },
+        _memory_dispatch,
+    )
+    
+    register_tool(
+        "search_web",
+        "Search the web for real-time information, news, or general knowledge using DuckDuckGo.",
+        {
+            "type": "object",
+            "properties": {
+                "query": {"type": "string", "description": "The search query (e.g., 'who won the 2024 election')"},
+            },
+            "required": ["query"],
+        },
+        _memory_dispatch,
+    )
+    
+    register_tool(
+        "parse_message_memory",
+        "INTERNAL ONLY: Parse a block of text to extract semantic entities (planets, signs, dates) and birth data into the memory graph. Do not call this manually.",
+        {
+            "type": "object",
+            "properties": {
+                "text": {"type": "string", "description": "The chat block to parse"},
+            },
+            "required": ["text"],
         },
         _memory_dispatch,
     )

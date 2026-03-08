@@ -11,5 +11,8 @@
         "build:electron:all": "npm --prefix ./electron run build:all",
         "start:electron": "npm --prefix ./electron run start",
         "install:electron": "npm --prefix ./electron install"
+    },
+    "dependencies": {
+        "electron-updater": "^6.8.3"
     }
 }

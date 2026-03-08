@@ -7,7 +7,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 const https = require('https');
 
-const projectRoot = path.resolve(__dirname', '..', '..', '..'); // /home/opc/thia-lite
+const projectRoot = path.resolve(__dirname, '..', '..', '..'); // /home/opc/thia-lite
 const electronDir = path.resolve(__dirname, '..'); // /home/opc/thia-lite/desktop/electron
 const bundleDir = path.join(electronDir, 'bundle');
 
@@ -48,7 +48,7 @@ async function downloadFile(url, dest) {
         resolve();
       });
     }).on('error', (err) => {
-      fs.unlink(dest, () => {});
+      fs.unlink(dest, () => { });
       reject(err);
     });
   });
