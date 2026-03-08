@@ -68,7 +68,14 @@
     }
   },
   "dependencies": {
-    "decompress": "^4.2.1",
+    "decompress": "^4.2.1"
+  },
+  "peerDependencies": {
     "node-llama-cpp": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "node-llama-cpp": {
+      "optional": true
+    }
   }
 }
