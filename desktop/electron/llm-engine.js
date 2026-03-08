@@ -659,21 +659,34 @@ class LLMEngine extends EventEmitter {
 
                     const totalBytes = parseInt(response.headers['content-length'], 10) || modelDef.sizeBytes;
                     let downloadedBytes = 0;
+                    let lastEmitTime = 0;
 
                     const file = fs.createWriteStream(tmpPath);
 
                     response.on('data', (chunk) => {
                         downloadedBytes += chunk.length;
-                        const percent = Math.round((downloadedBytes / totalBytes) * 100);
-                        const mbDown = Math.round(downloadedBytes / 1024 / 1024);
-                        const mbTotal = Math.round(totalBytes / 1024 / 1024);
-                        this.emit('download-progress', { percent, mbDown, mbTotal });
+
+                        const now = Date.now();
+                        // Throttle IPC events to prevent freezing UI
+                        if (now - lastEmitTime > 100) {
+                            const percent = Math.round((downloadedBytes / totalBytes) * 100);
+                            const mbDown = Math.round(downloadedBytes / 1024 / 1024);
+                            const mbTotal = Math.round(totalBytes / 1024 / 1024);
+                            this.emit('download-progress', { percent, mbDown, mbTotal });
+                            lastEmitTime = now;
+                        }
                     });
 
                     response.pipe(file);
 
                     file.on('finish', () => {
                         file.close();
+                        // Emit 100% just in case the last chunk was throttled
+                        this.emit('download-progress', {
+                            percent: 100,
+                            mbDown: Math.round(totalBytes / 1024 / 1024),
+                            mbTotal: Math.round(totalBytes / 1024 / 1024)
+                        });
                         // Rename temp file to final
                         fs.renameSync(tmpPath, destPath);
                         this.emit('download-complete');
