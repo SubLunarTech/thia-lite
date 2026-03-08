@@ -15,6 +15,7 @@
   "author": "Thia-Libre Contributors",
   "license": "GPL-3.0-or-later",
   "devDependencies": {
+    "decompress": "^6.0.0",
     "electron": "^33.0.0",
     "electron-builder": "^25.0.0"
   },
@@ -28,6 +29,8 @@
     "files": [
       "main.js",
       "preload.js",
+      "llm-engine.js",
+      "mcp-client.js",
       "src/**/*",
       "icons/**/*"
     ],
