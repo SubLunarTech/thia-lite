@@ -78,7 +78,7 @@ function setupPythonPath(pythonDir) {
   console.log('✓ Python configured');
 }
 
-function installThiaLite(pythonDir, projectRoot) {
+async function installThiaLite(pythonDir, projectRoot) {
   console.log('Installing thia-lite into bundled Python...');
 
   const pythonExe = path.join(pythonDir, 'python.exe');
@@ -87,7 +87,7 @@ function installThiaLite(pythonDir, projectRoot) {
   // Download get-pip.py if not exists
   if (!fs.existsSync(getPy)) {
     console.log('Downloading get-pip.py...');
-    execSync(`curl -o "${getPy}" https://bootstrap.pypa.io/get-pip.py`, { stdio: 'inherit' });
+    await downloadFile('https://bootstrap.pypa.io/get-pip.py', getPy);
   }
 
   // Install pip
@@ -128,7 +128,7 @@ async function main() {
     setupPythonPath(PYTHON_DIR);
 
     // Install thia-lite
-    installThiaLite(PYTHON_DIR, projectRoot);
+    await installThiaLite(PYTHON_DIR, projectRoot);
 
     // Copy to resources dir for electron-builder
     const resourcesDir = path.join(electronDir, 'resources');
