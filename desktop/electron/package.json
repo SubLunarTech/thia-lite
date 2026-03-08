@@ -37,9 +37,6 @@
       "bin/**/*",
       "resources/**/*"
     ],
-    "asarUnpack": [
-      "node_modules/node-llama-cpp/**/*"
-    ],
     "win": {
       "target": "nsis",
       "executableName": "thia",
@@ -68,7 +65,8 @@
     }
   },
   "dependencies": {
-    "decompress": "^4.2.1"
+    "decompress": "^4.2.1",
+    "electron-updater": "^6.0.0"
   },
   "peerDependencies": {
     "node-llama-cpp": "^3.0.0"
