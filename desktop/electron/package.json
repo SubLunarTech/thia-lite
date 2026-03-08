@@ -28,6 +28,8 @@
     "files": [
       "main.js",
       "preload.js",
+      "llm-engine.js",
+      "mcp-client.js",
       "src/**/*",
       "icons/**/*"
     ],
