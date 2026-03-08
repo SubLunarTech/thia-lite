@@ -3,14 +3,12 @@ const path = require('path');
 const fs = require('fs');
 const { spawn } = require('child_process');
 const { autoUpdater } = require('electron-updater');
-const { LLMEngine } = require('./llm-engine');
-const { MCPClient } = require('./mcp-client');
 
 let mainWindow;
 let setupWindow;
 let backendProcess = null;
 let mcpClient = null;
-const llmEngine = new LLMEngine();
+let llmEngine = null;
 
 const API_PORT = 8765;
 
