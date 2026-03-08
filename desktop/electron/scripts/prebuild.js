@@ -4,7 +4,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 const projectRoot = path.resolve(__dirname, '..', '..', '..'); // /home/opc/thia-lite
 const electronDir = path.resolve(__dirname, '..'); // /home/opc/thia-lite/desktop/electron
@@ -34,26 +33,12 @@ if (fs.existsSync(distPath)) {
   fs.copyFileSync(distPath, targetPath);
   console.log(`✓ Copied backend from ${distPath}`);
 } else {
-  // Build the backend first
-  console.log('Backend binary not found in dist/, building...');
-  try {
-    execSync('pip install -e .', { cwd: projectRoot, stdio: 'inherit' });
-    console.log('✓ Built Python backend');
-  } catch (e) {
-    console.error('✗ Failed to build backend:', e.message);
-    process.exit(1);
-  }
-
-  // Try copying again after build
-  if (fs.existsSync(distPath)) {
-    const targetPath = path.join(binDir, binName);
-    fs.copyFileSync(distPath, targetPath);
-    console.log(`✓ Copied backend from ${distPath}`);
-  } else {
-    console.error('✗ Backend binary still not found after build');
-    console.error('  Expected at:', distPath);
-    process.exit(1);
-  }
+  // Backend binary not found - this is okay for Electron-only builds
+  // The full release workflow builds the CLI first
+  console.warn('⚠ Backend binary not found in dist/');
+  console.warn('  This is expected for Electron-only builds.');
+  console.warn('  The full release workflow includes the CLI backend.');
+  // Don't fail - continue without the bundled binary
 }
 
 // Make executable on Unix
