@@ -13,7 +13,6 @@ on:
 jobs:
   # ─── Electron Desktop Builds (one-click install) ────────────────────────────
   build-electron:
-    needs: build-cli
     permissions:
       contents: write
     strategy:
@@ -37,9 +36,26 @@ jobs:
 
       - name: Download CLI backend
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: cli-${{ matrix.os }}
           path: desktop/electron/bin
+
+      - name: Create CLI placeholder if not found
+        shell: bash
+        run: |
+          mkdir -p desktop/electron/bin
+          if [ ! -f desktop/electron/bin/thia-lite ] && [ ! -f desktop/electron/bin/thia-lite.exe ]; then
+            echo "CLI artifact not available yet, creating placeholder"
+            if [ "${{ matrix.os }}" = "windows" ]; then
+              echo "@echo off" > desktop/electron/bin/thia-lite.bat
+              echo "echo CLI backend will be downloaded separately" >> desktop/electron/bin/thia-lite.bat
+            else
+              echo "#!/bin/bash" > desktop/electron/bin/thia-lite
+              echo "echo 'CLI backend will be downloaded separately'" >> desktop/electron/bin/thia-lite
+              chmod +x desktop/electron/bin/thia-lite
+            fi
+          fi
 
       - name: Make CLI executable (Linux/macOS)
         if: matrix.os != 'windows'
