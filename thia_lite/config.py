@@ -131,9 +131,16 @@ def save_config(overrides: Dict[str, Any]) -> None:
 
     if config_file.exists():
         try:
-            import tomllib
-            with open(config_file, "rb") as f:
-                existing = tomllib.load(f)
+            # Python 3.11+ has built-in tomllib
+            try:
+                import tomllib
+                with open(config_file, "rb") as f:
+                    existing = tomllib.load(f)
+            except ImportError:
+                # Python < 3.11 uses tomli
+                import tomli
+                with open(config_file, "rb") as f:
+                    existing = tomli.load(f)
         except Exception:
             pass
 

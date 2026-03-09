@@ -10,30 +10,39 @@ hidden_imports = [
     # Pydantic (critical for config)
     'pydantic',
     'pydantic_core',
+    'pydantic_core.core_schema',
     'pydantic_settings',
     'pydantic_settings.base',
+    'pydantic_settings.sources',
     'annotated_types',
 
     # LLM/HTTP
     'httpx',
     'httpx._transports.default',
+    'httpx._client',
     'nest_asyncio',
     'anyio',
     'anyio._backends._asyncio',
+    'anyio.streams',
 
     # CLI/TUI
     'typer',
+    'typer.core',
     'rich',
     'rich.markdown',
     'rich.console',
+    'rich.syntax',
+    'rich.progress',
     'textual',
     'textual.app',
     'textual.widgets',
+    'textual.reactive',
 
     # MCP/WebSockets
     'websockets',
     'websockets.server',
     'websockets.client',
+    'websockets.legacy',
 
     # Utilities
     'timezonefinder',
@@ -43,16 +52,30 @@ hidden_imports = [
     'tomli',
     'tomllib',
 
+    # Windows-specific
+    'win32api',
+    'win32file',
+    'pywintypes',
+
     # thia_lite modules
     'thia_lite.rules',
     'thia_lite.llm.rlm_engine',
     'thia_lite.llm.conversation',
     'thia_lite.llm.tool_executor',
     'thia_lite.llm.client',
+    'thia_lite.llm.simple',
     'thia_lite.config',
     'thia_lite.db',
     'thia_lite.mcp.server',
     'thia_lite.mcp.client',
+    'thia_lite.mcp.llm_tool',
+
+    # Engines
+    'thia_lite.engines.astrology',
+    'thia_lite.engines.autonomy',
+    'thia_lite.engines.ported_tools',
+    'thia_lite.engines.verification',
+    'thia_lite.engines.chart_renderer',
 ]
 
 import os
