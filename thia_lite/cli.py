@@ -352,17 +352,22 @@ async def _run_tool(tool_name, handler, payload):
 
 @app.command()
 def serve(
-    mode: str = typer.Option("stdio", "--mode", "-m", help="Server mode: stdio, http"),
+    mode: str = typer.Option("stdio", "--mode", "-m", help="Server mode: stdio (MCP), ipc (simple), http"),
     port: int = typer.Option(8443, "--port", "-p", help="HTTP port (for http mode)"),
 ):
-    """Start as an MCP server (for Claude Desktop / Pi integration)."""
+    """Start as a server (MCP, simple IPC, or HTTP for development)."""
     _register_all_tools()
-    console.print(f"[header]Starting MCP server in {mode} mode...[/header]")
 
-    if mode == "stdio":
+    if mode == "ipc":
+        console.print("[header]Starting Simple IPC server...[/header]")
+        from thia_lite.ipc_server import main as ipc_main
+        ipc_main()
+    elif mode == "stdio":
+        console.print(f"[header]Starting MCP server in {mode} mode...[/header]")
         from thia_lite.mcp.server import run_stdio_server
         asyncio.run(run_stdio_server())
     elif mode == "http":
+        console.print(f"[header]Starting HTTP server on port {port}...[/header]")
         from thia_lite.mcp.server import run_http_server
         asyncio.run(run_http_server(port))
     else:

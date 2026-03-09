@@ -66,6 +66,7 @@ hidden_imports = [
     'thia_lite.llm.simple',
     'thia_lite.config',
     'thia_lite.db',
+    'thia_lite.ipc_server',
     'thia_lite.mcp.server',
     'thia_lite.mcp.client',
     'thia_lite.mcp.llm_tool',

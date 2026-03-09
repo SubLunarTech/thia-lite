@@ -318,13 +318,13 @@ class LLMEngine extends EventEmitter {
         // After the LLM replies to the user, we send both the user's latest prompt
         // and the assistant's response to the Python engine to natively extract
         // astrological entities (planets, signs) and birth data directly into the DB.
-        if (this.mcpClient) {
+        if (this.ipcClient) {
             try {
                 const lastUserMsg = messages[messages.length - 1]?.content || '';
                 const assistantMsg = response.content || '';
                 const combinedText = `${lastUserMsg}\n\n${assistantMsg}`;
                 // Execute silently in background, do not await or block
-                this.mcpClient.callTool('parse_message_memory', { text: combinedText })
+                this.ipcClient.call('parse_message_memory', { text: combinedText })
                     .catch(e => console.error('Silent memory extraction failed:', e));
             } catch (e) {
                 console.error('Silent memory extraction error:', e);
@@ -398,23 +398,31 @@ class LLMEngine extends EventEmitter {
         try {
             // Check for tool calls
             let functions = undefined;
-            if (this.mcpClient && this.mcpClient.tools && this.mcpClient.tools.length > 0) {
+            if (this.ipcClient && this.ipcClient.isReady) {
                 const { defineChatSessionFunction } = await import('node-llama-cpp');
-                functions = {};
-                for (const tool of this.mcpClient.tools) {
-                    functions[tool.name] = defineChatSessionFunction({
-                        description: tool.description,
-                        params: tool.inputSchema,
-                        handler: async (args) => {
-                            this.emit('tool-call', { name: tool.name, arguments: args });
-                            try {
-                                const result = await this.mcpClient.callTool(tool.name, args);
-                                return result?.content?.[0]?.text || JSON.stringify(result);
-                            } catch (e) {
-                                return `Error executing tool: ${e.message}`;
-                            }
+                // Get tools list from backend
+                try {
+                    const toolsList = await this.ipcClient.listTools();
+                    if (toolsList && toolsList.tools && toolsList.tools.length > 0) {
+                        functions = {};
+                        for (const tool of toolsList.tools) {
+                            functions[tool.name] = defineChatSessionFunction({
+                                description: tool.description,
+                                params: tool.parameters,
+                                handler: async (args) => {
+                                    this.emit('tool-call', { name: tool.name, arguments: args });
+                                    try {
+                                        const result = await this.ipcClient.call(tool.name, args);
+                                        return JSON.stringify(result);
+                                    } catch (e) {
+                                        return `Error executing tool: ${e.message}`;
+                                    }
+                                }
+                            });
                         }
-                    });
+                    }
+                } catch (e) {
+                    console.error('Failed to get tools for local LLM:', e);
                 }
             }
 
@@ -488,17 +496,24 @@ class LLMEngine extends EventEmitter {
             headers['X-Title'] = 'Thia-Lite';
         }
 
-        // Map MCP tools to OpenAI format
+        // Map tools to OpenAI format
         let tools = undefined;
-        if (this.mcpClient && this.mcpClient.tools && this.mcpClient.tools.length > 0) {
-            tools = this.mcpClient.tools.map(t => ({
-                type: 'function',
-                function: {
-                    name: t.name,
-                    description: t.description,
-                    parameters: t.inputSchema
+        if (this.ipcClient && this.ipcClient.isReady) {
+            try {
+                const toolsList = await this.ipcClient.listTools();
+                if (toolsList && toolsList.tools && toolsList.tools.length > 0) {
+                    tools = toolsList.tools.map(t => ({
+                        type: 'function',
+                        function: {
+                            name: t.name,
+                            description: t.description,
+                            parameters: t.parameters
+                        }
+                    }));
                 }
-            }));
+            } catch (e) {
+                console.error('Failed to get tools for cloud LLM:', e);
+            }
         }
 
         let currentMessages = [...messages];
@@ -548,8 +563,8 @@ class LLMEngine extends EventEmitter {
 
                 let toolResult;
                 try {
-                    const res = await this.mcpClient.callTool(call.function.name, args);
-                    toolResult = res?.content?.[0]?.text || JSON.stringify(res);
+                    const result = await this.ipcClient.call(call.function.name, args);
+                    toolResult = JSON.stringify(result);
                 } catch (e) {
                     toolResult = `Error executing tool: ${e.message}`;
                 }
@@ -585,14 +600,21 @@ class LLMEngine extends EventEmitter {
             }
         }
 
-        // Map MCP tools to Anthropic format
+        // Map tools to Anthropic format
         let tools = undefined;
-        if (this.mcpClient && this.mcpClient.tools && this.mcpClient.tools.length > 0) {
-            tools = this.mcpClient.tools.map(t => ({
-                name: t.name,
-                description: t.description,
-                input_schema: t.inputSchema
-            }));
+        if (this.ipcClient && this.ipcClient.isReady) {
+            try {
+                const toolsList = await this.ipcClient.listTools();
+                if (toolsList && toolsList.tools && toolsList.tools.length > 0) {
+                    tools = toolsList.tools.map(t => ({
+                        name: t.name,
+                        description: t.description,
+                        input_schema: t.parameters
+                    }));
+                }
+            } catch (e) {
+                console.error('Failed to get tools for Anthropic LLM:', e);
+            }
         }
 
         const headers = {
@@ -653,8 +675,8 @@ class LLMEngine extends EventEmitter {
 
                 let toolResult;
                 try {
-                    const res = await this.mcpClient.callTool(call.name, call.input);
-                    toolResult = res?.content?.[0]?.text || JSON.stringify(res);
+                    const result = await this.ipcClient.call(call.name, call.input);
+                    toolResult = JSON.stringify(result);
                 } catch (e) {
                     toolResult = `Error executing tool: ${e.message}`;
                 }

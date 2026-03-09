@@ -4,12 +4,12 @@ const fs = require('fs');
 const { spawn } = require('child_process');
 const { autoUpdater } = require('electron-updater');
 const { LLMEngine } = require('./llm-engine');
-const { MCPClient } = require('./mcp-client');
+const SimpleIPCClient = require('./simple-ipc-client');
 
 let mainWindow;
 let setupWindow;
 let backendProcess = null;
-let mcpClient = null;
+let ipcClient = null;
 const llmEngine = new LLMEngine();
 
 const API_PORT = 8765;
@@ -120,88 +120,51 @@ async function findPython() {
 }
 
 async function startBackend() {
-  return new Promise(async (resolve, reject) => {
-    const backendPath = findBackendBinary();
+  const backendPath = findBackendBinary();
+  const pythonPath = backendPath ? null : await findPython();
 
-    if (backendPath) {
-      logMain(`Starting bundled backend: ${backendPath} serve --mode stdio`);
-      if (process.platform !== 'win32') {
-        try { fs.chmodSync(backendPath, '755'); } catch { }
-      }
-      backendProcess = spawn(backendPath, ['serve', '--mode', 'stdio'], {
-        cwd: path.dirname(backendPath),
-        env: { ...process.env, PYTHONUNBUFFERED: '1' },
-        stdio: ['pipe', 'pipe', 'pipe'],
-      });
-    } else {
-      let pythonPath = null;
-      if (process.platform === 'win32') {
-        const bundled = path.join(process.resourcesPath, 'python', 'python.exe');
-        if (fs.existsSync(bundled)) pythonPath = bundled;
-      }
-      if (!pythonPath) pythonPath = await findPython();
+  if (!backendPath && !pythonPath) {
+    throw new Error('Python not found. Install Python 3.9+ from https://www.python.org/downloads/');
+  }
 
-      if (!pythonPath) {
-        reject(new Error('Python not found. Install Python 3.9+ from https://www.python.org/downloads/'));
-        return;
-      }
+  // Create IPC client
+  ipcClient = new SimpleIPCClient();
 
-      logMain(`Starting Python MCP server with: ${pythonPath}`);
-      backendProcess = spawn(pythonPath, ['-m', 'thia_lite', 'serve', '--mode', 'stdio'], {
-        cwd: process.resourcesPath || path.resolve(__dirname, '..', '..'),
-        env: { ...process.env, PYTHONUNBUFFERED: '1' },
-        stdio: ['pipe', 'pipe', 'pipe'],
-      });
-    }
+  // Pass the client to LLMEngine (for tool calls)
+  llmEngine.ipcClient = ipcClient;
 
-    // Initialize MCP Client
-    mcpClient = new MCPClient(backendProcess);
-
-    // Pass the client to LLMEngine
-    llmEngine.mcpClient = mcpClient;
-
-    let started = false;
-    const timeout = setTimeout(() => {
-      if (!started) { started = true; logMain('Backend timeout — proceeding'); resolve(); }
-    }, 15000);
-
-    mcpClient.on('ready', (tools) => {
-      logMain(`MCP Client ready with ${tools.length} tools`);
-      if (!started) { started = true; clearTimeout(timeout); resolve(); }
-    });
-
-    mcpClient.on('error', (err) => {
-      logMain(`MCP Client error: ${err.message}`);
-    });
-
-    backendProcess.stderr.on('data', (data) => {
-      // Python's logging statements go to stderr in MCP server to avoid corrupting stdout
-      logMain(`[backend-err] ${data.toString().trim()}`);
-    });
-
-    backendProcess.on('error', (err) => {
-      logMain(`Backend spawn error: ${err.message}`);
-      if (!started) { started = true; clearTimeout(timeout); reject(err); }
-    });
-
-    backendProcess.on('exit', (code, signal) => {
-      logMain(`Backend exited code=${code} signal=${signal}`);
-      backendProcess = null;
-      if (!started) { started = true; clearTimeout(timeout); reject(new Error(`Backend exited: ${code}`)); }
-    });
-
-    // Start initialization
-    mcpClient.initialize().catch(err => {
-      logMain(`MCP Init error: ${err.message}`);
-      if (!started) { started = true; clearTimeout(timeout); reject(err); }
-    });
+  // Set up event handlers
+  ipcClient.on('ready', () => {
+    logMain('IPC Client ready');
   });
+
+  ipcClient.on('error', (err) => {
+    logMain(`IPC Client error: ${err.message}`);
+  });
+
+  ipcClient.on('exit', (info) => {
+    logMain(`Backend exited: code=${info.code}, signal=${info.signal}`);
+    backendProcess = null;
+  });
+
+  // Start the backend
+  const exePath = backendPath || pythonPath;
+  const cwd = backendPath ? path.dirname(backendPath) : (process.resourcesPath || path.resolve(__dirname, '..', '..'));
+
+  logMain(`Starting backend: ${exePath} (IPC mode)`);
+  await ipcClient.start(exePath, { cwd });
+
+  // Store reference for later
+  backendProcess = ipcClient.process;
 }
 
 function stopBackend() {
+  if (ipcClient) {
+    logMain('Stopping IPC client...');
+    ipcClient.stop();
+    ipcClient = null;
+  }
   if (backendProcess) {
-    logMain('Stopping backend...');
-    backendProcess.kill();
     backendProcess = null;
   }
 }
@@ -348,10 +311,10 @@ function registerLLMHandlers() {
 
   // Memory Panel
   ipcMain.handle('get-memories', async () => {
-    if (mcpClient) {
+    if (ipcClient) {
       try {
-        const res = await mcpClient.callTool('get_all_memories', {});
-        return res?.content?.[0]?.text ? JSON.parse(res.content[0].text) : null;
+        const res = await ipcClient.call('get_all_memories', {});
+        return res || null;
       } catch (e) {
         logMain(`Failed to get memories: ${e.message}`);
         return null;
