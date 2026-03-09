@@ -111,14 +111,7 @@ const CLOUD_PROVIDERS = {
 // ─── Config Persistence ──────────────────────────────────────────────────────
 
 function loadConfig() {
-    try {
-        if (fs.existsSync(CONFIG_PATH)) {
-            return JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
-        }
-    } catch (e) {
-        console.error('Failed to load LLM config:', e.message);
-    }
-    return null;
+    return validateOrResetConfig();
 }
 
 function saveConfig(config) {
@@ -127,6 +120,44 @@ function saveConfig(config) {
         fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2), 'utf8');
     } catch (e) {
         console.error('Failed to save LLM config:', e.message);
+    }
+}
+
+/** Validate and fix config if corrupted */
+function validateOrResetConfig() {
+    try {
+        if (!fs.existsSync(CONFIG_PATH)) {
+            return null; // No config exists
+        }
+        const content = fs.readFileSync(CONFIG_PATH, 'utf8');
+        const config = JSON.parse(content);
+
+        // Validate required fields
+        if (!config || typeof config !== 'object') {
+            throw new Error('Config is not an object');
+        }
+
+        // Validate provider
+        const validProviders = ['local', 'openai', 'anthropic', 'openrouter'];
+        if (!config.provider || !validProviders.includes(config.provider)) {
+            throw new Error(`Invalid provider: ${config.provider}`);
+        }
+
+        // For cloud providers, apiKey is required
+        if (config.provider !== 'local' && !config.apiKey) {
+            // Config is valid but missing API key - user needs to provide it
+            // Don't reset, just let the setup screen handle it
+            console.warn('Cloud provider configured but no API key');
+        }
+
+        return config;
+    } catch (e) {
+        console.error('Config validation failed, resetting:', e.message);
+        // Delete corrupted config
+        try {
+            fs.unlinkSync(CONFIG_PATH);
+        } catch { }
+        return null;
     }
 }
 
@@ -230,19 +261,30 @@ class LLMEngine extends EventEmitter {
      * Called on app startup after first-time setup.
      */
     async initialize() {
-        if (!this._config) return false;
-        if (this._initializing) return false;
+        if (!this._config) {
+            console.error('[LLM] No config found');
+            return false;
+        }
+        if (this._initializing) {
+            console.error('[LLM] Already initializing');
+            return false;
+        }
         this._initializing = true;
 
         try {
+            console.log(`[LLM] Initializing with provider: ${this._config.provider}`);
+
             if (this._config.provider === 'local') {
                 await this._initLocal();
             } else {
+                // Cloud providers don't need additional initialization
                 this._ready = true;
+                console.log(`[LLM] Ready with cloud provider: ${this._config.provider}`);
                 this.emit('ready', { provider: this._config.provider });
             }
             return true;
         } catch (e) {
+            console.error(`[LLM] Initialization failed:`, e);
             this.emit('error', e);
             return false;
         } finally {

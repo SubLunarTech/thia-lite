@@ -97,9 +97,22 @@ async function findPython() {
     try {
       const result = execSync(`${cmd} ${py}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
       if (result?.trim()) {
-        const pythonPath = result.trim().split('\n')[0].trim();
-        logMain(`Found Python at: ${pythonPath}`);
-        return pythonPath;
+        const paths = result.trim().split('\n').map(p => p.trim());
+        for (const pythonPath of paths) {
+          // Skip Windows Store Python alias (it's a wrapper, not real Python)
+          if (pythonPath.includes('WindowsApps') && pythonPath.includes('python3.exe')) {
+            logMain(`Skipping Windows Store Python alias: ${pythonPath}`);
+            continue;
+          }
+          // Verify this is real Python by checking version
+          try {
+            const version = execSync(`"${pythonPath}" --version`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+            if (version.includes('Python 3')) {
+              logMain(`Found valid Python at: ${pythonPath}`);
+              return pythonPath;
+            }
+          } catch { continue; }
+        }
       }
     } catch { continue; }
   }
@@ -396,14 +409,18 @@ app.whenReady().then(async () => {
   initConversations();
   registerLLMHandlers();
 
-  // Setup Auto-Updater (silent check)
+  // Setup Auto-Updater (only in packaged builds)
   autoUpdater.logger = {
     info(msg) { logMain(`autoUpdater: ${msg}`); },
     warn(msg) { logMain(`autoUpdater WARN: ${msg}`); },
     error(msg) { logMain(`autoUpdater ERROR: ${msg}`); }
   };
   try {
-    autoUpdater.checkForUpdatesAndNotify();
+    if (app.isPackaged) {
+      autoUpdater.checkForUpdatesAndNotify();
+    } else {
+      logMain('Skipping auto-update check in development (unpacked build)');
+    }
   } catch (e) {
     logMain(`autoUpdater failed to check: ${e.message}`);
   }
